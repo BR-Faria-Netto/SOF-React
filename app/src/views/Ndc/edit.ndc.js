@@ -1032,7 +1032,7 @@ export default class Edit extends Component {
                       <div className="col-sm-1">
                           <input type="submit" value="Salvar" className="btn btn-sm btn btn-primary"/>
                           &nbsp;&nbsp;
-                          <Link to={'/indexNad'} className="btn btn-sm btn-success">Cancelar</Link>
+                          <Link to={'/indexNdc'} className="btn btn-sm btn-success">Cancelar</Link>
                       </div>
                   </div>
                   <br></br>

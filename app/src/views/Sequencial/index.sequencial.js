@@ -83,6 +83,10 @@ render() {
       }
       const columns = [
         {
+          dataField: 'ano',
+          text: 'Ano'
+        },
+        {
           dataField: 'tabela',
           text: 'Nome da Tabela'
         },
@@ -148,7 +152,7 @@ render() {
               <br></br>
               <div className="form-row" style={{ marginLeft:'195px'}}>
                    <label>Pesquisar:</label>  
-                    <div className="col-sm-1">
+                    <div className="col-sm-3">
                         <input className="form-control form-control-sm"  ref={ n => input = n } type="text" />
                     </div>
                    <div className="col-sm-0">

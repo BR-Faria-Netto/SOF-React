@@ -1,4 +1,5 @@
 const Ndc = require("./ndc.model");
+const Sequencial = require('../sequencial/sequencial.model');
 const util = require('../../helpers/utils');
 const { unlink } = require("fs");
 
@@ -6,7 +7,6 @@ module.exports = {
 
   // Defined listing route
   getAll(req, res) {
-
       Ndc.find(function(err,ndc){
         if(err){
           console.log(err);
@@ -19,14 +19,38 @@ module.exports = {
   
   // Defined add store route
   add(req, res) {
-    let ndc = new Ndc(req.body);
-    ndc.save()
-      .then(ndc => {
-        res.status(200).json({'Ndcs': 'Added successfully'});
-      })
-      .catch(err => {
-        res.status(400).send("Unable to save to database");
-      });
+    // gera a nad
+    let ndcNew = new Ndc(req.body);
+
+    // gera automativo o numero da nad
+    if (ndcNew.numndc === '00000') {
+        // gera numero da nad
+        let anoTable = ndcNew.anondc;
+        let nameTable = 'NDC';
+        var numeroNDC = '0';
+        Sequencial.findOne({ano : anoTable , tabela : nameTable }, function (err, sequencial) {
+            try {
+                sequencial.sequencia = sequencial.sequencia+1;
+                numeroNDC = '0'+sequencial.sequencia+0;
+                numeroNDC = ("000000"+numeroNDC).slice(-6,-1);
+                sequencial.save();
+                ndcNew.numndc = numeroNDC;
+                ndcNew.save()
+                res.status(200).json({'Ndcs': 'Added successfully'});
+            } catch (error) {
+                res.status(400).send("Unable to save to database");
+            }
+        });
+    }
+    else {
+        // usuario informa numero nad
+        try {
+            ndcNew.save()
+            res.status(200).json({'Ndcs': 'Added successfully'});
+        } catch (error) {
+            res.status(400).send("Unable to save to database");
+        }
+      }
   },
  
   // Defined edit route

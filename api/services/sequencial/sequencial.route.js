@@ -4,21 +4,21 @@ const sequencialRoute = express.Router();
 // Require Business model in our routes module
 let Sequencial = require('./sequencial.model');
 
-sequencialRoute.route('/sequencia/:tabela').get(function (req, res) {
-  let buscaTabela = req.params.tabela;
-  Sequencial.find({ tabela: { $in:  [ 'NAD' ] } },function(err,sequencial){
-      if (!sequencial)
-         res.status(404).send("data is not found");
-      else {
-          sequencial.sequencia = 10; //sequencial.sequencia+1;
-          sequencial.save().then(sequencial => {
-            res.json(sequencial);
-          })
-          .catch(err => {
-            res.status(400).send("unable to update the database");
-          });
-      }
-    });
+sequencialRoute.route('/numero/:ano/:table').get(function (req, res) {
+
+  let anoTable = req.params.ano;
+  let nameTable = req.params.table;
+  
+  Sequencial.findOne({ano : anoTable , tabela : nameTable }, function (err, sequencial) {
+    try {
+      sequencial.sequencia = sequencial.sequencia+1;
+      sequencial.save();
+      res.json(sequencial)
+    } catch (error) {
+      res.json(error)
+    }
+  });
+
 });
 
 // Defined store route
@@ -62,6 +62,7 @@ sequencialRoute.route('/update/:id').post(function (req, res) {
     if (!sequencial)
       res.status(404).send("data is not found");
     else {
+        sequencial.ano = req.body.ano;
         sequencial.tabela = req.body.tabela;
         sequencial.sequencia = req.body.sequencia;
         sequencial.save().then(sequencial => {

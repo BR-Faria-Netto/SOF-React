@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 // Define collection and schema for Business
 let Sequencial = new Schema(
   {
+    ano: {
+      type: String
+    },
     tabela: {
       type: String
     },

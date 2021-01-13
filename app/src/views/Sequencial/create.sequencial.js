@@ -12,14 +12,22 @@ import urlapi from "../../services/urlapi"
 export default class Create extends Component {
   constructor(props) {
     super(props);
+    this.onChangeAno = this.onChangeAno.bind(this); 
     this.onChangeTabela = this.onChangeTabela.bind(this); 
     this.onChangeSequencia = this.onChangeSequencia.bind(this); 
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
+      ano : '',
       tabela : '',
       sequencia : 0
     }
+  }
+
+  onChangeAno(e) {
+    this.setState({
+      ano: e.target.value
+    })  
   }
 
   onChangeTabela(e) {
@@ -38,6 +46,7 @@ export default class Create extends Component {
   onSubmit(e) {
     e.preventDefault();
     const obj = {
+      ano : this.state.ano,
       tabela : this.state.tabela,
       sequencia : this.state.sequencia
     };
@@ -63,6 +72,13 @@ export default class Create extends Component {
               <form onSubmit={this.onSubmit} style={{ marginLeft:'15px', marginRight:'15px', marginTop:'15px'}}>
 
                  <div className="form-row">
+                    <div className="col-sm-2">
+                      <label>Exercicio</label>  
+                      <input id="ano" name="ano" className="form-control form-control-sm" required="" type="text" value={this.state.ano} onChange={this.onChangeAno} />
+                    </div>
+                  </div>
+
+                  <div className="form-row">
                     <div className="col-sm-2">
                       <label>Nome da Tabela</label>  
                       <input id="tabela" name="tabela" className="form-control form-control-sm" required="" type="text" value={this.state.tabela} onChange={this.onChangeTabela} />

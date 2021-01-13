@@ -15,11 +15,13 @@ export default class Edit extends Component {
 
     super(props)
 
+    this.onChangeAno = this.onChangeAno.bind(this); 
     this.onChangeTabela = this.onChangeTabela.bind(this); 
     this.onChangeSequencia = this.onChangeSequencia.bind(this); 
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
+      ano : '',
       tabela : '',
       sequencia : 0
     }
@@ -27,34 +29,40 @@ export default class Edit extends Component {
   }
   
   componentDidMount() {
-        //  axios.get(urlapi+'sequencial/edit/'+this.props.match.params.id)
-        //  .then(response => {
-        //       this.setState({ 
-        //         tabela : response.data.tabela,
-        //         sequencia : response.data.sequencia
-        //       });
+          
+           axios.get(urlapi+'sequencial/edit/'+this.props.match.params.id)
+           .then(response => {
+                this.setState({ 
+                  ano : response.data.ano,
+                  tabela : response.data.tabela,
+                  sequencia : response.data.sequencia
+                });
               
-        //   })
-        //   .catch(function (error) {
-        //       console.log(error);
-        //   })
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
 
-          axios.get(urlapi+'/sequencia/NAD')
-          .then(response => {
-              this.setState({ 
-                tabela : response.data.tabela,
-                sequencia : response.data.sequencia
-              });
-
-              alert(response.data.sequencia);
-              
-          })
-          .catch(function (error) {
-              alert('erro');
-              console.log(error);
-          })
+           // exemplo para pegar sequencial na tela 
+           //axios.get(urlapi+'sequencial/numero/2021/NAD')
+           //.then(response => {
+           //    this.setState({ 
+           //      ano : response.data.ano,
+           //      tabela : response.data.tabela,
+           //      sequencia : response.data.sequencia
+           //    });
+           //})
+           //.catch(function (error) {
+           //    console.log(error);
+           //})
 
           
+    }
+
+    onChangeAno(e) {
+      this.setState({
+        ano: e.target.value
+      })  
     }
 
     onChangeTabela(e) {
@@ -62,7 +70,7 @@ export default class Edit extends Component {
         tabela: e.target.value
       })  
     }
-  
+
     onChangeSequencia(e) {
       this.setState({
         sequencia: e.target.value
@@ -73,6 +81,7 @@ export default class Edit extends Component {
     onSubmit(e) {
       e.preventDefault();
       const obj = {
+        ano : this.state.ano,
         tabela : this.state.tabela,
         sequencia : this.state.sequencia
       };
@@ -98,7 +107,14 @@ export default class Edit extends Component {
           <div style={{ marginLeft:'5px', marginRight:'5px', marginTop:'5px' , border: '1px solid #ccc' }}>
               <form onSubmit={this.onSubmit} style={{ marginLeft:'15px', marginRight:'15px', marginTop:'15px'}}>
 
-              <div className="form-row">
+                  <div className="form-row">
+                    <div className="col-sm-2">
+                      <label>Ano</label>  
+                      <input id="ano" name="ano" className="form-control form-control-sm" required="" type="text" value={this.state.ano} onChange={this.onChangeAno} />
+                    </div>
+                  </div>
+
+                  <div className="form-row">
                     <div className="col-sm-2">
                       <label>Nome da Tabela</label>  
                       <input id="tabela" name="tabela" className="form-control form-control-sm" required="" type="text" value={this.state.tabela} onChange={this.onChangeTabela} />

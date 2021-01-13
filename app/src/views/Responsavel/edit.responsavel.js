@@ -144,7 +144,7 @@ export default class Edit extends Component {
                              <input type="text" id="nome" className="form-control form-control-sm" value={this.state.nome} onChange={this.onChangeNome}/>
                          </div>
                          <div className="col-sm-3">
-                             <label>Nome</label>  
+                             <label>Cargo</label>  
                              <input type="text" id="cargo" className="form-control form-control-sm" value={this.state.cargo} onChange={this.onChangeCargo}/>
                          </div>
                     </div>
