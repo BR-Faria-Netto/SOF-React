@@ -45,7 +45,6 @@ export const SecretariaList = () => {
     }, []);
 
     const getDataAll = () => {
-        setPageNumber(parseInt(localStorage.getItem("pageNumber")));
         const fetSecretaria = async () => {
           try {
               const response = await axios.get(urlapi+'secretaria', {timeout: 5000});
@@ -124,7 +123,7 @@ export const SecretariaList = () => {
     const setPage = (page) => {
 
       setPageNumber(page);
-      localStorage.setItem("pageNumber", page);
+      //localStorage.setItem("pageNumber", page);
 
     }
 

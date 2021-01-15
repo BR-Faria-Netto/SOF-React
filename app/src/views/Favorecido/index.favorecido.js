@@ -45,7 +45,9 @@ export const FavorecidoList = () => {
     }, []);
 
     const getDataAll = () => {
-        setPageNumber(parseInt(localStorage.getItem("pageNumber")));
+
+        //setPageNumber(parseInt(localStorage.getItem("pageNumber")));
+
         axios.get(urlapi+'favorecido').then(response => {
           setRowData(response.data);
           setIsLoading(false);
@@ -123,7 +125,7 @@ export const FavorecidoList = () => {
     const setPage = (page) => {
 
       setPageNumber(page);
-      localStorage.setItem("pageNumber", page);
+      //localStorage.setItem("pageNumber", page);
 
     }
 
