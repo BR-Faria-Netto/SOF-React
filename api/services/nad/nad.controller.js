@@ -17,42 +17,23 @@ module.exports = {
         }
       });
   },
-  
   // Defined add store route
   add(req, res) {
-    // gera a nad
-    let nad = new Nad(req.body);
-    // gera automativo o numero da nad
-    if (nad.numnad === '00000') {
-        // gera numero da nad
-        let anoTable = nad.anonad;
-        let nameTable = 'NAD';
-        var numeroNAD = '0';
-        Sequencial.findOne({ano : anoTable , tabela : nameTable }, function (err, sequencial) {
-            try {
-                sequencial.sequencia = sequencial.sequencia+1;
-                numeroNAD = '0'+sequencial.sequencia+0;
-                numeroNAD = ("000000"+numeroNAD).slice(-6,-1);
-                sequencial.save();
-                nad.numnad = numeroNAD;
-                nad.save()
-                res.status(200).json({'Nads': 'Added successfully'});
-            } catch (error) {
-              res.status(400).send("Unable to save to database");
-            }
-        });
-    }
-    else {
-        // usuario informa numero nad
-        try {
-            nad.save()
-            res.status(200).json({'Nads': 'Added successfully'});
-        } catch (error) {
-            res.status(400).send("Unable to save to database");
-        }
+    Sequencial.findOne({ano : req.body.anonad , tabela : 'NAD' }, function (err, sequencial) {
+      try {
+          sequencial.sequencia = sequencial.sequencia+1;
+          sequencial.save();
+          let numero = '0'+sequencial.sequencia+0;
+          numero = ("000000"+numero).slice(-7,-1);
+          let nad = new Nad(req.body);
+          nad.numnad = numero;
+          nad.save()
+          res.status(200).json({'Nads': 'Added successfully'});
+      } catch (err) {
+          res.status(400).send("Unable to save to database");
       }
+    })
   },
- 
   // Defined edit route
   edit(req, res) {
     let id = req.params.id;

@@ -734,9 +734,10 @@ export default class Edit extends Component {
   onSubmit(e) {
     e.preventDefault();
         const obj = {
+
           anondc : this.state.anondc,
 
-          numndc : '00000', //this.state.numndc,
+          numndc : this.state.numndc,
 
           procndc : this.state.procndc,
           datandc : this.state.datandc,
@@ -798,12 +799,12 @@ export default class Edit extends Component {
             api.post(urlapi + 'ndc/add', obj)
             .then(res => {
               if (this.state.copias === '1') {
-                toast.success("Registro foi salvo com successo");
+                  toast.success("Registro foi salvo com successo");
               }
             })
             .catch(error => {
               if (this.state.copias === '1') {
-                toast.error("Ocorrou erro ao salvar o registro");
+                  toast.error("Ocorrou erro ao salvar o registro");
               }
             })
         

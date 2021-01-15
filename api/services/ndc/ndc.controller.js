@@ -16,43 +16,23 @@ module.exports = {
         }
       });
   },
-  
   // Defined add store route
   add(req, res) {
-    // gera a nad
-    let ndcNew = new Ndc(req.body);
-
-    // gera automativo o numero da nad
-    if (ndcNew.numndc === '00000') {
-        // gera numero da nad
-        let anoTable = ndcNew.anondc;
-        let nameTable = 'NDC';
-        var numeroNDC = '0';
-        Sequencial.findOne({ano : anoTable , tabela : nameTable }, function (err, sequencial) {
-            try {
-                sequencial.sequencia = sequencial.sequencia+1;
-                numeroNDC = '0'+sequencial.sequencia+0;
-                numeroNDC = ("000000"+numeroNDC).slice(-6,-1);
-                sequencial.save();
-                ndcNew.numndc = numeroNDC;
-                ndcNew.save()
-                res.status(200).json({'Ndcs': 'Added successfully'});
-            } catch (error) {
-                res.status(400).send("Unable to save to database");
-            }
-        });
-    }
-    else {
-        // usuario informa numero nad
-        try {
-            ndcNew.save()
-            res.status(200).json({'Ndcs': 'Added successfully'});
-        } catch (error) {
-            res.status(400).send("Unable to save to database");
-        }
+    Sequencial.findOne({ano : req.body.anondc , tabela : 'NDC' }, function (err, sequencial) {
+      try {
+          sequencial.sequencia = sequencial.sequencia+1;
+          sequencial.save();
+          let numero = '0'+sequencial.sequencia+0;
+          numero = ("000000"+numero).slice(-7,-1);
+          let ndc = new Ndc(req.body);
+          ndc.numndc = numero;
+          ndc.save()
+          res.status(200).json({'Ndcs': 'Added successfully'});
+      } catch (err) {
+          res.status(400).send("Unable to save to database");
       }
+    })
   },
- 
   // Defined edit route
   edit(req, res) {
     let id = req.params.id;
@@ -60,7 +40,6 @@ module.exports = {
         res.json(ndc);
     });
   },
-  
   //  Defined update route
   update (req, res) {
       Ndc.findById(req.params.id, function(err, ndc) {
@@ -132,5 +111,7 @@ module.exports = {
           else res.json('Successfully removed');
       });
   },
+
   
 };
+

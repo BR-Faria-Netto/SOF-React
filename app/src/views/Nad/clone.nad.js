@@ -1014,10 +1014,6 @@ export default class Edit extends Component {
 
     for (let index = 0; index < this.state.copias; index++) {
 
-        if (this.state.numnad !== '00000' && this.state.copias !== '1'){
-            obj.numnad = '00000';
-        }
-
         api.post(urlapi + 'nad/add', obj)
         .then(res => {
           if (this.state.copias === '1') {
