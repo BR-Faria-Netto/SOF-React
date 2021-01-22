@@ -13,7 +13,7 @@ let GrupoDespesa = new Schema(
 
 },
 
-{ collection: 'grupoDespesa'}
+{timestamps: true, collection: 'grupoDespesa'}
 
 );
 

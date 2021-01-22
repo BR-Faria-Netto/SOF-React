@@ -152,7 +152,7 @@ let Ndc = new Schema(
       type: String
     }
 },
-      { collection: 'ndc'}
+      {timestamps: true,collection: 'ndc'}
 );
 
 module.exports = mongoose.model('Ndc', Ndc);

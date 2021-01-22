@@ -13,7 +13,7 @@ let UnidOrcamentaria = new Schema(
 
 },
 
-{ collection: 'unidOrcamentaria'}
+{timestamps: true, collection: 'unidOrcamentaria'}
 
 );
 

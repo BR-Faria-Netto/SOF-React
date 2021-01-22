@@ -13,7 +13,7 @@ let EventoNdc = new Schema(
 
 },
 
-{ collection: 'eventoNdc'}
+{timestamps: true, collection: 'eventoNdc'}
 
 );
 

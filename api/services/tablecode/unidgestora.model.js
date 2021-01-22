@@ -13,7 +13,7 @@ let UnidGestora = new Schema(
 
 },
 
-{ collection: 'unidGestora'}
+{timestamps: true, collection: 'unidGestora'}
 
 );
 

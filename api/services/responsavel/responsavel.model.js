@@ -23,7 +23,7 @@ let Responsavel = new Schema(
       type: String
     }
 },
-    { collection: 'responsavel'}
+    {timestamps: true, collection: 'responsavel'}
 );
 
 module.exports = mongoose.model('Responsavel', Responsavel);

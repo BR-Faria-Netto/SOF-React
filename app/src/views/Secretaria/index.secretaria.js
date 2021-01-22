@@ -65,6 +65,7 @@ export const SecretariaList = () => {
         mode: "checkbox",
         clickToSelect: false,
         classes: "selection-row",
+        bgColor: '#00BFFF',
         onSelect: (row, isSelect, rowIndex, e) => {
           setrowSelect((rowData) =>
             isSelect

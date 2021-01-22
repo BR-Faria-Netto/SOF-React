@@ -13,7 +13,7 @@ let FonteRecurso = new Schema(
 
 },
 
-{ collection: 'fonteRecurso'}
+{timestamps: true, collection: 'fonteRecurso'}
 
 );
 

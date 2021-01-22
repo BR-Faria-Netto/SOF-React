@@ -13,7 +13,7 @@ let EventoNad = new Schema(
 
 },
 
-{ collection: 'eventoNad'}
+{timestamps: true, collection: 'eventoNad'}
 
 );
 

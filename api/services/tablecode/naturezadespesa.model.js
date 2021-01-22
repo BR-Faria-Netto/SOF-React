@@ -13,7 +13,7 @@ let NaturezaDespesa = new Schema(
 
 },
 
-{ collection: 'naturezaDespesa'}
+{timestamps: true, collection: 'naturezaDespesa'}
 
 );
 

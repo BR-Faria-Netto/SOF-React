@@ -17,7 +17,7 @@ const Logo = (props) => {
                         <label>Secretaria de Estado de Saúde</label>  
                     </div>
                     <div className="form-row">
-                        <label>Subsecretaria do Fundo Estadual de Saúde</label>  
+                        <label>Subsecretaria do Fundo Estadual de Saúde</label>
                     </div>
                 </div>
             </div>

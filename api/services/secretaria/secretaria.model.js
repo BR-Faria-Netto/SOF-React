@@ -38,6 +38,6 @@ let Secretaria = new Schema(
       type: [{banco:String,agencia:String,conta:String,referente:String}]
     }
 },
-    {collection: 'secretaria'}
+    {timestamps: true,collection: 'secretaria'}
 );
 module.exports = mongoose.model('Secretaria', Secretaria);

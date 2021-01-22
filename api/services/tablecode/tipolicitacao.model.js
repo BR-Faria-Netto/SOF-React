@@ -13,7 +13,7 @@ let TipoLicitacao = new Schema(
 
 },
 
-{ collection: 'tipoLicitacao'}
+{timestamps: true, collection: 'tipoLicitacao'}
 
 );
 

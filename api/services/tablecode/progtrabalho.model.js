@@ -13,7 +13,7 @@ let ProgTrabalho = new Schema(
 
 },
 
-{ collection: 'progTrabalho'}
+{timestamps: true, collection: 'progTrabalho'}
 
 );
 

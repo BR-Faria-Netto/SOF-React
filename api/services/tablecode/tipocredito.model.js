@@ -13,7 +13,7 @@ let tipocredito = new Schema(
 
 },
 
-{ collection: 'tipocredito'}
+{timestamps: true, collection: 'tipocredito'}
 
 );
 

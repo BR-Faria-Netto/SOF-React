@@ -13,7 +13,7 @@ let TipoResponsavel = new Schema(
 
 },
 
-{ collection: 'tipoResponsavel'}
+{timestamps: true, collection: 'tipoResponsavel'}
 
 );
 

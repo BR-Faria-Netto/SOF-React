@@ -14,7 +14,7 @@ let Sequencial = new Schema(
       type: Number
     }
 },
-    { collection: 'sequencial'}
+    {timestamps: true, collection: 'sequencial'}
 );
 
 module.exports = mongoose.model('Sequencial', Sequencial);

@@ -65,6 +65,7 @@ export const FavorecidoList = () => {
         mode: "checkbox",
         clickToSelect: false,
         classes: "selection-row",
+        bgColor: '#00BFFF',
         onSelect: (row, isSelect, rowIndex, e) => {
           setrowSelect((rowData) =>
             isSelect
@@ -158,6 +159,14 @@ export const FavorecidoList = () => {
       {
         dataField: 'cid',
         text: 'Cidade',
+        filter: textFilter()
+      
+      },
+      {
+        
+        dataField: 'createdAt',
+        text: 'Criado',
+        displayFormat: 'DD/MM/YYYY',
         filter: textFilter()
       
       },

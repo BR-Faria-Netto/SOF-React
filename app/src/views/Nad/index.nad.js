@@ -279,7 +279,7 @@ const NadList = () => {
        getDataAll();
        setIsRefresh(false);
     }
-  
+
     var styleDiv
     if(!isVisible)
        styleDiv="marginTop:'2px',marginBotton:'2px', marginLeft:'2px', marginRight:'2px', backgroundColor:'#f7f7f7'" 

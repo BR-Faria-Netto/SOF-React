@@ -13,7 +13,7 @@ let TipoEmpenho = new Schema(
 
 },
 
-{ collection: 'tipoEmpenho'}
+{timestamps: true, collection: 'tipoEmpenho'}
 
 );
 
