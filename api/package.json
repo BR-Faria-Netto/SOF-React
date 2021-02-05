@@ -7,7 +7,7 @@
   "dependencies": {
     "@hapi/joi": "^17.1.0",
     "axios": "^0.19.2",
-    "bcrypt": "^4.0.1",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "bundle-loader": "^0.5.6",
     "cookie-parser": "^1.4.4",
@@ -19,14 +19,25 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
-    "mongoose": "^5.9.4",
+    "mongodb-client-encryption": "^1.2.0",
     "mongoose-unique-validator": "^2.0.3",
     "multer": "^1.4.2",
+    "ncrypt-js": "^2.0.0",
+    "node-pre-gyp": "^0.17.0",
     "nodemailer": "^6.4.5",
     "nodemon": "^2.0.2",
     "web3": "^1.2.6"
   },
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon server.js",
+    "build": "webpack && node build/api.server.js",
+    "prod": "node build/api.server.js"
+  },
+  "devDependencies": {
+    "cache-manager": "^3.4.0",
+    "mongoose": "^5.11.15",
+    "nodemon": "^1.18.10",
+    "webpack": "^5.20.2",
+    "webpack-cli": "^4.5.0"
   }
 }

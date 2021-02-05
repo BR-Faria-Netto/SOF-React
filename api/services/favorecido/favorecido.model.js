@@ -36,9 +36,14 @@ let Favorecido = new Schema(
     },
     contas: {
       type: [{banco:String,agencia:String,conta:String,referente:String}]
-    }
-   
+    },
+    login: {
+      type: String
+    },
+    
 },
+  
   {timestamps: true, collection: 'favorecido'}
+
 );
 module.exports = mongoose.model('Favorecido', Favorecido);

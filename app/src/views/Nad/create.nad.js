@@ -912,7 +912,8 @@ export default class Create extends Component {
       toast.success("Registro foi salvo com successo");
     })
     .catch(error => {
-      toast.error("Ocorrou erro ao salvar o registro");
+
+      toast.error("Ocorrou erro ao salvar o registro"+error);
     })
 
     this.props.history.push('/indexNad');

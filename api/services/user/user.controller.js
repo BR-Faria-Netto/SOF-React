@@ -1,9 +1,10 @@
 const User = require("./user.model");
 const Joi = require("@hapi/joi");
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
 const util = require('../../helpers/utils');
+
+const ncrypt = require('ncrypt-js');
 
 module.exports = {
 
@@ -44,13 +45,20 @@ module.exports = {
       let status = 'Autorizado';
       let confirmCode = util.generatePassword();
       let mailConfirmation = email;
+      role = 'Administrador';
 
       let count = await User.countDocuments(); // count all 
+
       if (count > 0 ){
         role = 'Usuário';
         status = 'Solicitado';
         mailConfirmation = '';
       }
+      
+      var encryptPass = new ncrypt('encryptPass');
+      var encryptedData = encryptPass.encrypt(password);
+
+      console.log(encryptedData);
 
       const schema = Joi.object({
         login: Joi.string().required(),
@@ -64,12 +72,12 @@ module.exports = {
         confirmCode : confirmCode,
         mailConfirmation : mailConfirmation
       })
-      
 
       const { error } = schema.validate({ login, name, email, password, confirmPassword, confirmCode, mailConfirmation });
 
       if (error) throw (error.details)
       else {
+        password = encryptedData;
         User.create({
           login,
           name,
@@ -81,7 +89,7 @@ module.exports = {
           mailConfirmation
         }, (err, usr) => {
           try {
-            if (err) throw ("Usuário já cadastrado")
+            if (err) throw ("Usuário já cadastrado"+error) 
             else {
               const subject = 'Confirmação de Acesso'; 
               const bodyText = 'Clique no link http:'+process.env.WEB_URL+'/ConfirmCode para confirmar seu cadastro, informe seu Código de Acesso: '+usr.confirmCode
@@ -122,6 +130,10 @@ module.exports = {
   add(req, res) {
     let user = new User(req.body);
     user.mailConfirmation = ''
+    var encryptPass = new ncrypt('encryptPass');
+    var encryptedData = encryptPass.encrypt(req.body.password);
+    user.password = encryptedData;
+
     user.save()
       .then(user => {
         res.status(200).json({'Usuario': 'Cadastrado com sucesso'});
@@ -168,8 +180,11 @@ module.exports = {
 
           if(!req.body.password) 
             user.password = user.password;
-          else
-            user.password = req.body.password;
+          else {
+            var encryptPass = new ncrypt('encryptPass');
+            var encryptedData = encryptPass.encrypt(req.body.password);
+            user.password = encryptedData;
+          }
             
           if(!req.body.confirmpassword) 
             user.confirmepassword = user.confirmepassword;
@@ -182,7 +197,7 @@ module.exports = {
             user.confirmCode = req.body.confirmCode;
             user.mailConfirmation = ''
           }
-
+    
           user.save().then(user => {
             res.json('Alteração com sucesso');
           })
@@ -359,7 +374,14 @@ loginUser = async (login, password) => {
   
     // get user password
     if (user) {
-      if (bcrypt.compareSync(password, user.password)) {
+      var encryptPass = new ncrypt('encryptPass');
+      var encryptedData = encryptPass.encrypt(password);
+      console.log(password);
+      console.log(encryptedData);
+      console.log(user.password );
+
+      //if (bcrypt.compareSync(password, user.password)) {
+      if ( encryptedData ===  user.password) {
         return user;
       }
     }

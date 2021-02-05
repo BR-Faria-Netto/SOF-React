@@ -197,7 +197,11 @@ let Nad = new Schema(
       type: String
     }
 },
-      {timestamps: true, collection: 'nad'}
+{
+  timestamps: true,
+  collection: 'nad'
+}
+
 );
 
 module.exports = mongoose.model('Nad', Nad);

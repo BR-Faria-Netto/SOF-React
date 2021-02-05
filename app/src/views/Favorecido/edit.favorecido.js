@@ -13,6 +13,8 @@ import cellEditFactory from 'react-bootstrap-table2-editor';
 
 import urlapi from "../../services/urlapi"
 
+import { getUser } from '../../auth'
+
 export default class Edit extends Component {
 
   constructor(props) {
@@ -29,6 +31,7 @@ export default class Edit extends Component {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
+      login : getUser().login,
       nomefav : '',
       bai : '',
       ender : '',
@@ -116,7 +119,8 @@ export default class Edit extends Component {
       cep : this.state.cep,
       uf : this.state.uf,
       cnpj : this.state.cnpj,
-      contas: this.state.contas
+      contas: this.state.contas,
+      login: this.state.login
     };
 
     axios.post(urlapi+'favorecido/update/'+this.props.match.params.id, obj)

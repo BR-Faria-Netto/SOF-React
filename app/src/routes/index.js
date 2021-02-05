@@ -94,16 +94,9 @@ const routes = () => (
       <PrivateRoute exact path="/cloneNdc/:id" component={CloneNdc} />  
       <PrivateRoute exact path="/printNdc/:id" component={PrintNdc} /> 
 
-      {/* naturezadespesa   progtrabalho  fonterecurso */}
-
-      if (dbTable !== 'naturezadespesa) ? 
-         <PrivateRoute exact path='/indexTableCode/:dbTable/:pgTitle' component={ IndexTableCode } />
-         <PrivateRoute exact path='/createTableCode/:dbTable/:pgTitle' component={ CreateTableCode } />
-         <PrivateRoute exact path='/editTableCode/:dbTable/:id/:pgTitle' component={ EditTableCode } /> 
-      :
-         <AdminRoute exact path='/indexTableCode/:dbTable/:pgTitle' component={ IndexTableCode } />
-         <AdminRoute exact path='/createTableCode/:dbTable/:pgTitle' component={ CreateTableCode } />
-         <AdminRoute exact path='/editTableCode/:dbTable/:id/:pgTitle' component={ EditTableCode } /> 
+      <AdminRoute exact path='/indexTableCode/:dbTable/:pgTitle' component={ IndexTableCode } />
+      <AdminRoute exact path='/createTableCode/:dbTable/:pgTitle' component={ CreateTableCode } />
+      <AdminRoute exact path='/editTableCode/:dbTable/:id/:pgTitle' component={ EditTableCode } /> 
 
       <PrivateRoute exact path="/indexSecretaria" component={IndexSecretaria} />
       <PrivateRoute exact path="/createSecretaria" component={CreateSecretaria} />

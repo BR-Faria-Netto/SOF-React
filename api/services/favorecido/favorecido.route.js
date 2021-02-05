@@ -56,6 +56,7 @@ favorecidoRoute.route('/update/:id').post(function (req, res) {
         favorecido.agerec = req.body.agerec;
         favorecido.ccrec = req.body.ccrec;
         favorecido.contas = req.body.contas;
+        favorecido.login = req.body.login;
         favorecido.save().then(favorecido => {
           res.json('Update complete');
         })

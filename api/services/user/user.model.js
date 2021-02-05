@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
-let bcrypt = require('bcrypt');
-const boolean = require('@hapi/joi/lib/types/boolean');
+
 const saltRounds = 10;
+var uniqueValidator = require('mongoose-unique-validator');
 
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -21,8 +20,6 @@ UserSchema.plugin(uniqueValidator);
 UserSchema.pre('save', async function (next) {
   const document = this;
   if (this.isNew) {
-    let hashedPassword = bcrypt.hashSync(document.password, saltRounds)
-    document.password = hashedPassword;
 
     let name = document.name.toLowerCase().replace(/(?:^|\s)\S/g, function (_capitalize) { return _capitalize.toUpperCase(); });
 
@@ -34,7 +31,7 @@ UserSchema.pre('save', async function (next) {
     }
     document.name = name;
   } else if (this.isModified('password')) {
-    let hashedPassword = bcrypt.hashSync(document.password, saltRounds)
+    let hashedPassword = document.password;
     document.password = hashedPassword;
   } else if (this.isModified('name')) {
     let name = document.name.toLowerCase().replace(/(?:^|\s)\S/g, function (_capitalize) { return _capitalize.toUpperCase(); });

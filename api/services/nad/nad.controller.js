@@ -7,7 +7,6 @@ module.exports = {
 
   // Defined listing route
   getAll(req, res) {
-
       Nad.find(function(err,nad){
         if(err){
           console.log(err);
@@ -19,19 +18,20 @@ module.exports = {
   },
   // Defined add store route
   add(req, res) {
+    let nad = new Nad(req.body);
     Sequencial.findOne({ano : req.body.anonad , tabela : 'NAD' }, function (err, sequencial) {
-      try {
-          sequencial.sequencia = sequencial.sequencia+1;
-          sequencial.save();
-          let numero = '0'+sequencial.sequencia+0;
-          numero = ("000000"+numero).slice(-7,-1);
-          let nad = new Nad(req.body);
-          nad.numnad = numero;
-          nad.save()
-          res.status(200).json({'Nads': 'Added successfully'});
-      } catch (err) {
-          res.status(400).send("Unable to save to database");
-      }
+         try {
+             sequencial.sequencia = sequencial.sequencia+1;
+             sequencial.save();
+             let numero = '0'+sequencial.sequencia+0;
+             numero = ("000000"+numero).slice(-7,-1);
+             let nad = new Nad(req.body);
+             nad.numnad = numero;
+             nad.save()
+             res.status(200).json({'Nads': 'Added successfully'});
+         } catch (err) {
+             res.status(400).send("Unable to save to database");
+         }
     })
   },
   // Defined edit route

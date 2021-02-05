@@ -23,6 +23,11 @@ import Logo from '../../images/index';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
+import { Role } from '../../services/role';
+import { getUser } from '../../auth'
+
+import moment from "moment";
+
 export default class Index extends Component {
     render() {
         return (<div><FavorecidoList/></div>);
@@ -38,8 +43,11 @@ export const FavorecidoList = () => {
     const [isErr, setIsErr] = useState(false); 
     const [isRefresh, setIsRefresh] = useState(true);
 
+    const isShow = (getUser().role !== Role.Admin);
+
     const [pageNumber, setPageNumber] = useState(1);
-    
+   
+
     useEffect(() => {
       getDataAll();
     }, []);
@@ -130,7 +138,12 @@ export const FavorecidoList = () => {
 
     }
 
-
+    // function dateFormatter(cell: any) {
+    //   if (!cell) {
+    //         return "";
+    //   }
+    //   return `${moment(cell).format("DD/MM/YYYY")? moment(cell).format("DD/MM/YYYY"):moment(cell).format("DD/MM/YYYY") }`;
+    // }
   
     const columns = [
       {
@@ -163,12 +176,29 @@ export const FavorecidoList = () => {
       
       },
       {
-        
         dataField: 'createdAt',
-        text: 'Criado',
-        displayFormat: 'DD/MM/YYYY',
-        filter: textFilter()
-      
+        text: 'Criação',
+        filter: textFilter(),
+        formatter: (row) => (
+          `${moment(row).format("DD/MM/YYYY")? moment(row).format("DD/MM/YYYY"):moment(row).format("DD/MM/YYYY") }`
+        ),
+        hidden: isShow
+      }
+      ,
+      {
+        dataField: 'createdUp',
+        text: 'Alteração',
+        filter: textFilter(),
+        formatter: (row) => (
+          `${moment(row).format("DD/MM/YYYY")? moment(row).format("DD/MM/YYYY"):moment(row).format("DD/MM/YYYY") }`
+        ),
+        hidden: isShow
+      },
+      {
+        dataField: 'login',
+        text: 'Usuário',
+        filter: textFilter(),
+        hidden: isShow
       },
       {
         text: 
@@ -187,21 +217,20 @@ export const FavorecidoList = () => {
                   </div> 
               </div>
           </div>
-        ,
-        formatter: (cellContent, row, isSelected, currentDisplayAndSelectedData) => (
-          <div className="form-row">
-              <div className="col-sm-3">
-                  <Link to={"/editFavorecido/"+row._id} className="btn btn-sm btn-outline-primary"><Icon.PencilSquare/></Link>
-              </div> 
-              <div className="col-sm-3">
-                  <Link to={`#`} className="btn btn-sm btn-outline-danger" onClick={() => { deleteRow(row)}}><Icon.TrashFill/></Link>
-              </div> 
-          </div>
-        ),
-        style:{
-          width: '9%'
-        }
-  
+          ,
+          formatter: (cellContent, row, isSelected, currentDisplayAndSelectedData) => (
+            <div className="form-row">
+                <div className="col-sm-3">
+                    <Link to={"/editFavorecido/"+row._id} className="btn btn-sm btn-outline-primary"><Icon.PencilSquare/></Link>
+                </div> 
+                <div className="col-sm-3">
+                    <Link to={`#`} className="btn btn-sm btn-outline-danger" onClick={() => { deleteRow(row)}}><Icon.TrashFill/></Link>
+                </div> 
+            </div>
+          ),
+          style:{
+            width: '9%'
+          }
       }
     ];
 

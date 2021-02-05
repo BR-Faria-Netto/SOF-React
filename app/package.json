@@ -14,6 +14,7 @@
     "jwt-decode": "^3.0.0",
     "moment": "^2.28.0",
     "njwt": "^1.0.0",
+    "node-windows": "^1.0.0-beta.5",
     "numero-por-extenso": "^1.0.8",
     "postinstall": "^0.7.0",
     "react": "^16.13.0",
@@ -46,9 +47,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "react-scripts build  && serve -l 3000 -s build",
+    "start-watch": "cd ../api && start npm start",
+    "wp-server": "cd ../app && start npm start",
+    "dev": "(npm run start-watch && npm run wp-server)"
   },
   "eslintConfig": {
     "extends": "react-app"

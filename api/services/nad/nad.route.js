@@ -1,11 +1,11 @@
 const router = require('express').Router()
 const utils = require('../../helpers/utils')
-const Controller = require("./nad.controller")
+const controller = require("./nad.controller")
 
-router.post('/add', utils.handleAuth, Controller.add);
-router.get('/edit/:id', utils.handleAuth, Controller.edit);
-router.post('/update/:id',utils.handleAuth, Controller.update);
-router.get('/delete/:id', utils.handleAuth, Controller.delete);
-router.get('/', Controller.getAll);
+router.post('/add', utils.handleAuth, controller.add);
+router.get('/edit/:id', utils.handleAuth, controller.edit);
+router.post('/update/:id',utils.handleAuth, controller.update);
+router.get('/delete/:id', utils.handleAuth, controller.delete);
+router.get('/', controller.getAll);
 
 module.exports = router

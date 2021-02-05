@@ -48,3 +48,4 @@ CurrencyInput.propTypes = {
 }
 
 export default CurrencyInput
+

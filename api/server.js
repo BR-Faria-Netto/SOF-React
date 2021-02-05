@@ -3,7 +3,7 @@ require("dotenv").config();
 const db = require("./configdb/db");
 db.connect();
 
-const services = require("./services/server");
+const services = require("./services/index");
 
 const API_PORT = process.env.API_PORT;
 const API_URL = process.env.API_URL;
