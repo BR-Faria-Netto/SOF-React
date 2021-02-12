@@ -9,12 +9,12 @@ let FonteRecurso = new Schema(
   },
   descricao: {
     type: String
-  }
-
+  },
+  login: {
+    type: String
+  },  
 },
-
-{timestamps: true, collection: 'fonteRecurso'}
-
+  {timestamps: true, collection: 'fonteRecurso'}
 );
 
 module.exports = mongoose.model('FonteRecurso', FonteRecurso);

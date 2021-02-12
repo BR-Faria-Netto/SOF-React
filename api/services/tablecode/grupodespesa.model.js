@@ -9,12 +9,12 @@ let GrupoDespesa = new Schema(
   },
   descricao: {
     type: String
-  }
-
+  },
+  login: {
+    type: String
+  },  
 },
-
-{timestamps: true, collection: 'grupoDespesa'}
-
+  {timestamps: true, collection: 'grupoDespesa'}
 );
 
 module.exports = mongoose.model('GrupoDespesa', GrupoDespesa);

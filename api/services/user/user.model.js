@@ -11,7 +11,8 @@ const UserSchema = new mongoose.Schema({
   role: { type: String },
   status: { type: String },
   confirmCode: { type: String },
-  mailConfirmation : { type: String }
+  mailConfirmation : { type: String },
+  usuario : { type: String }
 },
   { timestamps: true });
 

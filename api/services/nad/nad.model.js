@@ -195,13 +195,13 @@ let Nad = new Schema(
     },
     datarat: {
       type: String
-    }
+    },
+    login: {
+      type: String
+    },  
 },
-{
-  timestamps: true,
-  collection: 'nad'
-}
-
+    {timestamps: true, collection: 'nad'}
 );
+
 
 module.exports = mongoose.model('Nad', Nad);

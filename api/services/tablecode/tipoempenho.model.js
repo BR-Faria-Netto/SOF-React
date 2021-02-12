@@ -9,12 +9,12 @@ let TipoEmpenho = new Schema(
   },
   descricao: {
     type: String
-  }
-
+  },
+  login: {
+    type: String
+  },  
 },
-
-{timestamps: true, collection: 'tipoEmpenho'}
-
+  {timestamps: true, collection: 'tipoEmpenho'}
 );
 
 module.exports = mongoose.model('TipoEmpenho', TipoEmpenho);

@@ -9,12 +9,12 @@ let TipoResponsavel = new Schema(
   },
   descricao: {
     type: String
-  }
-
+  },
+  login: {
+    type: String
+  },  
 },
-
-{timestamps: true, collection: 'tipoResponsavel'}
-
+  {timestamps: true, collection: 'tipoResponsavel'}
 );
 
 module.exports = mongoose.model('tipoResponsavel', TipoResponsavel);

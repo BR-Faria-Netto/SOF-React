@@ -56,6 +56,7 @@ secretariaRoute.route('/update/:id').post(function (req, res) {
         secretaria.agerec = req.body.agerec;
         secretaria.ccrec = req.body.ccrec;
         secretaria.contas = req.body.contas;
+        secretaria.login = req.body.login;
         secretaria.save().then(secretaria => {
           res.json('Update complete');
         })

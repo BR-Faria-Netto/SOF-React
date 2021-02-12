@@ -76,6 +76,7 @@ module.exports = {
         responsavel.idfuncional = req.body.idfuncional;
         responsavel.delegacao = req.body.delegacao;
         responsavel.situacao = req.body.situacao;
+        responsavel.login = req.body.login;
         responsavel.save().then(responsavel => {
             res.json('Update complete');
         })

@@ -65,6 +65,7 @@ sequencialRoute.route('/update/:id').post(function (req, res) {
         sequencial.ano = req.body.ano;
         sequencial.tabela = req.body.tabela;
         sequencial.sequencia = req.body.sequencia;
+        sequencial.login = req.body.login;
         sequencial.save().then(sequencial => {
           res.json('Update complete');
         })

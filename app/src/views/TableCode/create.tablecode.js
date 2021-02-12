@@ -34,7 +34,8 @@ export default class Create extends Component {
       e.preventDefault();
       const obj = {
         codigo: this.state.codigo,
-        descricao: this.state.descricao
+        descricao: this.state.descricao,
+        login: window.login
       };
 
       axios.post(urlapi+'tablecode/add/'+this.props.match.params.dbTable, obj)

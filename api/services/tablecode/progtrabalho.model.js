@@ -9,12 +9,12 @@ let ProgTrabalho = new Schema(
   },
   descricao: {
     type: String
-  }
-
+  },
+  login: {
+    type: String
+  },  
 },
-
-{timestamps: true, collection: 'progTrabalho'}
-
+  {timestamps: true, collection: 'progTrabalho'}
 );
 
 module.exports = mongoose.model('ProgTrabalho', ProgTrabalho);

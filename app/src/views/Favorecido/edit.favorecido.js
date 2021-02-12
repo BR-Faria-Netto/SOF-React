@@ -10,10 +10,9 @@ import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import cellEditFactory from 'react-bootstrap-table2-editor';
 
-
 import urlapi from "../../services/urlapi"
 
-import { getUser } from '../../auth'
+import $ from 'jquery';
 
 export default class Edit extends Component {
 
@@ -30,8 +29,8 @@ export default class Edit extends Component {
     this.onChangeCnpj = this.onChangeCnpj.bind(this); 
 
     this.onSubmit = this.onSubmit.bind(this);
+
     this.state = {
-      login : getUser().login,
       nomefav : '',
       bai : '',
       ender : '',
@@ -40,11 +39,13 @@ export default class Edit extends Component {
       uf : '',
       cnpj : '',
       contas: []
+      
     }
-
+    
   }
   
   componentDidMount() {
+
       axios.get(urlapi+'favorecido/edit/'+this.props.match.params.id)
           .then(response => {
               this.setState({ 
@@ -56,6 +57,7 @@ export default class Edit extends Component {
                 uf : response.data.uf,
                 cnpj : response.data.cnpj,
                 contas: response.data.contas
+                
               });
               
           })
@@ -120,7 +122,7 @@ export default class Edit extends Component {
       uf : this.state.uf,
       cnpj : this.state.cnpj,
       contas: this.state.contas,
-      login: this.state.login
+      login: window.login
     };
 
     axios.post(urlapi+'favorecido/update/'+this.props.match.params.id, obj)
@@ -159,9 +161,11 @@ export default class Edit extends Component {
 
   }
 
+
   
   render() {
-  
+
+
     const columns = [
       {
         dataField: 'banco',
@@ -210,7 +214,7 @@ export default class Edit extends Component {
           </div>
           <div style={{ marginLeft:'5px', marginRight:'5px', marginTop:'5px' , border: '1px solid #ccc' }}>
               <form onSubmit={this.onSubmit} style={{ marginLeft:'15px', marginRight:'15px', marginTop:'15px'}}>
-
+                  
                   <div className="form-row">
                     <div className="col-sm-9">
                       <label>Nome do Favorecido</label>  
@@ -236,7 +240,7 @@ export default class Edit extends Component {
                     </div>
                     <div className="col-sm-4">
                       <label>Cidade</label>  
-                      <input id="cid" name="cid" className="form-control form-control-sm" required="" type="text" value={this.state.cid} onChange={this.onChangeCid}/>
+                      <input id="cid" name="cid" ref={this.cid} className="form-control form-control-sm" required="" type="text" value={this.state.cid} onChange={this.onChangeCid}/>
                     </div>
                     <div className="col-sm-2">
                       <label>Cep</label>  

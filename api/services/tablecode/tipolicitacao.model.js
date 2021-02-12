@@ -9,12 +9,12 @@ let TipoLicitacao = new Schema(
   },
   descricao: {
     type: String
-  }
-
+  },
+  login: {
+    type: String
+  },  
 },
-
-{timestamps: true, collection: 'tipoLicitacao'}
-
+  {timestamps: true, collection: 'tipoLicitacao'}
 );
 
 module.exports = mongoose.model('TipoLicitacao', TipoLicitacao);

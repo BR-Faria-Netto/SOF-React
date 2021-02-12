@@ -94,6 +94,7 @@ module.exports = {
         ndc.delerat = req.body.delerat;
         ndc.matrat = req.body.matrat;
         ndc.datarat = req.body.datarat;
+        ndc.login = req.body.login;
         ndc.save().then(ndc => {
           res.json('Update complete');
         })

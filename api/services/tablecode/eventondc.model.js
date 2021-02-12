@@ -9,12 +9,12 @@ let EventoNdc = new Schema(
   },
   descricao: {
     type: String
-  }
-
+  },
+  login: {
+    type: String
+  },  
 },
-
-{timestamps: true, collection: 'eventoNdc'}
-
+  {timestamps: true, collection: 'eventoNdc'}
 );
 
 module.exports = mongoose.model('EventoNdc', EventoNdc);

@@ -112,7 +112,8 @@ export default class Edit extends Component {
       role : this.state.role,
       password : this.state.password,
       confirmepassword : this.state.confirmpassword,
-      status : this.state.status
+      status : this.state.status,
+      usuario: window.login
     };
     
     api.post('/user/update/'+this.props.match.params.id, obj)

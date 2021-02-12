@@ -9,12 +9,12 @@ let UnidOrcamentaria = new Schema(
   },
   descricao: {
     type: String
-  }
-
+  },
+  login: {
+    type: String
+  },  
 },
-
-{timestamps: true, collection: 'unidOrcamentaria'}
-
+  {timestamps: true, collection: 'unidOrcamentaria'}
 );
 
 module.exports = mongoose.model('UnidOrcamentaria', UnidOrcamentaria);

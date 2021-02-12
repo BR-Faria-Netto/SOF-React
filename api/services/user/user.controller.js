@@ -58,8 +58,6 @@ module.exports = {
       var encryptPass = new ncrypt('encryptPass');
       var encryptedData = encryptPass.encrypt(password);
 
-      console.log(encryptedData);
-
       const schema = Joi.object({
         login: Joi.string().required(),
         name: Joi.string().required(),
@@ -197,7 +195,7 @@ module.exports = {
             user.confirmCode = req.body.confirmCode;
             user.mailConfirmation = ''
           }
-    
+          user.usuario = req.body.usuario;
           user.save().then(user => {
             res.json('Alteração com sucesso');
           })
@@ -374,14 +372,12 @@ loginUser = async (login, password) => {
   
     // get user password
     if (user) {
+
       var encryptPass = new ncrypt('encryptPass');
-      var encryptedData = encryptPass.encrypt(password);
-      console.log(password);
-      console.log(encryptedData);
-      console.log(user.password );
+      var encryptedData = encryptPass.decrypt(user.password);
 
       //if (bcrypt.compareSync(password, user.password)) {
-      if ( encryptedData ===  user.password) {
+      if ( encryptedData ===  password) {
         return user;
       }
     }

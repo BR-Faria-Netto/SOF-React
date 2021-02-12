@@ -9,12 +9,12 @@ let NaturezaDespesa = new Schema(
   },
   descricao: {
     type: String
-  }
-
+  },
+  login: {
+    type: String
+  },  
 },
-
-{timestamps: true, collection: 'naturezaDespesa'}
-
+  {timestamps: true, collection: 'naturezaDespesa'}
 );
 
 module.exports = mongoose.model('NaturezaDespesa', NaturezaDespesa);

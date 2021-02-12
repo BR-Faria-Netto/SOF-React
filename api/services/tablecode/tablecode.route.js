@@ -46,6 +46,7 @@ tablecodeRoute.route('/update/:dbTable/:id').post(function (req, res) {
     else {
         baseLocal.codigo = req.body.codigo;
         baseLocal.descricao = req.body.descricao;
+        baseLocal.login = req.body.login;
         baseLocal.save().then(baseLocal => {
           res.json('Update complete');
         })

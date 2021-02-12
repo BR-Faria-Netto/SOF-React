@@ -18,11 +18,17 @@ module.exports = {
   },
   // Defined add store route
   add(req, res) {
-    let nad = new Nad(req.body);
-    Sequencial.findOne({ano : req.body.anonad , tabela : 'NAD' }, function (err, sequencial) {
+     Sequencial.findOne({ano : req.body.anonad , tabela : 'NAD' }, function (err, sequencial) {
          try {
+          //const session = client.startSession()
+            //await session.withTransaction(async () => {
+            //await collection.insertOne(doc1, { session })
+            //await collection.insertOne(doc2, { session })
+          //})
+          //session.commitTransaction()
+          //session.endSession()
              sequencial.sequencia = sequencial.sequencia+1;
-             sequencial.save();
+             sequencial.save({w: 1});
              let numero = '0'+sequencial.sequencia+0;
              numero = ("000000"+numero).slice(-7,-1);
              let nad = new Nad(req.body);
@@ -112,6 +118,7 @@ module.exports = {
           nad.delerat = req.body.delerat;
           nad.matrat = req.body.matrat;
           nad.datarat = req.body.datarat;
+          nad.login = req.body.login;
           nad.save().then(nad => {
             res.json('Update complete');
           })

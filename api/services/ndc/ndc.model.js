@@ -150,9 +150,12 @@ let Ndc = new Schema(
     },
     datarat: {
       type: String
-    }
+    },
+    login: {
+      type: String
+    },  
 },
-      {timestamps: true,collection: 'ndc'}
+    {timestamps: true, collection: 'ndc'}
 );
 
 module.exports = mongoose.model('Ndc', Ndc);

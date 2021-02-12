@@ -34,7 +34,8 @@ export default class Index extends Component {
     }
 }
 
-export const FavorecidoList = () => {
+export const FavorecidoList = (user) => {
+
 
     const [rowData, setRowData] = useState([]);
     const [dataPrint,setDataPrint] = useState([]);
@@ -67,6 +68,7 @@ export const FavorecidoList = () => {
     }
   
     const [rowSelect, setrowSelect] = useState([]);
+      
         
     const selectRow = useMemo(
       () => ({
@@ -180,7 +182,7 @@ export const FavorecidoList = () => {
         text: 'Criação',
         filter: textFilter(),
         formatter: (row) => (
-          `${moment(row).format("DD/MM/YYYY")? moment(row).format("DD/MM/YYYY"):moment(row).format("DD/MM/YYYY") }`
+          `${moment(row).format("DD/MM/YYYY")? moment(row).format("DD/MM/YYYY HH:mm:ss"):moment(row).format("DD/MM/YYYY HH:mm:ss") }`
         ),
         hidden: isShow
       }
@@ -190,7 +192,7 @@ export const FavorecidoList = () => {
         text: 'Alteração',
         filter: textFilter(),
         formatter: (row) => (
-          `${moment(row).format("DD/MM/YYYY")? moment(row).format("DD/MM/YYYY"):moment(row).format("DD/MM/YYYY") }`
+          `${moment(row).format("DD/MM/YYYY")? moment(row).format("DD/MM/YYYY HH:mm:ss"):moment(row).format("DD/MM/YYYY HH:mm:ss" ) }`
         ),
         hidden: isShow
       },

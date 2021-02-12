@@ -3,7 +3,6 @@ const favorecidoRoute = express.Router();
 
 // Require Business model in our routes module
 let Favorecido = require('./favorecido.model');
-
 // Defined store route
 favorecidoRoute.route('/add').post(function (req, res) {
   let favorecido = new Favorecido(req.body);
@@ -15,7 +14,6 @@ favorecidoRoute.route('/add').post(function (req, res) {
       res.status(400).send("unable to save to database");
     });
 });
-
 // Defined get data(index or listing) route
 favorecidoRoute.route('/').get(function (req, res) {
     Favorecido.find(function(err,favorecido){
@@ -30,7 +28,6 @@ favorecidoRoute.route('/').get(function (req, res) {
       }
     });
 });
-
 // Defined edit route
 favorecidoRoute.route('/edit/:id').get(function (req, res) {
   let id = req.params.id;
@@ -38,7 +35,6 @@ favorecidoRoute.route('/edit/:id').get(function (req, res) {
       res.json(favorecido);
   });
 });
-
 //  Defined update route
 favorecidoRoute.route('/update/:id').post(function (req, res) {
   Favorecido.findById(req.params.id, function(err, favorecido) {
@@ -66,7 +62,6 @@ favorecidoRoute.route('/update/:id').post(function (req, res) {
     }
   });
 });
-
 // Defined delete | remove | destroy route
 favorecidoRoute.route('/delete/:id').get(function (req, res) {
     Favorecido.findByIdAndRemove({_id: req.params.id}, function(err, favorecido){
@@ -74,7 +69,4 @@ favorecidoRoute.route('/delete/:id').get(function (req, res) {
         else res.json('Successfully removed');
     });
 });
-
 module.exports = favorecidoRoute;
-
-

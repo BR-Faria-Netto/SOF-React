@@ -11,13 +11,22 @@ import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 
 import api from "../../services/api"
 
+import { Role } from '../../services/role';
+import { getUser } from '../../auth'
+
+import moment from "moment";
+
+
 export default class Index extends Component {
+
+isShow = (getUser().role !== Role.Admin);
 
 constructor(props) {
       super(props);
       this.state = {users: [],
       err: null,
       isLoading: true
+
     }
     this.getDataAll();
     
@@ -83,6 +92,28 @@ render() {
         {
           dataField: 'status',
           text: 'Status'
+        },
+        {
+          dataField: 'createdAt',
+          text: 'Criação',
+          formatter: (row) => (
+            `${moment(row).format("DD/MM/YYYY")? moment(row).format("DD/MM/YYYY HH:mm:ss"):moment(row).format("DD/MM/YYYY HH:mm:ss") }`
+          ),
+          hidden: this.isShow
+        }
+        ,
+        {
+          dataField: 'createdUp',
+          text: 'Alteração',
+          formatter: (row) => (
+            `${moment(row).format("DD/MM/YYYY")? moment(row).format("DD/MM/YYYY HH:mm:ss"):moment(row).format("DD/MM/YYYY HH:mm:ss" ) }`
+          ),
+          hidden: this.isShow
+        },
+        {
+          dataField: 'usuario',
+          text: 'Usuário',
+          hidden: this.isShow
         },
         {
           text: 

@@ -21,7 +21,10 @@ let Responsavel = new Schema(
     },
     situacao: {
       type: String
-    }
+    },
+    login: {
+      type: String
+    },  
 },
     {timestamps: true, collection: 'responsavel'}
 );

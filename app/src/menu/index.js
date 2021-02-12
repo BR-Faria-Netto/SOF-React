@@ -10,13 +10,20 @@ import { Role } from '../services/role';
 
 const Menu = (props) => {
 
-    const [user] = useState(getUser())
+    
+    const [user] = useState(getUser());
+
+    if (user !== null){
+        window.login = user.name;
+    }
 
     // saida do sistema.
     function logoutFunction() {
         logout();
         window.location.href = '/'
     }
+
+    var username = React.createRef();
 
     // token expered.
     if (isTokenExpired()) {
@@ -27,6 +34,8 @@ const Menu = (props) => {
     }
     
     return (
+
+
         <>
             {isAuthenticated() ?
                     <div className="responsive">                  
@@ -36,7 +45,7 @@ const Menu = (props) => {
                                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                                 <Navbar.Collapse id="responsive-navbar-nav">
                                     <Nav className="mr-auto">
-                                        <Nav.Link href="/indexFavorecido">Favorecido</Nav.Link>
+                                        <Nav.Link href="/indexFavorecido" data={user}>Favorecido</Nav.Link>
                                         <Nav.Link href="/indexNad">Autorização</Nav.Link>
                                         <Nav.Link href="/indexNdc">Descentralização</Nav.Link>
                                         <NavDropdown title="Cadastros" id="collasible-nav-dropdown">
@@ -52,9 +61,9 @@ const Menu = (props) => {
                                                 <NavDropdown.Item href="/indexTableCode/tipocredito/Tipo de Crédito">Tipo de Credito</NavDropdown.Item>
                                                 <NavDropdown.Item href="/indexTableCode/grupodespesa/Grupo de Despesa">Grupo de Despesa</NavDropdown.Item>
                                                 <NavDropdown.Item href="/indexTableCode/tipoempenho/Tipo de Empenho">Tipo de Empenho</NavDropdown.Item>
-                                                <NavDropdown.Item href="/indexSecretaria">Secretaria Executora</NavDropdown.Item>  
                                                 <NavDropdown.Item href="/indexTableCode/tipolicitacao/Tipo de Licitação">Tipo de Licitação</NavDropdown.Item>
                                                 <NavDropdown.Item href="/indexTableCode/tiporesponsavel/Tipo de Responsável">Tipo de Responsável</NavDropdown.Item>  
+                                                <NavDropdown.Item href="/indexSecretaria">Secretaria Executora</NavDropdown.Item>  
                                                 <NavDropdown.Item href="/indexSequencial">Sequencial das Tabelas</NavDropdown.Item>  
                                                 <NavDropdown.Item href="/indexTableCode/unidgestora/Unidade Gestora">Unidade Gestora</NavDropdown.Item>
                                                 <NavDropdown.Item href="/indexTableCode/unidorcamentaria/Unidade Orçamentária">Unidade Orçamentaria</NavDropdown.Item>  
@@ -63,7 +72,8 @@ const Menu = (props) => {
                                         }
                                     </Nav>
                                     <Nav>
-                                        <NavDropdown title={user.name} id="collasible-nav-dropdown"> 
+                                        <input id="username" type="text" value={user.name} hidden/>
+                                        <NavDropdown title={user.name} ref={username} id='username'>  
                                             <NavDropdown.Item href={"/profileUser/"+user._id}>Profile</NavDropdown.Item>
                                             <NavDropdown.Item onClick={() => { logoutFunction() }}>Sair</NavDropdown.Item>
                                         </NavDropdown>

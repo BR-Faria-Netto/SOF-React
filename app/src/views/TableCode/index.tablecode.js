@@ -15,7 +15,15 @@ import urlapi from "../../services/urlapi"
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
+import { Role } from '../../services/role';
+import { getUser } from '../../auth'
+
+import moment from "moment";
+
+
 export default class Index extends Component {
+
+  isShow = (getUser().role !== Role.Admin);
 
   constructor(props) {
       super(props);
@@ -23,6 +31,8 @@ export default class Index extends Component {
         tipos: [],
         err: null,
         isLoading: true
+
+        
       }
       this.getDataAll();
    }
@@ -92,6 +102,28 @@ export default class Index extends Component {
             {
               dataField: 'descricao',
               text: 'Descrição'
+            },
+            {
+              dataField: 'createdAt',
+              text: 'Criação',
+              formatter: (row) => (
+                `${moment(row).format("DD/MM/YYYY")? moment(row).format("DD/MM/YYYY HH:mm:ss"):moment(row).format("DD/MM/YYYY HH:mm:ss") }`
+              ),
+              hidden: this.isShow
+            }
+            ,
+            {
+              dataField: 'createdUp',
+              text: 'Alteração',
+              formatter: (row) => (
+                `${moment(row).format("DD/MM/YYYY")? moment(row).format("DD/MM/YYYY HH:mm:ss"):moment(row).format("DD/MM/YYYY HH:mm:ss" ) }`
+              ),
+              hidden: this.isShow
+            },
+            {
+              dataField: 'login',
+              text: 'Usuário',
+              hidden: this.isShow
             },
             {
               text: 
@@ -202,4 +234,4 @@ export default class Index extends Component {
         </div>
       );
     }
-  }
+  } 

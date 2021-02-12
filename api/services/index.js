@@ -10,6 +10,14 @@ const dotenv = require('dotenv').config();
 // up server app express
 const app = express();
 
+// chamar o cliente no mesmo servidor em produção
+//const path = __dirname + '/views/';
+//app.use(express.static(path));
+//app.get('/', function (req,res) {
+//    res.sendFile(path + "index.html");
+//    res.sendFile(path + "home");
+//});
+
 // user developer required
 const userRoute = require('./user/user.route');
 const tablecodeRoute = require('./tablecode/tablecode.route');
@@ -19,6 +27,8 @@ const sequencialRoute = require('./sequencial/sequencial.route');
 const responsavel = require('./responsavel/responsavel.route');
 const nadRoute = require('./nad/nad.route');
 const ndcRoute = require('./ndc/ndc.route');
+
+
 
 // aplication to use
 app.disable('x-powered-by');

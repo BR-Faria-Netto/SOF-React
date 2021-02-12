@@ -9,12 +9,12 @@ let UnidGestora = new Schema(
   },
   descricao: {
     type: String
-  }
-
+  },
+  login: {
+    type: String
+  },  
 },
-
-{timestamps: true, collection: 'unidGestora'}
-
+  {timestamps: true, collection: 'unidGestora'}
 );
 
 module.exports = mongoose.model('UnidGestora', UnidGestora);

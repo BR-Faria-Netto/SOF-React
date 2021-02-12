@@ -39,11 +39,9 @@ let Favorecido = new Schema(
     },
     login: {
       type: String
-    },
-    
+    },  
 },
-  
-  {timestamps: true, collection: 'favorecido'}
-
+    {timestamps: true, collection: 'favorecido'}
 );
+
 module.exports = mongoose.model('Favorecido', Favorecido);

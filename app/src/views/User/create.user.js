@@ -105,7 +105,8 @@ export default class Create extends Component {
       password : this.state.password,
       confirmPassword : this.state.confirmpassword,
       status : this.state.status,
-      confirmCode : this.state.confirmCode
+      confirmCode : this.state.confirmCode,
+      usuario: window.login
     };
 
     let isValid = true;

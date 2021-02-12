@@ -12,7 +12,10 @@ let Sequencial = new Schema(
     },
     sequencia: {
       type: Number
-    }
+    },
+    login: {
+      type: String
+    },  
 },
     {timestamps: true, collection: 'sequencial'}
 );
