@@ -1,0 +1,17 @@
+{
+  "name": "sof-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"db\" \"cd api && node server.js\" \"cd app && npm start\"",
+    "prod":  "concurrently \"db\" \"cd api && node build/api.server.js\" \"cd app && serve -l 3000 -s build\"",
+    "dev": "concurrently \"start db\" \"cd api && start npm start\" \"cd app && start npm start\""
+  },
+  "keywords": [],
+  "author": "Ronaldo Faria",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^5.3.0"
+  }
+}
