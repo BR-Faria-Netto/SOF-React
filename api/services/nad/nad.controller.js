@@ -17,28 +17,17 @@ module.exports = {
       });
   },
   // Defined add store route
-  add(req, res) {
-     Sequencial.findOne({ano : req.body.anonad , tabela : 'NAD' }, function (err, sequencial) {
-         try {
-          //const session = client.startSession()
-            //await session.withTransaction(async () => {
-            //await collection.insertOne(doc1, { session })
-            //await collection.insertOne(doc2, { session })
-          //})
-          //session.commitTransaction()
-          //session.endSession()
-             sequencial.sequencia = sequencial.sequencia+1;
-             sequencial.save({w: 1});
-             let numero = '0'+sequencial.sequencia+0;
-             numero = ("000000"+numero).slice(-7,-1);
-             let nad = new Nad(req.body);
-             nad.numnad = numero;
-             nad.save()
-             res.status(200).json({'Nads': 'Added successfully'});
-         } catch (err) {
-             res.status(400).send("Unable to save to database");
-         }
-    })
+  add(req, res) { 
+    Sequencial.findOne({ano : req.body.anonad , tabela : 'NAD' }, function (err, sequencial) {
+        sequencial.sequencia = sequencial.sequencia+1;
+        sequencial.save();
+        let numero = '0'+sequencial.sequencia+0;
+        numero = ("000000"+numero).slice(-7,-1);
+        let nad = new Nad(req.body);
+        nad.numnad = numero;
+        nad.save()
+        res.status(200).json({'Nads': 'Added successfully'});
+     })
   },
   // Defined edit route
   edit(req, res) {

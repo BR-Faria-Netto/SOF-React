@@ -12,13 +12,11 @@ import cellEditFactory from 'react-bootstrap-table2-editor';
 
 import urlapi from "../../services/urlapi"
 
-import $ from 'jquery';
-
 export default class Edit extends Component {
 
   constructor(props) {
 
-    super(props)
+    super(props);
 
     this.onChangeNomefav = this.onChangeNomefav.bind(this); 
     this.onChangeBai = this.onChangeBai.bind(this); 
@@ -32,7 +30,7 @@ export default class Edit extends Component {
 
     this.state = {
       nomefav : '',
-      bai : '',
+      bai : '', 
       ender : '',
       cid : '',
       cep : '',
