@@ -16,18 +16,43 @@ module.exports = {
         }
       });
   },
+  // // Defined add store route
+  // add(req, res) { 
+  //   Sequencial.findOne({ano : req.body.anonad , tabela : 'NAD' }, function (err, sequencial) {
+  //       sequencial.sequencia = sequencial.sequencia+1;
+  //       let numero = '0'+sequencial.sequencia+0;
+  //       sequencial.save();
+  //       numero = ("000000"+numero).slice(-7,-1);
+  //       let nad = new Nad(req.body);
+  //       nad.numnad = numero;
+  //       nad.save()
+        
+  //       res.status(200).json({'Nads': 'Added successfully'});
+  //    })
+  // },
+
+
   // Defined add store route
   add(req, res) { 
     Sequencial.findOne({ano : req.body.anonad , tabela : 'NAD' }, function (err, sequencial) {
-        sequencial.sequencia = sequencial.sequencia+1;
-        sequencial.save();
-        let numero = '0'+sequencial.sequencia+0;
-        numero = ("000000"+numero).slice(-7,-1);
-        let nad = new Nad(req.body);
-        nad.numnad = numero;
-        nad.save()
-        res.status(200).json({'Nads': 'Added successfully'});
-     })
+      try {
+        let sequencia = sequencial.sequencia;
+        for (let index = 0; index < req.body.copias; index++) {
+          sequencia = sequencia+1;
+          let numero = '0'+sequencia+0;
+          numero = ("000000"+numero).slice(-7,-1);
+          let nad = new Nad(req.body);
+          nad.numnad = numero;
+          nad.save();
+          Sequencial.findById(sequencial.id, function(err, sequencial) {
+              sequencial.sequencia = sequencia;
+              sequencial.save();
+          })
+        }
+      } catch (err) {
+          res.status(400).send("Unable to save to database");
+      }
+    })
   },
   // Defined edit route
   edit(req, res) {

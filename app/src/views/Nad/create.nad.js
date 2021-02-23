@@ -229,6 +229,7 @@ export default class Create extends Component {
     this.onSubmit = this.onSubmit.bind(this);
    
     this.state = {
+      copias : 1,
       anonad :  moment().format('YYYY'),
       numnad : '00000',
       procnad : 'SEI/001/000.00/0000',
@@ -837,6 +838,7 @@ export default class Create extends Component {
   onSubmit(e) {
     e.preventDefault();
     const obj = {
+      copias : this.state.copias,
       anonad : this.state.anonad,
       numnad : this.state.numnad,
       procnad : this.state.procnad,

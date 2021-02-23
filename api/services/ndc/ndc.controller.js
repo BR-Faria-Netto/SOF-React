@@ -18,20 +18,25 @@ module.exports = {
   },
   // Defined add store route
   add(req, res) {
-    Sequencial.findOne({ano : req.body.anondc , tabela : 'NDC' }, function (err, sequencial) {
-      try {
-          sequencial.sequencia = sequencial.sequencia+1;
-          sequencial.save();
-          let numero = '0'+sequencial.sequencia+0;
-          numero = ("000000"+numero).slice(-7,-1);
-          let ndc = new Ndc(req.body);
-          ndc.numndc = numero;
-          ndc.save()
-          res.status(200).json({'Ndcs': 'Added successfully'});
-      } catch (err) {
-          res.status(400).send("Unable to save to database");
-      }
-    })
+      Sequencial.findOne({ano : req.body.anondc , tabela : 'NDC' }, function (err, sequencial) {
+        try {
+          let sequencia = sequencial.sequencia;
+          for (let index = 0; index < req.body.copias; index++) {
+            sequencia = sequencia+1;
+            let numero = '0'+sequencia+0;
+            numero = ("000000"+numero).slice(-7,-1);
+            let ndc = new Ndc(req.body);
+            ndc.numndc = numero;
+            ndc.save();
+            Sequencial.findById(sequencial.id, function(err, sequencial) {
+                sequencial.sequencia = sequencia;
+                sequencial.save();
+            })
+          }
+        } catch (err) {
+            res.status(400).send("Unable to save to database");
+        }
+      })
   },
   // Defined edit route
   edit(req, res) {

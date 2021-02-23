@@ -176,6 +176,7 @@ export default class Create extends Component {
     this.onSubmit = this.onSubmit.bind(this);
    
     this.state = {
+      copias : 1,
       anondc :  moment().format('YYYY'),
       numndc : '00000',
       procndc : 'SEI/001/000.00/0000',
@@ -574,6 +575,7 @@ export default class Create extends Component {
   onSubmit(e) {
     e.preventDefault();
     const obj = {
+      copias : this.state.copias,
       anondc : this.state.anondc,
       numndc : this.state.numndc,
       procndc : this.state.procndc,

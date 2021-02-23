@@ -946,6 +946,7 @@ export default class Edit extends Component {
   onSubmit(e) {
     e.preventDefault();
     const obj = {
+      copias : this.state.copias,
       anonad : this.state.anonad,
       numnad : this.state.numnad,
       procnad : this.state.procnad,
@@ -1012,20 +1013,17 @@ export default class Edit extends Component {
       datarat : this.state.datarat 
     };
 
-    for (let index = 0; index < this.state.copias; index++) {
-
-        api.post(urlapi + 'nad/add', obj)
-        .then(res => {
-          if (this.state.copias === '1') {
-            toast.success("Registro foi salvo com successo");
-          }
-        })
-        .catch(error => {
-          if (this.state.copias === '1') {
-            toast.error("Ocorrou erro ao salvar o registro");
-          }
-        })
-    }
+    api.post(urlapi + 'nad/add', obj)
+    .then(res => {
+      if (this.state.copias === '1') {
+        toast.success("Registro foi salvo com successo");
+      }
+    })
+    .catch(error => {
+      if (this.state.copias === '1') {
+        toast.error("Ocorrou erro ao salvar o registro");
+      }
+    })
 
     this.props.history.push('/indexNad');
   

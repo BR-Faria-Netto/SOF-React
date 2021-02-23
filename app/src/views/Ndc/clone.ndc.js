@@ -735,21 +735,18 @@ export default class Edit extends Component {
     e.preventDefault();
         const obj = {
 
+          copias : this.state.copias,
           anondc : this.state.anondc,
-
           numndc : this.state.numndc,
-
           procndc : this.state.procndc,
           datandc : this.state.datandc,
           evendc  : this.state.evendc,
-
           secret  : this.state.secret,
           uniorc  : this.state.uniorc,
           progtrab : this.state.progtrab,
           natdesp : this.state.natdesp,
           fontrec : this.state.fontrec,
           tipcre : this.state.tipcre,
-
           nomefav : this.state.nomefav,
           bai : this.state.bai,
           ender : this.state.ender,
@@ -757,11 +754,9 @@ export default class Edit extends Component {
           cep : this.state.cep,
           uf : this.state.uf,
           cnpj : this.state.cnpj,
-
           valor : this.state.valor,
           extenso : this.state.extenso,
           descdesp : this.state.descdesp,
-
           jan : this.state.jan,
           fev : this.state.fev,
           mar : this.state.mar,
@@ -774,9 +769,7 @@ export default class Edit extends Component {
           out : this.state.out,
           nov : this.state.nov,
           dez : this.state.dez,
-          
           baselegal : this.state.baselegal,
-
           emissor : this.state.emissor,
           cargoemissor : this.state.cargoemissor,
           deleemi : this.state.deleemi,
@@ -794,24 +787,20 @@ export default class Edit extends Component {
           datarat : this.state.datarat 
         };
 
-        for (let index = 0; index < this.state.copias; index++) {
+        api.post(urlapi + 'ndc/add', obj)
+        .then(res => {
+          if (this.state.copias === '1') {
+              toast.success("Registro foi salvo com successo");
+          }
+        })
+        .catch(error => {
+          if (this.state.copias === '1') {
+              toast.error("Ocorrou erro ao salvar o registro");
+          }
+        })
 
-            api.post(urlapi + 'ndc/add', obj)
-            .then(res => {
-              if (this.state.copias === '1') {
-                  toast.success("Registro foi salvo com successo");
-              }
-            })
-            .catch(error => {
-              if (this.state.copias === '1') {
-                  toast.error("Ocorrou erro ao salvar o registro");
-              }
-            })
-        
-            this.props.history.push('/indexNdc');
+        this.props.history.push('/indexNdc');
 
-      }
-  
   }
 
   render() {

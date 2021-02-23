@@ -6,7 +6,7 @@
 const mongoose = require("mongoose");
 
 function connect() {
-    mongoose.connect(process.env.DB_HOST+'/'+process.env.DB_NAME, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, user: process.env.DB_USER, pass: process.env.DB_PASS });
+    mongoose.connect(process.env.DB_HOST+'/'+process.env.DB_NAME, { useNewUrlParser: true, useCreateIndex: true,useFindAndModify: false, useUnifiedTopology: true, user: process.env.DB_USER, pass: process.env.DB_PASS });
     let db = mongoose.connection;
 
     db.on('error', console.error.bind(console, 'connection error:'));
