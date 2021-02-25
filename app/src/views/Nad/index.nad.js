@@ -36,9 +36,13 @@ const NadList = () => {
     const [isRefresh, setIsRefresh] = useState(true);
   
     useEffect(() => {
+        
+        //alert(rowData.length);
+
         getDataAll();
+        
     }, []);
-  
+
     const getDataAll = () => {
           setIsRefresh(true);
           api.get('/nad')
@@ -50,7 +54,7 @@ const NadList = () => {
                 setIsErr(true);
                 setIsLoading(false);
           })
-    }
+    };
   
     const [rowSelect, setrowSelect] = useState([]);
   
@@ -299,7 +303,7 @@ const NadList = () => {
            {isVisible ? dataPrint.map(item => <PrintNad data={item} />) : 
               <ToolkitProvider 
                   keyField='_id'
-                  data={rowData}
+                  data={ rowData }
                   columns={ columns }
                   search
                 >
@@ -313,9 +317,9 @@ const NadList = () => {
                                   { ...props.baseProps }
                                   bootstrap4
                                   keyField="_id"
-                                  data={rowData}
-                                  columns={columns}
-                                  selectRow={selectRow}
+                                  data={ rowData }
+                                  columns={ columns }
+                                  selectRow={ selectRow }
                                   rowEvents={ tableRowEvents }
                                   pagination={ paginationFactory(options) }
                                   filter={ filterFactory() }
@@ -334,4 +338,3 @@ const NadList = () => {
   
     );
   }
-  

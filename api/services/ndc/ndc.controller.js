@@ -1,10 +1,7 @@
 const Ndc = require("./ndc.model");
 const Sequencial = require('../sequencial/sequencial.model');
-const util = require('../../helpers/utils');
-const { unlink } = require("fs");
 
 module.exports = {
-
   // Defined listing route
   getAll(req, res) {
       Ndc.find(function(err,ndc){
@@ -107,7 +104,6 @@ module.exports = {
       }
     });
   },
-  
   // Defined delete | remove | destroy route
   delete (req, res) {
       Ndc.findByIdAndRemove({_id: req.params.id}, function(err, ndc){
@@ -115,7 +111,4 @@ module.exports = {
           else res.json('Successfully removed');
       });
   },
-
-  
 };
-
