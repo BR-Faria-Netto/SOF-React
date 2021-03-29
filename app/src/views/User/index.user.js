@@ -14,6 +14,9 @@ import api from "../../services/api"
 import { Role } from '../../services/role';
 import { getUser } from '../../auth'
 
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+
 import moment from "moment";
 
 
@@ -50,15 +53,31 @@ constructor(props) {
     }));
 }
 
-deleteRow(row){
-    api.get('/user/delete/'+row._id).then( res => 
-      toast.warning("Registro foi excluido com successo")
-    )
-    .catch(err => {
-      toast.error("Ocorrou erro ao excluir o registro");
-    })
-    this.getDataAll();
+deleteRow = (row) => {
+  confirmAlert({
+    title: 'Confirma excluir? ',
+    buttons: [
+      {
+        label: 'Sim',
+        onClick: () => {
+
+          api.get('/user/delete/' + row._id).then(res =>
+            toast.warning("Registro foi excluido com successo")
+          )
+            .catch(err => {
+              toast.error("Ocorrou erro ao excluir o registro");
+          })
+          this.getDataAll();
+        }
+      },
+      {
+        label: 'Não',
+      }
+    ]
+  })
 }
+
+
 
 render() {
       let { err, isLoading} = this.state;
@@ -135,7 +154,7 @@ render() {
                     <Link to={"/keyUser/"+row._id} className="btn btn-sm btn-outline-secondary"><Icon.Key/></Link>
                 </div> 
                 <div className="col-sm-3">
-                    <Link to={`#`} className="btn btn-sm btn-outline-danger" onClick={() => {if(window.confirm('Você confirma a exclusão?')){ this.deleteRow(row)};}}><Icon.TrashFill/></Link>
+                    <Link to={`#`} className="btn btn-sm mr-2 btn-outline-danger" onClick={() => { this.deleteRow(row) }}><Icon.TrashFill /></Link>
                 </div> 
             </div>
           ),

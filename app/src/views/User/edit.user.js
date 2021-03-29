@@ -140,21 +140,21 @@ export default class Edit extends Component {
               <div className="form-row">
                 <div className="col-sm-5">
                   <label>Nome:</label>  
-                  <input id="name" name="name" className="form-control form-control-sm" required="" type="text" value={this.state.name} onChange={this.onChangeName} readonly="readonly" />
+                  <input id="name" name="name" className="form-control form-control-sm" required="" type="text" value={this.state.name} onChange={this.onChangeName} />
                 </div>
               </div>
 
               <div className="form-row">
                 <div className="col-sm-5">
                   <label>Email</label>  
-                  <input id="email" name="email" className="form-control form-control-sm" required="" type="text" value={this.state.email} onChange={this.onChangeEmail} readonly="readonly"  />
+                  <input id="email" name="email" className="form-control form-control-sm" required="" type="text" value={this.state.email} onChange={this.onChangeEmail}  />
                 </div>
               </div>
 
               <div className="form-row">
                 <div className="col-sm-5">
                   <label>Login</label>  
-                  <input id="login" name="login" className="form-control form-control-sm" required="" type="text" value={this.state.login} onChange={this.onChangeLogin} readonly="readonly" />
+                  <input id="login" name="login" className="form-control form-control-sm" required="" type="text" value={this.state.login} onChange={this.onChangeLogin} />
                 </div>
               </div>
 

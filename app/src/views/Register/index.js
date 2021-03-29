@@ -6,7 +6,7 @@ import api from "../../services/api"
 import { toast } from 'react-toastify'
 import { Link } from "react-router-dom"
 
-import '../../index.css'
+import Global from "../../styles/global";
 
 const Register = (props) => {
 
@@ -100,6 +100,7 @@ const Register = (props) => {
     return (
 
         <div style={pageStyles}>
+            <Global />
             <div className="jumbotron bg" style={{ width: "450px", minHeight: "450px" , border: '1px solid #ccc' }}>
                 <h1 style={registerTitle}>Solicitação de Acesso</h1>
                 <div className="row">

@@ -20,6 +20,8 @@ import PrintNad from './print.nad'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
+import moment from "moment";
+
 export default class Index extends Component {
     render() {
         return (<div><NadList /> </div>);
@@ -34,26 +36,44 @@ const NadList = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [isErr, setIsErr] = useState(false); 
     const [isRefresh, setIsRefresh] = useState(true);
-  
-    useEffect(() => {
-        
-        //alert(rowData.length);
 
-        getDataAll();
-        
+    const [dataIni, setDataIni] = useState('');
+    const [dataFim, setDataFim] = useState('');
+    const [diferenca, setDiferenca] = useState('');
+
+    useEffect(() => {
+       getDataAll(1);
     }, []);
 
-    const getDataAll = () => {
-          setIsRefresh(true);
-          api.get('/nad')
-             .then(res => {
-                setRowData(res);
-                setIsLoading(false);
-             })
-             .catch(err => {
-                setIsErr(true);
-                setIsLoading(false);
+    function timeDiff(d1, d2) {
+      var d1 = new Date(d1).getTime();
+      var d2 = d2 || new Date().getTime();
+      var df = Math.abs(d1 - d2);
+      var td = {
+        d: Math.round(df / (24 * 60 * 60 * 1000)), //dias
+        h: Math.round(df / (60 * 60 * 1000)), //horas
+        m: Math.abs(Math.round(df / (60 * 1000)) - (60 * 1000)), //minutos
+        s: Math.abs(Math.round(df / 1000) - 1000)
+      };
+      var result = '';
+      td.d > 0 ? result += td.d + ' dias ' : '';
+      td.h > 0 ? result += ('0' + td.h).slice(-2) + ':' : '00:';
+      td.m > 0 ? result += ('0' + td.m).slice(-2) + ':' : '00:';
+      td.s > 0 ? result += ('0' + td.s).slice(-2) : '00';
+      return result;
+    }
+
+    const getDataAll = (page) => {
+      setIsRefresh(true);
+      api.get('nad/'+page)
+          .then(res => {
+            setRowData(res);
+            setIsLoading(false);
           })
+          .catch(err => {
+            setIsErr(true);
+            setIsLoading(false);
+      })
     };
   
     const [rowSelect, setrowSelect] = useState([]);
@@ -109,8 +129,7 @@ const NadList = () => {
                   .catch(error => {
                     toast.error("Ocorrou erro ao excluir o registro");
                   })
-          
-                  getDataAll();
+                  getDataAll(1);
                   setIsRefresh(true);
             }
           },
@@ -215,91 +234,140 @@ const NadList = () => {
       }
     ];
   
-    const options = {
-      paginationSize: 3,
-      pageStartIndex: 1,
-      sizePerPage: 8,
+    const sizePerPageRenderer = ({
+      options,
+      currSizePerPage,
+      onSizePerPageChange
+    }) => {
+      return (
+        options.map(option => (
+          <button
+            key={option.text}
+            type="button"
+            onClick={() => onSizePerPageChange(option.page)}
+            className={`btn ${currSizePerPage === `${option.page}` ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-warning'}`}
+          >
+            {option.text}
+          </button>
+        ))
+      )
+    };
+
+    const pageButtonRenderer = ({
+      page,
+      active,
+      onPageChange
+    }) => {
+      const pageClick = (page) => {
+
+        getDataAll(page);
+        onPageChange(page);
+
+      };
+      let styleClass = '';
+      if (active) {
+        styleClass = 'btn btn-sm btn-secondary';
+      }
+      else {
+        styleClass = 'btn btn-sm btn-warning';
+      }
+      if (typeof page === 'string') {
+        styleClass = 'btn btn-sm btn-warning';
+      }
+      return (
+        <button
+          key={page}
+          type='button'
+          className={styleClass}
+          style={{ float: 'right' }}
+          onClick={() => pageClick(page)}
+        >
+          {page}
+        </button>
+      );
+    };
+
+    const options = ({
+      pageButtonRenderer,
+      sizePerPageRenderer,
+      page: 1,
       sizePerPageList: [
-           {
-             text: '8', value: 8
-           },
-           {
-             text: '16', value: 16
-           },
-           {
-             text: '32', value: 32
-           },
-           {
-             text: '64', value: 64
-           }
-       ] 
- 
-   };
+        {
+          text: '10', value: 10
+        },
+        {
+          text: '20', value: 20
+        },
+        {
+          text: '40', value: 40
+        },
+        {
+          text: '80', value: 80
+        }
+      ]
+    });
 
-   const MySearch = (props) => {
-        let input;
-        const handleClick = () => {
-          props.onSearch(input.value);
-        };
-        return (
-          <div>
-              <br></br>
-              <div className="form-row" style={{ marginLeft:'195px'}}>
-                  <label>Pesquisar:</label>  
-                    <div className="col-sm-4">
-                        <input className="form-control form-control-sm"  ref={ n => input = n } type="text" />
-                    </div>
-                  <div className="col-sm-2">
-                      <button onClick={ handleClick }  className="btn btn-sm btn-outline-warning"><Icon.Search/></button>
+    const MySearch = (props) => {
+      let input;
+      const handleClick = () => {
+        props.onSearch(input.value);
+      };
+      return (
+        <div>
+            <br></br>
+            <div className="form-row" style={{ marginLeft:'195px'}}>
+                <label>Pesquisar:</label>  
+                  <div className="col-sm-4">
+                      <input className="form-control form-control-sm"  ref={ n => input = n } type="text" />
                   </div>
+                <div className="col-sm-2">
+                    <button onClick={ handleClick }  className="btn btn-sm btn-outline-warning"><Icon.Search/></button>
+                </div>
 
-              </div>
-          </div>
-        );
-  };
+            </div>
+        </div>
+      );
+    };
  
-  const tableRowEvents = {
-    onClick: (e, row, rowIndex) => {
-      console.log(`clicked on row with index: ${rowIndex}`);
-    },
-    onMouseEnter: (e, row, rowIndex) => {
-      console.log(`enter on row with index: ${rowIndex}`);
+    const tableRowEvents = {
+        onClick: (e, row, rowIndex) => {
+          console.log(`clicked on row with index: ${rowIndex}`);
+        },
+        onMouseEnter: (e, row, rowIndex) => {
+          console.log(`enter on row with index: ${rowIndex}`);
+        }
     }
- }
 
-   if (isErr) {
+    if (isErr) {
         return (
-            <div className="container alert alert-danger" style={{ marginTop: 20, marginBotton: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}> Tivemos problemas no servidor de Dados... </div>
+            <div className="container alert alert-danger" style={{ marginTop: 20, marginBotton: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}> Tivemos problemas no servidor de Dados...  </div>
       )
     }
 
     if (isLoading) {
-        return (
-            <div className="container alert alert-success" style={{ marginTop: 20, marginBotton: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}> Aguarde carregando os dados... </div>
-        )
+      return (
+        <div className="container alert alert-success" style={{ marginTop: 20, marginBotton: 20, width: '100%', height: '100%', maxWidth: '100%', minheight: '100%' }}> Aguarde carregando os dados... </div>
+      )
     }
 
     if (isRefresh) {
-       getDataAll();
-       setIsRefresh(false);
+      getDataAll(1);
+      setIsRefresh(false);
     }
 
     var styleDiv
     if(!isVisible)
-       styleDiv="marginTop:'2px',marginBotton:'2px', marginLeft:'2px', marginRight:'2px', backgroundColor:'#f7f7f7'" 
+        styleDiv="marginTop:'2px',marginBotton:'2px', marginLeft:'2px', marginRight:'2px', backgroundColor:'#f7f7f7'" 
     else
-       styleDiv="marginTop:'2px',marginBotton:'2px', marginLeft:'2px', marginRight:'2px', backgroundColor:'#f7f7f7', border: '1px solid #ccc'" 
+        styleDiv="marginTop:'2px',marginBotton:'2px', marginLeft:'2px', marginRight:'2px', backgroundColor:'#f7f7f7', border: '1px solid #ccc'" 
 
     return (
-
        <div className="responsive bg-dim full-bg-size" style={{styleDiv}}>       
-
            {!isVisible ? 
               <div className="form-row" style={{ marginLeft:'1px', marginRight:'1px',  backgroundColor:'#e8e9ea', height:'35px', textalign: 'center' }}>
-                  <h5>Autorização de Despesa</h5>
+                  <h5>Autorização de Despesa {diferenca} </h5>
               </div> : null
            }
-  
            {isVisible ? dataPrint.map(item => <PrintNad data={item} />) : 
               <ToolkitProvider 
                   keyField='_id'
@@ -335,6 +403,5 @@ const NadList = () => {
                 </ToolkitProvider>
        }
       </div>
-  
     );
-  }
+}

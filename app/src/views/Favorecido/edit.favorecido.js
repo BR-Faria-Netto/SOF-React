@@ -260,19 +260,21 @@ export default class Edit extends Component {
                           />
                      </div>  
                   </div> 
-                  <br></br>
-                  <div className="form-row">
+                  <div className="container" style={{ float: 'left' }}>
                        <ToastContainer />
-                       <div className="col-sm-1">
-                            <input type="submit" value="Salvar" className="btn btn-sm btn-primary"/>
-                            &nbsp;&nbsp;
-                            <Link to={'/indexFavorecido'} className="btn btn-sm btn-success">Cancelar</Link>
+                       <div className="form-row" >
+                          <div className="col-0">
+                              <input type="submit" value="Salvar" className="btn btn-sm btn-primary" />
+                          </div>
+                          <div className="col-0">
+                              <Link to={'/indexFavorecido'} className="btn btn-sm btn-success">Cancelar</Link>
+                          </div>
                        </div>
-                   </div>
-                   <br></br>
+                  </div>
+                  <br/><br/>
               </form>
           </div>
-          <br></br>
+          
 
         </div>
     )

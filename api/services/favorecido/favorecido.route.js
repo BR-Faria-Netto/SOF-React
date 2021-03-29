@@ -15,7 +15,15 @@ favorecidoRoute.route('/add').post(function (req, res) {
     });
 });
 // Defined get data(index or listing) route
-favorecidoRoute.route('/').get(function (req, res) {
+favorecidoRoute.route('/:page').get(function (req, res) {
+
+    console.log(req.params.page);
+
+    const pageNo = 1;
+    const pageSize = 10;
+    const skip = (pageNo - 1) * pageSize; 
+    const limit = pageSize*3;
+
     Favorecido.find(function(err,favorecido){
       if(err){
         res.json({
@@ -26,7 +34,7 @@ favorecidoRoute.route('/').get(function (req, res) {
       else {
         res.json(favorecido);
       }
-    });
+    }).skip(skip).limit(limit);
 });
 // Defined edit route
 favorecidoRoute.route('/edit/:id').get(function (req, res) {

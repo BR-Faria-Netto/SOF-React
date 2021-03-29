@@ -44,15 +44,6 @@ axios.get(urlapi + 'tablecode/unidgestora').then(resp => {
   });
 });
 
-var optionsunidorcamentaria = [];
-optionsunidorcamentaria.push({ value:  '', label: 'Selecione a opção...', id: 0});
-axios.get(urlapi + 'tablecode/unidorcamentaria').then(resp => {
-  Object.entries(resp.data).forEach(entry => {
-    const [key, value] = entry;
-    optionsunidorcamentaria.push({ value: (key, value.descricao), label: (key, value.descricao )});
-  });
-});
-
 var optionsprogtrabalho = [];
 optionsprogtrabalho.push({ value:  '', label: 'Selecione a opção...', id: 0});
 axios.get(urlapi + 'tablecode/progtrabalho').then(resp => {
@@ -90,34 +81,34 @@ axios.get(urlapi + 'favorecido').then(resp => {
 });
 
 var optionsEmissor = [];
-optionsEmissor.push({ value: '', label: '', id: 0});
+optionsEmissor.push({ value: '', label: 'Sem Emissor', id: 0 });
 api.get('responsavel/emissor').then(resp => {
   Object.entries(resp).forEach(entry => {
     const [key, value] = entry;
-    optionsEmissor.push({ value: (key, value.nome), label: (key, value.nome ), id: (key, value._id )});
+    optionsEmissor.push({ value: (key, value.nome), label: (key, value.nome), id: (key, value._id) });
   });
 });
 
 var optionsOrdenador = [];
-optionsOrdenador.push({ value: '', label: '', id: 0});
+optionsOrdenador.push({ value: '', label: 'Sem Ordenador', id: 0 });
 api.get('responsavel/ordenador').then(resp => {
   Object.entries(resp).forEach(entry => {
     const [key, value] = entry;
-    optionsOrdenador.push({ value: (key, value.nome), label: (key, value.nome ), id: (key, value._id ) });
+    optionsOrdenador.push({ value: (key, value.nome), label: (key, value.nome), id: (key, value._id) });
   });
 });
 
 var optionsRatificador = [];
-optionsRatificador.push({ value: '', label: '', id: 0});
+optionsRatificador.push({ value: '', label: 'Sem Ratificador', id: 0 });
 api.get('responsavel/ratificador').then(resp => {
   Object.entries(resp).forEach(entry => {
     const [key, value] = entry;
-    optionsRatificador.push({ value: (key, value.nome), label: (key, value.nome ), id: (key, value._id ) });
+    optionsRatificador.push({ value: (key, value.nome), label: (key, value.nome), id: (key, value._id) });
   });
 });
 
 var optionssecretaria = [];
-optionssecretaria.push({ value:  '', label: 'Selecione a opção...', id: (0,0)});
+optionssecretaria.push({ value:  '', label: 'Selecione a opção...', id: 0});
 axios.get(urlapi + 'secretaria').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
@@ -174,7 +165,7 @@ export default class Create extends Component {
     this.onChangeDelerat = this.onChangeDelerat.bind(this); 
     this.onChangeDatarat = this.onChangeDatarat.bind(this);  
     this.onSubmit = this.onSubmit.bind(this);
-   
+
     this.state = {
       copias : 1,
       anondc :  moment().format('YYYY'),
@@ -182,12 +173,12 @@ export default class Create extends Component {
       procndc : 'SEI/001/000.00/0000',
       datandc : moment(new Date()).format("DD/MM/YYYY"),
       evendc  : optionstipoevento[0].label,
-      secret  : 'Secretária de Estado de Saúde - SES',
+      secret: optionsfavorecido[0].label,
       unigest : optionsunidgestora[0].label,
       progtrab : optionsprogtrabalho[0].label,
       natdesp : optionsnaturezadespesa[0].label,
       fontrec : optionsfonterecurso[0].label,
-      nomefav : '',
+      nomefav: optionsfavorecido[0].label,
       bai : '',
       ender : '',
       cid : '',
@@ -226,6 +217,7 @@ export default class Create extends Component {
       matrat : '',
       datarat : ''
     }
+
   }
 
   onChangeAnondc(e) {
@@ -257,7 +249,7 @@ export default class Create extends Component {
     // ta feio mas funciona
     if (e.value.length === 0){
         this.setState({
-          secret:''
+          secret: e.value
       });
     }
     else
@@ -297,7 +289,7 @@ export default class Create extends Component {
     // ta feio mas funciona
     if (e.value.length === 0){
         this.setState({
-          nomefav:'',
+          nomefav: e.value,
           bai : '',
           ender : '',
           cid : '',
@@ -574,6 +566,7 @@ export default class Create extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+
     const obj = {
       copias : this.state.copias,
       anondc : this.state.anondc,
@@ -623,7 +616,8 @@ export default class Create extends Component {
       cargoratificador : this.state.cargoratificador,
       delerat : this.state.delerat,
       matrat : this.state.matrat,
-      datarat : this.state.datarat 
+      datarat : this.state.datarat,
+      login: window.login
     };
 
     api.post('ndc/add',obj)
@@ -631,7 +625,7 @@ export default class Create extends Component {
       toast.success("Registro foi salvo com successo");
     })
     .catch(error => {
-      toast.error("Ocorrou erro ao salvar o registro");
+      toast.error("Ocorrou erro ao salvar o registro"+error);
     })
 
     this.props.history.push('/indexNdc');

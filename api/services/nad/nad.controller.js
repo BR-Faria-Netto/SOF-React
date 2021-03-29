@@ -1,12 +1,14 @@
 const Nad = require("./nad.model");
 const Sequencial = require('../sequencial/sequencial.model');
-const util = require('../../helpers/utils');
-const { unlink } = require("fs");
 
 module.exports = {
 
   // Defined listing route
-  getAll(req, res) {
+  getAllTeste(req, res) {
+    const pageNo = parseInt(req.params.page);
+    const pageSize = 10;
+    const skip = (pageNo - 1) * pageSize;
+    const limit = (pageNo + pageSize) * pageSize;
       Nad.find(function(err,nad){
         if(err){
           console.log(err);
@@ -14,8 +16,21 @@ module.exports = {
         else {
           res.json(nad);
         }
-      });
+      }).skip(skip).limit(limit);
   },
+
+  // Defined listing route
+  getAll(req, res) {
+    Nad.find(function (err, nad) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        res.json(nad);
+      }
+    });
+  },
+
   // Defined add store route
   add(req, res) { 
     Sequencial.findOne({ano : req.body.anonad , tabela : 'NAD' }, function (err, sequencial) {

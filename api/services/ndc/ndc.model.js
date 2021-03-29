@@ -22,7 +22,7 @@ let Ndc = new Schema(
     secret: {
       type: String
     },
-    uniorc: {
+    unigest: {
       type: String
     },
     progtrab: {
@@ -155,7 +155,7 @@ let Ndc = new Schema(
       type: String
     },  
 },
-    {timestamps: true, collection: 'ndc'}
+    { timestamps: true, collection: 'ndc' }
 );
 
 module.exports = mongoose.model('Ndc', Ndc);

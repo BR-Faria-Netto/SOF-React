@@ -36,39 +36,34 @@ export default class Index extends Component {
 
 export const FavorecidoList = (user) => {
 
-
     const [rowData, setRowData] = useState([]);
     const [dataPrint,setDataPrint] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isVisible, setIsVisible] = useState(false);
     const [isErr, setIsErr] = useState(false); 
     const [isRefresh, setIsRefresh] = useState(true);
+    const [page, setPage] = useState(1);
 
     const isShow = (getUser().role !== Role.Admin);
-
-    const [pageNumber, setPageNumber] = useState(1);
    
-
     useEffect(() => {
       getDataAll();
     }, []);
 
-    const getDataAll = () => {
 
-        //setPageNumber(parseInt(localStorage.getItem("pageNumber")));
+   const getDataAll = (page) => {
 
-        axios.get(urlapi+'favorecido').then(response => {
-          setRowData(response.data);
-          setIsLoading(false);
-        })
-        .catch(error => {
-          setIsErr(true);
-          setIsLoading(false);
-        })
-    }
-  
+     axios.get(urlapi + 'favorecido/'+page).then(response => {
+       setRowData(response.data);
+       setIsLoading(false);
+     })
+       .catch(error => {
+         setIsErr(true);
+         setIsLoading(false);
+       })
+   }
+
     const [rowSelect, setrowSelect] = useState([]);
-      
         
     const selectRow = useMemo(
       () => ({
@@ -133,20 +128,6 @@ export const FavorecidoList = (user) => {
       
     }
 
-    const setPage = (page) => {
-
-      setPageNumber(page);
-      //localStorage.setItem("pageNumber", page);
-
-    }
-
-    // function dateFormatter(cell: any) {
-    //   if (!cell) {
-    //         return "";
-    //   }
-    //   return `${moment(cell).format("DD/MM/YYYY")? moment(cell).format("DD/MM/YYYY"):moment(cell).format("DD/MM/YYYY") }`;
-    // }
-  
     const columns = [
       {
         dataField: 'nomefav',
@@ -157,25 +138,21 @@ export const FavorecidoList = (user) => {
         dataField: 'cnpj',
         text: 'Cnpj/Cpf',
         filter: textFilter()
-  
       },
       {
         dataField: 'ender',
         text: 'Endereço',
         filter: textFilter()
-  
       },
       {
         dataField: 'bai', 
         text: 'Bairro',
         filter: textFilter()
-  
       },
       {
         dataField: 'cid',
         text: 'Cidade',
         filter: textFilter()
-      
       },
       {
         dataField: 'createdAt',
@@ -203,83 +180,132 @@ export const FavorecidoList = (user) => {
         hidden: isShow
       },
       {
-        text: 
+        text:
           <div>
-              <div className="form-row">
-                  <div className="col-sm-3">
-                    Ação
-                  </div> 
-              </div>
-              <div className="form-row">
-                  <div className="col-sm-3">
-                    <Link to={'/createFavorecido'} className="btn btn-sm btn-outline-success"><Icon.PlusSquareFill/></Link>
-                  </div> 
-                  <div className="col-sm-3">
-                      {rowData.length > 0 && (<button onClick={ Printer } className="btn btn-sm btn-outline-secondary"><Icon.Printer/></button>)} 
-                  </div> 
-              </div>
-          </div>
-          ,
-          formatter: (cellContent, row, isSelected, currentDisplayAndSelectedData) => (
             <div className="form-row">
-                <div className="col-sm-3">
-                    <Link to={"/editFavorecido/"+row._id} className="btn btn-sm btn-outline-primary"><Icon.PencilSquare/></Link>
-                </div> 
-                <div className="col-sm-3">
-                    <Link to={`#`} className="btn btn-sm btn-outline-danger" onClick={() => { deleteRow(row)}}><Icon.TrashFill/></Link>
-                </div> 
+              <div className="col-sm-3">
+                Ação
+                    </div>
             </div>
-          ),
-          style:{
-            width: '9%'
-          }
+            <div className="form-row">
+              <div className="col-sm-3">
+                <Link to={'/createFavorecido'} className="btn btn-sm btn-outline-success"><Icon.PlusSquareFill /></Link>
+              </div>
+              <div className="col-sm-3">
+                  {rowData.length > 0 && (<button onClick={Printer} className="btn btn-sm btn-outline-secondary"><Icon.Printer /></button>)}
+              </div> 
+            </div>
+          </div>
+        ,
+        formatter: (cellContent, row, isSelected, currentDisplayAndSelectedData) => (
+          <div className="form-row">
+            <div className="col-sm-3">
+              <Link to={"/editFavorecido/" + row._id} className="btn btn-sm btn-outline-primary"><Icon.PencilSquare /></Link>
+            </div>
+            <div className="col-sm-3">
+              <Link to={"/cloneFavorecido/" + row._id} className="btn btn-sm btn-outline-warning"><Icon.CloudPlus /></Link>
+            </div>
+            <div className="col-sm-3">
+              <Link to={`#`} className="btn btn-sm btn-outline-danger" onClick={() => { deleteRow(row) }}><Icon.TrashFill /></Link>
+            </div>
+          </div>
+        ),
+        style: {
+          width: '6%'
+        }
       }
     ];
 
-    const options = {
-       onPageChange: (page) => {
-         setPage(page);
-       },
-       page: pageNumber,
-       paginationSize: 3,
-       pageStartIndex: 1,
-       sizePerPage: 8,
-       sizePerPageList: [
-            {
-              text: '8', value: 8
-            },
-            {
-              text: '16', value: 16
-            },
-            {
-              text: '32', value: 32
-            },
-            {
-              text: '64', value: 64
-            }
-        ] 
-  
+    const sizePerPageRenderer = ({
+      options,
+      currSizePerPage,
+      onSizePerPageChange
+    }) => {
+          return (
+            options.map(option => (
+                <button
+                  key={option.text}
+                  type="button"
+                  onClick={() => onSizePerPageChange(option.page)}
+                  className={`btn ${currSizePerPage === `${option.page}` ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-warning'}`}
+                >
+                  {option.text}
+                </button>
+            ))
+          )
+    };
+
+    const pageButtonRenderer = ({
+      page,
+      active,
+      onPageChange
+    }) => {
+
+      const pageClick = (page) => {
+        setPage(page);
+        getDataAll(page);
+        onPageChange(page);
+      };
+
+      let styleClass = '';
+      if (active) {
+        styleClass = 'btn btn-sm btn-secondary';
+      }
+      else {                           
+        styleClass = 'btn btn-sm btn-warning';
+      }
+      if (typeof page === 'string') {
+        styleClass = 'btn btn-sm btn-warning';
+      }
+      return (
+          <button
+            key={page}
+            type='button'
+            className={styleClass}
+            style={{float:'right'}}
+            onClick={() => pageClick(page) }
+          >
+            {page}
+          </button>
+        );
     };
     
+
+    const options = ({ 
+        pageButtonRenderer,
+        sizePerPageRenderer,
+        sizePerPageList: [
+          {
+            text: '10', value: 10
+          },
+          {
+            text: '20', value: 20
+          },
+          {
+            text: '40', value: 40
+          },
+          {
+            text: '80', value: 80
+          }
+        ] 
+    });
+   
     const MySearch = (props) => {
         let input;
-        const handleClick = () => {
-          props.onSearch(input.value);
-        };
         return (
-          <div>
-              <br></br>
-              <div className="form-row" style={{ marginLeft:'195px'}}>
-                  <label>Pesquisar:</label>  
-                    <div className="col-sm-4">
-                        <input className="form-control form-control-sm"  ref={ n => input = n } type="text" />
-                    </div>
-                  <div className="col-sm-2">
-                      <button onClick={ handleClick }  className="btn btn-sm btn-outline-warning"><Icon.Search/></button>
+          <div className="container">
+              <div className="row" style={{marginLeft: '5%'}}>
+              <div className="col-0">
+                    <label>Pesquisar:</label>
                   </div>
-
-              </div>
-          </div>
+                  <div className="col-7">
+                    <input className="form-control form-control-sm" ref={n => input = n} type="text" />
+                  </div>
+                  <div className="col-3">
+                    <button className="btn btn-sm btn-outline-warning" onClick={() => props.onSearch(input.value)}><Icon.Search /></button>
+                  </div>
+                </div>
+            </div>
         );
     };
 
@@ -296,12 +322,11 @@ export const FavorecidoList = (user) => {
     }
 
     if (isRefresh) {
-       getDataAll();
+       getDataAll(page);
        setIsRefresh(false);
     }
 
     return (
-
 
       <div className="responsive bg-dim full-bg-size" style={{ marginTop:'2px',marginBotton:'2px', marginLeft:'2px', marginRight:'2px', backgroundColor:'#f7f7f7', border: '1px solid #ccc'}}> 
       
@@ -347,24 +372,25 @@ export const FavorecidoList = (user) => {
                   search
                 >
                   {
-                    props => (
+                  props => (
                       <div>
-                          <MySearch { ...props.searchProps } />
-                          <br></br>
+                          <br/>
+                          <MySearch {...props.searchProps} />
+                          <br/>
                           <div>
                               <BootstrapTable
-                                  { ...props.baseProps }
+                                  {...props.baseProps}
                                   bootstrap4
                                   keyField="_id"
                                   data={rowData}
                                   columns={columns}
                                   selectRow={selectRow}
-                                  pagination={ paginationFactory(options) }
-                                  filter={ filterFactory() }
+                                  pagination={paginationFactory(options)}
+                                  filter={filterFactory()}
                                   wrapperClasses="table-responsive"
                                   headerClasses="header-class"
                                   hover
-                                  bordered={ true }
+                                  bordered={true}
                               />
                         </div>
                       </div>
@@ -381,5 +407,4 @@ export const FavorecidoList = (user) => {
           : null }
       </div>
     );
-
   }

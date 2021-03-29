@@ -11,6 +11,7 @@ import Login from "../views/Login";
 import IndexFavorecido from "../views/Favorecido/index.favorecido";
 import CreateFavorecido from "../views/Favorecido/create.favorecido";
 import EditFavorecido from "../views/Favorecido/edit.favorecido";
+import CloneFavorecido from "../views/Favorecido/clone.favorecido";
 
 import IndexResponsavel from "../views/Responsavel/index.responsavel";
 import CreateResponsavel from "../views/Responsavel/create.responsavel";
@@ -77,6 +78,7 @@ const routes = () => (
       <PrivateRoute exact path="/indexFavorecido" component={IndexFavorecido} />
       <PrivateRoute exact path="/createFavorecido" component={CreateFavorecido} />
       <PrivateRoute exact path="/editFavorecido/:id" component={EditFavorecido} />
+      <PrivateRoute exact path="/cloneFavorecido/:id" component={CloneFavorecido} />
 
       <PrivateRoute exact path="/indexResponsavel" component={IndexResponsavel} />
       <PrivateRoute exact path="/createResponsavel" component={CreateResponsavel} />

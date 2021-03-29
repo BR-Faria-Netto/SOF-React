@@ -12,9 +12,12 @@ import cellEditFactory from 'react-bootstrap-table2-editor';
 
 import urlapi from "../../services/urlapi"
 
-export default class Create extends Component {
+export default class Edit extends Component {
+
   constructor(props) {
+
     super(props);
+
     this.onChangeNomefav = this.onChangeNomefav.bind(this); 
     this.onChangeBai = this.onChangeBai.bind(this); 
     this.onChangeEnder = this.onChangeEnder.bind(this);
@@ -22,64 +25,92 @@ export default class Create extends Component {
     this.onChangeCep = this.onChangeCep.bind(this); 
     this.onChangeUf = this.onChangeUf.bind(this); 
     this.onChangeCnpj = this.onChangeCnpj.bind(this); 
+
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
       nomefav : '',
-      bai : '',
+      bai : '', 
       ender : '',
       cid : '',
       cep : '',
       uf : '',
       cnpj : '',
-      contas : []
+      contas: []
+      
     }
+    
   }
+  
+  componentDidMount() {
 
-  onChangeNomefav(e) {
-    this.setState({
-      nomefav: e.target.value
-    })  
-  }
+      axios.get(urlapi+'favorecido/edit/'+this.props.match.params.id)
+          .then(response => {
+              this.setState({ 
+                nomefav : response.data.nomefav,
+                bai : response.data.bai,
+                ender : response.data.ender,
+                cid : response.data.cid,
+                cep : response.data.cep,
+                uf : response.data.uf,
+                cnpj : response.data.cnpj,
+                contas: response.data.contas
+                
+              });
+              
+          })
+          .catch(function (error) {
+              console.log(error);
+          })
 
-  onChangeBai(e) {
-    this.setState({
-      bai: e.target.value
-    })  
-  }
+    }
 
-  onChangeEnder(e) {
-    this.setState({
-      ender: e.target.value
-    })  
-  }
-
-  onChangeCid(e) {
-    this.setState({
-      cid: e.target.value
-    })  
-  }
-
-  onChangeCep(e) {
-    this.setState({
-      cep: e.target.value
-    })  
-  }
-
-  onChangeUf(e) {
-    this.setState({
-      uf: e.target.value
-    })  
-  }
-
-  onChangeCnpj(e) {
-    this.setState({
-      cnpj: e.target.value
-    })  
-  }
+    onChangeNomefav(e) {
+      this.setState({
+        nomefav: e.target.value
+      })  
+    }
+  
+    onChangeBai(e) {
+      this.setState({
+        bai: e.target.value
+      })  
+    }
+  
+    onChangeEnder(e) {
+      this.setState({
+        ender: e.target.value
+      })  
+    }
+  
+    onChangeCid(e) {
+      this.setState({
+        cid: e.target.value
+      })  
+    }
+  
+    onChangeCep(e) {
+      this.setState({
+        cep: e.target.value
+      })  
+    }
+  
+    onChangeUf(e) {
+      this.setState({
+        uf: e.target.value
+      })  
+    }
+  
+    onChangeCnpj(e) {
+      this.setState({
+        cnpj: e.target.value
+      })  
+    }
+ 
 
   onSubmit(e) {
     e.preventDefault();
+
     const obj = {
       nomefav : this.state.nomefav,
       bai : this.state.bai,
@@ -88,47 +119,50 @@ export default class Create extends Component {
       cep : this.state.cep,
       uf : this.state.uf,
       cnpj : this.state.cnpj,
-      contas : this.state.contas,
+      contas: this.state.contas,
       login: window.login
     };
 
-    axios.post(urlapi+'favorecido/add', obj)
+    axios.post(urlapi + 'favorecido/add', obj)
     .then(res => {
       toast.success("Registro foi salvo com successo");
     })
     .catch(error => {
-      toast.error( "Ocorrou erro ao salvar o registro");
+      toast.error("Ocorrou erro ao salvar o registro");
     })
-    this.props.history.push('/indexFavorecido');
     
+    this.props.history.push('/indexFavorecido');
   }
- 
+
   AddRow = () => {
-    const item = {
-      banco: "",
-      agencia: "",
-      conta: "",
-      referente: ""
-   };
-   this.setState({ contas: [...this.state.contas, item] });
- };
+     const item = {
+       banco: "",
+       agencia: "",
+       conta: "",
+       referente: ""
+    };
+    this.setState({ contas: [...this.state.contas, item] });
+  };
 
- 
- RemoveRow = (row) => {
+  
+  RemoveRow = (row) => {
 
-   const contas = this.state.contas;
+    const contas = this.state.contas;
 
-   for (let [i, conta] of contas.entries()) {
-     if (conta._id === row._id) {
-         contas.splice(i, 1);
-     }
-   }
+    for (let [i, conta] of contas.entries()) {
+      if (conta._id === row._id) {
+          contas.splice(i, 1);
+      }
+    }
 
-   this.setState({ contas })
+    this.setState({ contas })
 
- }
+  }
 
+
+  
   render() {
+
 
     const columns = [
       {
@@ -174,12 +208,12 @@ export default class Create extends Component {
     return (
       <div className="responsive bg-dim full-bg-size" style={{ marginTop:'2px',marginBotton:'2px', marginLeft:'2px', marginRight:'2px', backgroundColor:'#f7f7f7', border: '1px solid #ccc'}}> 
           <div className="form-row" style={{ marginLeft:'1px', marginRight:'1px',  backgroundColor:'#e8e9ea', height:'35px', textalign: 'center' }}>
-              <h5>Inclusão de Favorecido</h5>  
+              <h5>Clone de Favorecido</h5>  
           </div>
           <div style={{ marginLeft:'5px', marginRight:'5px', marginTop:'5px' , border: '1px solid #ccc' }}>
               <form onSubmit={this.onSubmit} style={{ marginLeft:'15px', marginRight:'15px', marginTop:'15px'}}>
-
-              <div className="form-row">
+                  
+                  <div className="form-row">
                     <div className="col-sm-9">
                       <label>Nome do Favorecido</label>  
                       <input id="nomefav" name="nomefav" className="form-control form-control-sm" required="" type="text" value={this.state.nomefav} onChange={this.onChangeNomefav} />
@@ -204,7 +238,7 @@ export default class Create extends Component {
                     </div>
                     <div className="col-sm-4">
                       <label>Cidade</label>  
-                      <input id="cid" name="cid" className="form-control form-control-sm" required="" type="text" value={this.state.cid} onChange={this.onChangeCid}/>
+                      <input id="cid" name="cid" ref={this.cid} className="form-control form-control-sm" required="" type="text" value={this.state.cid} onChange={this.onChangeCid}/>
                     </div>
                     <div className="col-sm-2">
                       <label>Cep</label>  
@@ -225,21 +259,23 @@ export default class Create extends Component {
                             hover
                           />
                      </div>  
-                  </div>  
-                  <br></br>
-                  <div className="form-row">
+                  </div> 
+                  <div className="container" style={{ float: 'left' }}>
                        <ToastContainer />
-                       <div className="col-sm-1">
-                           <input type="submit" value="Salvar" className="btn btn-sm btn btn-primary"/>
-                           &nbsp;&nbsp;
-                           <Link to={'/indexFavorecido'} className="btn btn-sm btn-success">Cancelar</Link>
+                       <div className="form-row" >
+                          <div className="col-0">
+                              <input type="submit" value="Salvar" className="btn btn-sm btn-primary" />
+                          </div>
+                          <div className="col-0">
+                              <Link to={'/indexFavorecido'} className="btn btn-sm btn-success">Cancelar</Link>
+                          </div>
                        </div>
-                 </div>
-                 <br></br>
+                  </div>
+                  <br/><br/>
+              </form>
+          </div>
+          
 
-               </form>
-            </div>
-            <br></br>
         </div>
     )
   }

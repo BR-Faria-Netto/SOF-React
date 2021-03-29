@@ -19,12 +19,12 @@ module.exports = {
         try {
           sequencia = sequencial.sequencia;
           for (let index = 0; index < req.body.copias; index++) {
-              sequencia = sequencia+1;
-              numero = '0'+sequencia+'0';
-              numero = ("00000"+numero).slice(-7,-1);
-              ndc = new Ndc(req.body);
-              ndc.numndc = numero;
-              ndc.save();
+            sequencia = sequencia+1;
+            numero = '0'+sequencia+'0';
+            numero = ("00000"+numero).slice(-7,-1);
+            ndc = new Ndc(req.body);
+            ndc.numndc = numero;
+            ndc.save();
           }
           sequencial.sequencia = sequencia;
           sequencial.save();
@@ -52,7 +52,7 @@ module.exports = {
         ndc.datandc = req.body.datandc;
         ndc.evendc  = req.body.evendc;
         ndc.secret  = req.body.secret;
-        ndc.uniorc  = req.body.uniorc;
+        ndc.unigest = req.body.unigest;
         ndc.progtrab = req.body.progtrab;
         ndc.natdesp = req.body.natdesp;
         ndc.fontrec = req.body.fontrec;

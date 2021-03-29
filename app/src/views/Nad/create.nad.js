@@ -112,7 +112,7 @@ axios.get(urlapi + 'tablecode/tipolicitacao').then(resp => {
 });
 
 var optionsEmissor = [];
-optionsEmissor.push({ value: '', label: '', id: 0});
+optionsEmissor.push({ value: '', label: 'Sem Emissor', id: 0});
 api.get('responsavel/emissor').then(resp => {
   Object.entries(resp).forEach(entry => {
     const [key, value] = entry;
@@ -121,7 +121,7 @@ api.get('responsavel/emissor').then(resp => {
 });
 
 var optionsOrdenador = [];
-optionsOrdenador.push({ value: '', label: '', id: 0});
+optionsOrdenador.push({ value: '', label: 'Sem Ordenador', id: 0});
 api.get('responsavel/ordenador').then(resp => {
   Object.entries(resp).forEach(entry => {
     const [key, value] = entry;
@@ -130,7 +130,7 @@ api.get('responsavel/ordenador').then(resp => {
 });
 
 var optionsRatificador = [];
-optionsRatificador.push({ value: '', label: '', id: 0});
+optionsRatificador.push({ value: '', label: 'Sem Ratificador', id: 0});
 api.get('responsavel/ratificador').then(resp => {
   Object.entries(resp).forEach(entry => {
     const [key, value] = entry;
@@ -250,7 +250,7 @@ export default class Create extends Component {
 
       contapag : '',
 
-      nomefav : '',
+      nomefav: optionsfavorecido[0].label,
       bai : '',
       ender : '',
       cid : '',

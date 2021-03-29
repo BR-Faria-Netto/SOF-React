@@ -152,7 +152,7 @@ const NdcList = () => {
         filter: textFilter(),
       },
       {
-        dataField: 'uniorc', 
+        dataField: 'unigest', 
         text: 'Unidade',
         filter: textFilter(),
       },
@@ -210,26 +210,72 @@ const NdcList = () => {
       }
     ];
   
-    const options = {
-      paginationSize: 3,
-      pageStartIndex: 1,
-      sizePerPage: 8,
-      sizePerPageList: [
-           {
-             text: '8', value: 8
-           },
-           {
-             text: '16', value: 16
-           },
-           {
-             text: '32', value: 32
-           },
-           {
-             text: '64', value: 64
-           }
-       ] 
- 
-   };
+  const sizePerPageRenderer = ({
+    options,
+    currSizePerPage,
+    onSizePerPageChange
+  }) => {
+    return (
+      options.map(option => (
+        <button
+          key={option.text}
+          type="button"
+          onClick={() => onSizePerPageChange(option.page)}
+          className={`btn ${currSizePerPage === `${option.page}` ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-warning'}`}
+        >
+          { option.text}
+        </button>
+      ))
+    )
+  };
+
+  const pageButtonRenderer = ({
+    page,
+    active,
+    onPageChange
+  }) => {
+    let styleClass = '';
+    if (active) {
+      styleClass = 'btn btn-sm btn-secondary';
+    }
+    else {
+      styleClass = 'btn btn-sm btn-warning';
+    }
+    if (typeof page === 'string') {
+      styleClass = 'btn btn-sm btn-warning';
+    }
+    return (
+      <div>
+        <button
+          key={page}
+          type="button"
+          className={styleClass}
+          onClick={() => onPageChange(page)}
+        >
+          {page}
+        </button>
+      </div>
+    );
+  };
+
+  const options = {
+    pageButtonRenderer,
+    sizePerPageRenderer,
+    sizePerPageList: [
+      {
+        text: '10', value: 12
+      },
+      {
+        text: '20', value: 22
+      },
+      {
+        text: '40', value: 42
+      },
+      {
+        text: '60', value: 62
+      }
+    ]
+  };
 
    const MySearch = (props) => {
         let input;
@@ -279,6 +325,7 @@ const NdcList = () => {
     return (
 
         <div className="responsive bg-dim full-bg-size" style={{styleDiv}}>       
+
            {!isVisible ? 
               <div className="form-row" style={{ marginLeft:'1px', marginRight:'1px',  backgroundColor:'#e8e9ea', height:'35px', textalign: 'center' }}>
                   <h5>Descentralização de Crédito</h5>
@@ -291,32 +338,32 @@ const NdcList = () => {
                   data={rowData}
                   columns={ columns }
                   search
-                >
-                  {
-                    props => (
-                      <div>
-                          <MySearch { ...props.searchProps } />
-                          <br></br>
-                          <div>
-                              <BootstrapTable
-                                  { ...props.baseProps }
-                                  bootstrap4
-                                  keyField="_id"
-                                  data={rowData}
-                                  columns={columns}
-                                  selectRow={selectRow}
-                                  pagination={ paginationFactory(options) }
-                                  filter={ filterFactory() }
-                                  wrapperClasses="table-responsive"
-                                  headerClasses="header-class"
-                                  hover
-                                  bordered={ true }
-                              />
-                         </div>
-                      </div>
-                    )
-                  }
-                </ToolkitProvider>
+              >
+              {
+                  props => (
+                    <div>
+                        <MySearch { ...props.searchProps } />
+                        <br></br>
+                        <div>
+                            <BootstrapTable
+                                { ...props.baseProps }
+                                bootstrap4
+                                keyField="_id"
+                                data={rowData}
+                                columns={columns}
+                                selectRow={selectRow}
+                                pagination={ paginationFactory(options) }
+                                filter={ filterFactory() }
+                                wrapperClasses="table-responsive"
+                                headerClasses="header-class"
+                                hover
+                                bordered={ true }
+                            />
+                        </div>
+                    </div>
+                  )
+              }
+              </ToolkitProvider>
            }
   
       </div>

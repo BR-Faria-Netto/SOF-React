@@ -48,12 +48,13 @@
     "validator": "^12.2.0",
     "yarn": "^1.22.5"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build  && serve -l 3000 -s build",
+  "scripts": { 
+    "start": "react-scripts --max_old_space_size=8048 start",
+    "build": "react-scripts build  && serve -l  3000 -s build",
     "start-watch": "cd ../api && start npm start",
     "wp-server": "cd ../app && start npm start",
-    "dev": "(npm run start-watch && npm run wp-server)"
+    "dev": "(npm run start-watch && npm run wp-server)",
+    "prod": "serve -l  3000 -s build"
   },
   "eslintConfig": {
     "extends": "react-app"
