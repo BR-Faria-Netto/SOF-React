@@ -45,7 +45,8 @@ const Menu = (props) => {
                                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                                 <Navbar.Collapse id="responsive-navbar-nav">
                                     <Nav className="mr-auto">
-                                        <Nav.Link href="/indexFavorecido" data={user}>Favorecido</Nav.Link>
+                                        <Nav.Link href="/indexFavorecido">Favorecido</Nav.Link>
+                                        <Nav.Link href="/indexOrcamento">Orcamento</Nav.Link>
                                         <Nav.Link href="/indexNad">Autorização</Nav.Link>
                                         <Nav.Link href="/indexNdc">Descentralização</Nav.Link>
                                         <NavDropdown title="Cadastros" id="collasible-nav-dropdown">
@@ -58,6 +59,7 @@ const Menu = (props) => {
                                             <NavDropdown title="Manutenção" id="collasible-nav-dropdown">
                                                 <NavDropdown.Item href="/indexTableCode/eventonad/Evento da Nad">Evento da Nad</NavDropdown.Item>
                                                 <NavDropdown.Item href="/indexTableCode/eventondc/Evento da Ndc">Evento da Ndc</NavDropdown.Item>
+                                                <NavDropdown.Item href="/indexTableCode/eventoorc/Evento da Orçamento">Evento do Orçamento</NavDropdown.Item>
                                                 <NavDropdown.Item href="/indexTableCode/tipocredito/Tipo de Crédito">Tipo de Credito</NavDropdown.Item>
                                                 <NavDropdown.Item href="/indexTableCode/grupodespesa/Grupo de Despesa">Grupo de Despesa</NavDropdown.Item>
                                                 <NavDropdown.Item href="/indexTableCode/tipoempenho/Tipo de Empenho">Tipo de Empenho</NavDropdown.Item>

@@ -17,6 +17,11 @@ import IndexResponsavel from "../views/Responsavel/index.responsavel";
 import CreateResponsavel from "../views/Responsavel/create.responsavel";
 import EditResponsavel from "../views/Responsavel/edit.responsavel";
 
+import IndexOrcamento from "../views/Orcamento/index.orcamento";
+import CreateOrcamento from "../views/Orcamento/create.orcamento";
+import EditOrcamento from "../views/Orcamento/edit.orcamento";
+import CloneOrcamento from "../views/Orcamento/clone.orcamento";
+
 import IndexNad from "../views/Nad/index.nad";
 import CreateNad from "../views/Nad/create.nad";
 import EditNad from "../views/Nad/edit.nad";
@@ -83,6 +88,11 @@ const routes = () => (
       <PrivateRoute exact path="/indexResponsavel" component={IndexResponsavel} />
       <PrivateRoute exact path="/createResponsavel" component={CreateResponsavel} />
       <PrivateRoute exact path="/editResponsavel/:id" component={EditResponsavel} />
+
+      <PrivateRoute exact path="/indexOrcamento" component={IndexOrcamento} />
+      <PrivateRoute exact path="/createOrcamento" component={CreateOrcamento} />
+      <PrivateRoute exact path="/editOrcamento/:id" component={EditOrcamento} />
+      <PrivateRoute exact path="/cloneOrcamento/:id" component={CloneOrcamento} />  
 
       <PrivateRoute exact path="/indexNad" component={IndexNad} />
       <PrivateRoute exact path="/createNad" component={CreateNad} />

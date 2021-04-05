@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import api from "../../services/api"
-import PrintNad from './print.nad'
+import PrintOrcamento from './print.orcamento'
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
@@ -41,7 +41,7 @@ const NadList = () => {
 
     const getDataAll = (page) => {
       setIsRefresh(true);
-      api.get('nad/'+page)
+      api.get('orcamento/')
           .then(res => {
             setRowData(res);
             setIsLoading(false);
@@ -98,7 +98,7 @@ const NadList = () => {
             label: 'Sim',
             onClick: () => {
 
-                  api.get('nad/delete/'+row._id)
+                  api.get('orcamento/delete/'+row._id)
                   .then(
                     toast.warning("Registro foi excluido com successo")
                   )
@@ -120,39 +120,14 @@ const NadList = () => {
   
     const columns = [
       {
-        dataField: 'numnad',
-        text: 'Número',
-        filter: textFilter(),
-      }, 
-      {
-        dataField: 'procnad',
-        text: 'Processo',
-        filter: textFilter(),
-      },
-      {
-        dataField: 'datanad',
-        text: 'Data',
-        filter: textFilter(),
-      },
-      {
-        dataField: 'nomefav',
-        text: 'Favorecido',
-        filter: textFilter(),
-      },
-      {
-        dataField: 'valor',
-        text: 'Valor',
+        dataField: 'anoorc',
+        text: 'Exercicio',
         filter: textFilter(),
         headerAlign: 'right',
         attrs: { align: 'right' }
       },
       {
-        dataField: 'evenad',
-        text: 'Evento',
-        filter: textFilter(),
-      },
-      {
-        dataField: 'unigest', 
+        dataField: 'uniorc', 
         text: 'Unidade',
         filter: textFilter(),
       },
@@ -170,6 +145,21 @@ const NadList = () => {
         dataField: 'fontrec',
         text: 'Fonte',
         filter: textFilter(false),
+  
+      },
+      {
+        dataField: 'valor',
+        text: 'Dotação Inicial',
+        filter: textFilter(),
+        headerAlign: 'right',
+        attrs: { align: 'right' }
+      },
+      {
+        dataField: 'total',
+        text: 'Total',
+        filter: textFilter(),
+        headerAlign: 'right',
+        attrs: { align: 'right' }
       },
       {
         text: 
@@ -181,7 +171,7 @@ const NadList = () => {
                 </div>
                 <div className="form-row">
                      <div className="col-sm-3">
-                          <Link to={'/createNad'} className="btn btn-sm btn-outline-success"><Icon.PlusSquareFill/></Link>
+                          <Link to={'/createOrcamento'} className="btn btn-sm btn-outline-success"><Icon.PlusSquareFill/></Link>
                      </div> 
                      <div className="col-sm-3">
                           {rowData.length > 0 && (<button onClick={ Printer } className="btn btn-sm btn-outline-secondary"><Icon.Printer/></button>)} 
@@ -192,10 +182,10 @@ const NadList = () => {
         formatter: (cellContent, row, isSelected, currentDisplayAndSelectedData) => (
           <div className="form-row">
               <div className="col-sm-3">
-                  <Link to={"/editNad/"+row._id} className="btn btn-sm btn-outline-primary"><Icon.PencilSquare/></Link>
+                  <Link to={"/editOrcamento/"+row._id} className="btn btn-sm btn-outline-primary"><Icon.PencilSquare/></Link>
               </div> 
               <div className="col-sm-3">
-                  <Link to={"/cloneNad/"+row._id} className="btn btn-sm btn-outline-warning"><Icon.CloudPlus/></Link>
+                  <Link to={"/cloneOrcamento/"+row._id} className="btn btn-sm btn-outline-warning"><Icon.CloudPlus/></Link>
               </div> 
               <div className="col-sm-3">
                   <Link to={`#`} className="btn btn-sm btn-outline-danger" onClick={() => { deleteRow(row)}}><Icon.TrashFill/></Link>
@@ -340,10 +330,10 @@ const NadList = () => {
        <div className="responsive bg-dim full-bg-size" style={{styleDiv}}>       
            {!isVisible ? 
               <div className="form-row" style={{ marginLeft:'1px', marginRight:'1px',  backgroundColor:'#e8e9ea', height:'35px', textalign: 'center' }}>
-                  <h5>Autorização de Despesa </h5>
+                  <h5>Orçamento Anual</h5>
               </div> : null
            }
-           {isVisible ? dataPrint.map(item => <PrintNad data={item} />) : 
+           {isVisible ? dataPrint.map(item => <PrintOrcamento data={item} />) : 
               <ToolkitProvider 
                   keyField='_id'
                   data={ rowData }
