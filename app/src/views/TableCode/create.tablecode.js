@@ -49,13 +49,13 @@ export default class Create extends Component {
 
   }
 
-  renderOptions(option_items) {
-    if(option_items) {
-        return Object.entries(option_items).map(function (item) {
-            return <option key={item[0]} value={item[0]}>{item[1]}</option>
-        })
-    }
-  }
+  // renderOptions(option_items) {
+  //   if(option_items) {
+  //       return Object.entries(option_items).map(function (item) {
+  //           return <option key={item[0]} value={item[0]}>{item[1]}</option>
+  //       })
+  //   }
+  // }
 
 render() {
     

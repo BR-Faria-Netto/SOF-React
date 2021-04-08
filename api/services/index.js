@@ -27,6 +27,9 @@ const sequencialRoute = require('./sequencial/sequencial.route');
 
 const orcamentoRoute = require('./orcamento/orcamento.route');
 const responsavel = require('./responsavel/responsavel.route');
+const conta = require('./conta/conta.route');
+const tipolancamento = require('./tipolancamento/tipolancamento.route');
+const lancamento = require('./lancamento/lancamento.route');
 const nadRoute = require('./nad/nad.route');
 const ndcRoute = require('./ndc/ndc.route');
 
@@ -45,6 +48,9 @@ app.use('/favorecido',favorecidoRoute);
 app.use('/secretaria',secretariaRoute);
 app.use('/sequencial',sequencialRoute);
 app.use('/responsavel',responsavel);
+app.use('/conta', conta);
+app.use('/tipolancamento', tipolancamento);
+app.use('/lancamento', lancamento);
 app.use('/orcamento', orcamentoRoute);
 app.use('/nad',nadRoute);
 app.use('/ndc',ndcRoute);

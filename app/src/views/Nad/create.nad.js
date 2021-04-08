@@ -21,6 +21,15 @@ var optionsSimNao = [];
 optionsSimNao.push({ value: 'Não', label: 'Não',id:0});
 optionsSimNao.push({ value: 'Sim', label: 'Sim',id:1});
 
+var optionssecretaria = [];
+optionssecretaria.push({ value: '', label: 'Selecione a opção...', id: (0, 0) });
+axios.get(urlapi + 'secretaria').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionssecretaria.push({ value: (key, value.nomesec), label: (key, value.nomesec), id: (key, value._id) });
+  });
+});
+
 var optionstipoevento = [];
 optionstipoevento.push({ value: null, label: 'Selecione a opção...', id: 0});
 axios.get(urlapi+'tablecode/eventonad').then(resp => {
@@ -147,15 +156,6 @@ axios.get(urlapi + 'favorecido').then(resp => {
   });
 });
 var optionsCCReceber=[];
-
-var optionssecretaria = [];
-optionssecretaria.push({ value:  '', label: 'Selecione a opção...', id: (0,0)});
-axios.get(urlapi + 'secretaria').then(resp => {
-  Object.entries(resp.data).forEach(entry => {
-    const [key, value] = entry;
-    optionssecretaria.push({ value: (key, value.nomesec), label: (key, value.nomesec ), id: (key, value._id )});
-  });
-});
 var optionsCCPagar = [];
 
 export default class Create extends Component {

@@ -55,6 +55,14 @@ const Menu = (props) => {
                                             <NavDropdown.Item href="/indexTableCode/fonterecurso/Fonte de Recurso">Fonte de Recurso</NavDropdown.Item>
                                             <NavDropdown.Item href="/indexResponsavel">Responsável Legal</NavDropdown.Item>  
                                         </NavDropdown>
+                                        <NavDropdown title="Lancamentos" id="collasible-nav-dropdown">
+                                            <NavDropdown.Item href="/indexTableCode/tipoconta/Tipo de Conta">Tipo de Conta</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexTableCode/tipooperacao/Tipo de Operação">Tipo de Operação</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexTipoLancamento">Tipo de Lançamento</NavDropdown.Item>
+                                            
+                                            <NavDropdown.Item href="/indexConta">Conta Proprietaria</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexLancamento">Lançamento</NavDropdown.Item>
+                                        </NavDropdown>
                                         {user.role === Role.Admin &&
                                             <NavDropdown title="Manutenção" id="collasible-nav-dropdown">
                                                 <NavDropdown.Item href="/indexTableCode/eventonad/Evento da Nad">Evento da Nad</NavDropdown.Item>

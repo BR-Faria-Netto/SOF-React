@@ -17,6 +17,18 @@ import IndexResponsavel from "../views/Responsavel/index.responsavel";
 import CreateResponsavel from "../views/Responsavel/create.responsavel";
 import EditResponsavel from "../views/Responsavel/edit.responsavel";
 
+import IndexConta from "../views/Conta/index.conta";
+import CreateConta from "../views/Conta/create.conta";
+import EditConta from "../views/Conta/edit.conta";
+
+import IndexTipoLancamento from "../views/TipoLancamento/index.tipolancamento";
+import CreateTipoLancamento from "../views/TipoLancamento/create.tipolancamento";
+import EditTipoLancamento from "../views/TipoLancamento/edit.tipolancamento";
+
+import IndexLancamento from "../views/Lancamento/index.lancamento";
+import CreateLancamento from "../views/Lancamento/create.lancamento";
+import EditLancamento from "../views/Lancamento/edit.lancamento";
+
 import IndexOrcamento from "../views/Orcamento/index.orcamento";
 import CreateOrcamento from "../views/Orcamento/create.orcamento";
 import EditOrcamento from "../views/Orcamento/edit.orcamento";
@@ -89,6 +101,18 @@ const routes = () => (
       <PrivateRoute exact path="/createResponsavel" component={CreateResponsavel} />
       <PrivateRoute exact path="/editResponsavel/:id" component={EditResponsavel} />
 
+      <PrivateRoute exact path="/indexConta" component={IndexConta} />
+      <PrivateRoute exact path="/createConta" component={CreateConta} />
+      <PrivateRoute exact path="/editConta/:id" component={EditConta} />
+
+      <PrivateRoute exact path="/indexTipoLancamento" component={IndexTipoLancamento} />
+      <PrivateRoute exact path="/createTipoLancamento" component={CreateTipoLancamento} />
+      <PrivateRoute exact path="/editTipoLancamento/:id" component={EditTipoLancamento} />
+
+      <PrivateRoute exact path="/indexLancamento" component={IndexLancamento} />
+      <PrivateRoute exact path="/createLancamento" component={CreateLancamento} />
+      <PrivateRoute exact path="/editLancamento/:id" component={EditLancamento} />
+
       <PrivateRoute exact path="/indexOrcamento" component={IndexOrcamento} />
       <PrivateRoute exact path="/createOrcamento" component={CreateOrcamento} />
       <PrivateRoute exact path="/editOrcamento/:id" component={EditOrcamento} />
@@ -128,6 +152,5 @@ const routes = () => (
     </Switch>
   </BrowserRouter>
 );
-
 
 export default routes;
