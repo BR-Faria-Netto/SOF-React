@@ -343,6 +343,22 @@ export default class Create extends Component {
     })  
   }
 
+  onChangeContapag(e) {
+
+    if (e.value.length === 0) {
+      this.setState({ banpag: '', agepag: '', ccpag: '', contapag: '' })
+    }
+    else {
+      let keypag = optionsCCPagar.find(o => o.label === e.value).id;
+      let ctapag = this.state.ccPagarList.find(o => o._id === keypag);
+      this.setState({
+        banpag: ctapag.banco, agepag: ctapag.agencia, ccpag: ctapag.conta,
+        contapag: ctapag.referente + '-' + ctapag.banco + '-' + ctapag.agencia + '-' + ctapag.conta
+      })
+    }
+
+  }
+
   onChangeSecret(e) {
     // ta feio mas funciona
     if (e.value.length === 0){
@@ -438,19 +454,6 @@ export default class Create extends Component {
     })  
   }
 
-  onChangeContapag(e) {
-
-    if (e.value.length === 0){
-      this.setState({ banpag: '', agepag: '', ccpag: '', contapag: '' })
-    }
-    else{
-      let keypag = optionsCCPagar.find(o => o.label === e.value).id;
-      let ctapag = this.state.ccPagarList.find(o => o._id === keypag);
-      this.setState({ banpag: ctapag.banco, agepag: ctapag.agencia, ccpag: ctapag.conta, 
-           contapag: ctapag.referente+'-'+ctapag.banco+'-'+ctapag.agencia+'-'+ctapag.conta})
-    }
-
-  }
 
   onChangeContarec(e) {
 
@@ -460,6 +463,9 @@ export default class Create extends Component {
     else{
       let keyrec = optionsCCReceber.find(o => o.label === e.value).id;
       let ctarec = this.state.ccReceberList.find(o => o._id === keyrec);
+
+      alert(ctarec);
+
       this.setState({ banrec: ctarec.banco, agerec: ctarec.agencia, ccrec: ctarec.conta, 
         contarec: ctarec.referente+'-'+ctarec.banco+'-'+ctarec.agencia+'-'+ctarec.conta})
     }

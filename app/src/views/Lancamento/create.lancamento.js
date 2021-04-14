@@ -69,13 +69,12 @@ export default class Create extends Component {
       data: moment(new Date()).format("DD/MM/YYYY"),
       tipoOperacao: optionstipooperacao[0].label,
       contaProprietaria: optionscontaproprietaria[0].label,
-      classificador: '', //optionsclassificador[0].label,
+      classificador: '',
       valor: '0,0',
       status: optionsStatus[0].label
     }
   }
   onChangeTipoLancamento(e) {
-    // ta feio mas funciona
     if (e.value.length === 0) {
       optionsclassificador = [];
       this.setState({
@@ -86,12 +85,11 @@ export default class Create extends Component {
       this.setState({
         tipoLancamento: e.value
       });
-      // zera conta do favorecido
       optionsclassificador = [];
       optionsclassificador.push({ value: '', label: 'Selecione a opção...', id: 0 });
       let key = optionstipolancamento.find(o => o.label === e.value).id;
       api.get('tipolancamento/edit/' + key)
-        .then(response => {
+         .then(response => {
             Object.entries(response.classificadores).forEach(entry => {
               const [key, value] = entry;
               optionsclassificador.push({ value: (key, value.descricao), label: (key, value.descricao), id: (key, value._id) });
@@ -99,10 +97,7 @@ export default class Create extends Component {
             this.setState({
               classificador: response.classificador[0].descricao
             });
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
+         });
     }
   }
   onChangeClassificador(e) {

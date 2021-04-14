@@ -103,7 +103,9 @@ render() {
         },
         {
           dataField: 'valor',
-          text: 'Valor'
+          text: 'Valor',
+          headerAlign: 'right',
+          attrs: { align: 'right' }
         },
         {
           dataField: 'data',

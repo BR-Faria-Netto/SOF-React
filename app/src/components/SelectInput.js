@@ -30,11 +30,12 @@ const customStyles = {
 
 
 const SelectInput = ({ options, selectedValue,...inputProps }) => {
-   
+
    return <Select styles={customStyles} 
                   placeholder="Selecione a opção..."
+                  defaultValue={options[0]}
                   noOptionsMessage={() => 'Pesquisa não encontrada!'}
-                  value={options.filter(({value}) => value === selectedValue)}
+                  value={options.filter(({ value }) => value === selectedValue)}
                   options={options}
                   {...inputProps} />
    

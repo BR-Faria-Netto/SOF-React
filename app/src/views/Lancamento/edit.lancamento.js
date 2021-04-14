@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,20 +12,25 @@ import api from "../../services/api";
 import urlapi from "../../services/urlapi"
 
 import SelectInput from '../../components/SelectInput';
+
 import CurrencyInput from '../../components/CurrencyInput';
 import InputMask from 'react-input-mask';
 
 var optionstipolancamento = [];
-optionstipolancamento.push({ value: '', label: 'Selecione a opção...', id: 0 });
+var optionstipooperacao = [];
+var optionscontaproprietaria = [];
+var optionsStatus = [];
+var optionsClassificadores = [];
+
+optionstipolancamento.push({ value: 'Selecione a opção...', label: 'Selecione a opção...', id: 0 });
 api.get('tipolancamento').then(resp => {
   Object.entries(resp).forEach(entry => {
     const [key, value] = entry;
-    optionstipolancamento.push({ value: (key, value.descricao), label: (key, value.descricao), id: (key, value._id) });
+    optionstipolancamento.push({ value: (key, value.descricao), label: (key, value.descricao), classificadores: (key, value.classificadores), id: (key, value._id) });
   });
 });
 
-var optionstipooperacao = [];
-optionstipooperacao.push({ value: '', label: 'Selecione a opção...', id: 0 });
+optionstipooperacao.push({ value: 'Selecione a opção...', label: 'Selecione a opção...', id: 0 });
 axios.get(urlapi + 'tablecode/tipooperacao').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
@@ -31,8 +38,7 @@ axios.get(urlapi + 'tablecode/tipooperacao').then(resp => {
   });
 });
 
-var optionscontaproprietaria = [];
-optionscontaproprietaria.push({ value: '', label: 'Selecione a opção...', id: 0 });
+optionscontaproprietaria.push({ value: 'Selecione a opção...', label: 'Selecione a opção...', id: 0 });
 api.get('conta').then(resp => {
   Object.entries(resp).forEach(entry => {
     const [key, value] = entry;
@@ -40,11 +46,8 @@ api.get('conta').then(resp => {
   });
 });
 
-var optionsStatus = [];
 optionsStatus.push({ value: ('Ativo', 'Ativo'), label: ('Ativo', 'Ativo') });
 optionsStatus.push({ value: ('Inativo', 'Inativo'), label: ('Inativo', 'Inativo') });
-
-var optionsclassificador = [];
 
 export default class Edit extends Component {
 
@@ -58,104 +61,57 @@ export default class Edit extends Component {
     this.onChangeValor = this.onChangeValor.bind(this);
     this.onChangeData = this.onChangeData.bind(this);
     this.onChangeStatus = this.onChangeStatus.bind(this);
+
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
       tipoLancamento: '',
+      classificador: '', 
       descricao: '',
       data:'',
       tipoOperacao: '',
       contaProprietaria: '',
-      classificador: '', 
       valor: '0,0',
       status: ''
+
     }
   }
-  
-  CheckElenteArray(fieldName, arrayList) {
-    var key
-    try {
-      key = arrayList.find(o => o.label === fieldName).label;
-      key = 99;
-    } catch (err) {
-      arrayList.push({ value: fieldName, label: fieldName, id: key });
+
+  getClassificador( tipoLancamento ) {
+    if (tipoLancamento) {
+      optionsClassificadores = [];
+      optionsClassificadores.push({ value: 'Selecione a opção...', label: 'Selecione a opção...', id: 0 });
+      let object = optionstipolancamento.find(tipo => tipo.label === tipoLancamento);
+      if (typeof object !== 'undefined' && typeof object.classificadores !== 'undefined' && object.classificadores.length !== 0) {
+        for (let i = 0; i < object.classificadores.length; i = i + 1) {
+          optionsClassificadores.push({ value: (object.classificadores[i].descricao), label: (object.classificadores[i].descricao), id: (object.classificadores[i]._id) });
+        }
+      }
     }
-    return arrayList;
+    return optionsClassificadores;
   }
 
   componentDidMount() {
-    api.get('lancamento/edit/'+this.props.match.params.id)
-        .then(response => {
 
-          optionsclassificador = [];
-          optionsclassificador.push({ value: '', label: 'Selecione a opção...', id: 0 });
-          let key = optionstipolancamento.find(o => o.label === response.tipoLancamento).id;
-          api.get('tipolancamento/edit/' + key)
-            .then(response => {
-              Object.entries(response.classificadores).forEach(entry => {
-                const [key, value] = entry;
-                optionsclassificador.push({ value: (key, value.descricao), label: (key, value.descricao), id: (key, value._id) });
-              });
-              this.setState({
-                classificador: response.classificador[0].descricao
-              });
-            })
-            .catch(function (error) {
-              console.log(error);
-            })
-            
-            //key = optionsclassificador.find(o => o.label === response.classificador).id;
-            alert(response.classificador)
-
-            this.setState({ 
-                tipoLancamento: response.tipoLancamento,
-                descricao: response.descricao,
-                data: response.data,
-                tipoOperacao: response.tipoOperacao,
-                contaProprietaria: response.contaProprietaria,
-                classificador: response.classificador, 
-                valor: response.valor,
-                status: response.status
-
-            });
-            //optionsclassificador = this.CheckElenteArray(response.classificador, optionsclassificador);
-
-            
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-  }
-  onChangeTipoLancamento(e) {
-    // ta feio mas funciona
-    if (e.value.length === 0) {
-       optionsclassificador = [];
-       this.setState({
-          classificador: ''
-       });
-    }
-    else {
-      this.setState({
-        tipoLancamento: e.value
+    api.get('lancamento/edit/' + this.props.match.params.id)
+      .then(response => {
+        this.setState({
+          tipoLancamento: response.tipoLancamento,
+          classificador: response.classificador,
+          descricao: response.descricao,
+          data: response.data,
+          tipoOperacao: response.tipoOperacao,
+          contaProprietaria: response.contaProprietaria,
+          valor: response.valor,
+          status: response.status
+        });
       });
-      // zera conta do favorecido
-      optionsclassificador = [];
-      optionsclassificador.push({ value: '', label: 'Selecione a opção...', id: 0 });
-      let key = optionstipolancamento.find(o => o.label === e.value).id;
-      api.get('tipolancamento/edit/' + key)
-        .then(response => {
-          Object.entries(response.classificadores).forEach(entry => {
-            const [key, value] = entry;
-            optionsclassificador.push({ value: (key, value.descricao), label: (key, value.descricao), id: (key, value._id) });
-          });
-          this.setState({
-            classificador: response.classificador[0].descricao
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
-    }
+  }
+
+  onChangeTipoLancamento(e) {
+    this.setState({
+      tipoLancamento: e.value
+    });
   }
   onChangeClassificador(e) {
     this.setState({
@@ -196,11 +152,11 @@ export default class Edit extends Component {
     e.preventDefault();
     const obj = {
       tipoLancamento: this.state.tipoLancamento,
+      classificador: this.state.classificador,
       descricao: this.state.descricao,
       data: this.state.data,
       tipoOperacao: this.state.tipoOperacao,
       contaProprietaria: this.state.contaProprietaria,
-      classificador: this.state.classificador,
       valor: this.state.valor,
       status: this.state.status
     };
@@ -217,12 +173,15 @@ export default class Edit extends Component {
   
   }
 
+
   render() {
-   
+
+    optionsClassificadores = this.getClassificador(this.state.tipoLancamento);    
+    
     return (
       <div className="responsive bg-dim full-bg-size" style={{ marginTop:'2px',marginBotton:'2px', marginLeft:'2px', marginRight:'2px', backgroundColor:'#f7f7f7', border: '1px solid #ccc'}}> 
           <div className="form-row" style={{ marginLeft:'1px', marginRight:'1px',  backgroundColor:'#e8e9ea', height:'35px', textalign: 'center' }}>
-              <h5>Alteração de Conta</h5>  
+            <h5>Alteração de Lançamento </h5> 
           </div>
           <div style={{ marginLeft: '5px', marginRight: '5px', marginTop: '5px', border: '1px solid #ccc' }}>
             <form onSubmit={this.onSubmit} style={{ marginLeft: '15px', marginRight: '15px', marginTop: '15px' }}>
@@ -233,10 +192,11 @@ export default class Edit extends Component {
                 </div>
                 <div className="col-sm-3">
                   <label>Classificador</label>
-                  <SelectInput id="classificador" className="sm" options={optionsclassificador} onChange={this.onChangeClassificador} selectedValue={this.state.classificador} />
+                  <SelectInput id="xx" className="sm" options={optionsClassificadores} onChange={this.onChangeClassificador} selectedValue={this.state.classificador} /> 
+                  {/* <SelectInput id="xx" placeholder={this.state.classificador} className="sm" options={optionsClassificadores} onChange={this.onChangeClassificador} selectedValue={this.state.classificador} />  */}
                 </div>
               </div>
-              <div className="form-row">
+             <div className="form-row">
                 <div className="col-sm-3">
                   <label>Descrição</label>
                   <input type="text" id="descricao" className="form-control form-control-sm" value={this.state.descricao} onChange={this.onChangeDescricao} />

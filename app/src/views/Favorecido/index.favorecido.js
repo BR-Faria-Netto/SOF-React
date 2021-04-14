@@ -53,7 +53,7 @@ export const FavorecidoList = (user) => {
 
    const getDataAll = (page) => {
 
-     axios.get(urlapi + 'favorecido/'+page).then(response => {
+     axios.get(urlapi+'favorecido').then(response => {
        setRowData(response.data);
        setIsLoading(false);
      })

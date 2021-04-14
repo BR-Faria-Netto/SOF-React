@@ -144,7 +144,6 @@ axios.get(urlapi + 'favorecido').then(resp => {
     optionsfavorecido.push({ value: (key, value.nomefav), label: (key, value.nomefav ), id: (key, value._id )});
   });
 });
-
 let optionsCCReceber=[];
     
 let optionssecretaria=[];

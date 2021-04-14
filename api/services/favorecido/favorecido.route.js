@@ -15,7 +15,7 @@ favorecidoRoute.route('/add').post(function (req, res) {
     });
 });
 // Defined get data(index or listing) route
-favorecidoRoute.route('/:page').get(function (req, res) {
+favorecidoRoute.route('/').get(function (req, res) {
 
     console.log(req.params.page);
 
