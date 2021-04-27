@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -45,7 +44,8 @@ export default class Create extends Component {
       .catch(error => {
         toast.error("Ocorrou erro ao salvar o registro");
       })
-      this.props.history.push('/indexTableCode/'+this.props.match.params.dbTable+'/'+this.props.match.params.pgTitle);
+      this.props.history.goBack()
+      //this.props.history.push('/indexTableCode/'+this.props.match.params.dbTable+'/'+this.props.match.params.pgTitle);
 
   }
 
@@ -84,9 +84,9 @@ render() {
                       <div className="form-row">
                            <ToastContainer />
                            <div className="col-sm-1">
-                                <input type="submit" value="Salvar" className="btn btn-sm btn btn-primary"/>
+                                <input type="submit" value="Salvar" className="btn btn-sm btn-primary"/>
                                 &nbsp;&nbsp;
-                                <Link to={'/indexTableCode/'+this.props.match.params.dbTable+'/'+this.props.match.params.pgTitle} className="btn btn-sm btn-success">Cancelar</Link>
+                                <input type="button" value="Cancelar" className="btn btn-sm btn-success" onClick={() => this.props.history.goBack()}/>
                            </div>
                       </div>
                       <br></br>

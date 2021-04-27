@@ -19,6 +19,9 @@ let Nad = new Schema(
     evenad: {
       type: String
     },
+    categoria: {
+      type: String
+    },
     catgast: {
       type: String
     },

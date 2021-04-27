@@ -1,4 +1,4 @@
-const EntityDb = require("./lancamento.model");
+const EntityDb = require("./basePes.model");
 
 module.exports = {
   // Defined listing route
@@ -36,17 +36,9 @@ module.exports = {
       if (!entityDb)
         res.status(404).send("Data is not found");
       else {
-        entityDb.classificador = req.body.classificador;
-        entityDb.categoria = req.body.categoria;
+        entityDb.anoInicio = req.body.anoInicio;
+        entityDb.anoFim = req.body.anoFim;
         entityDb.descricao = req.body.descricao;
-        entityDb.data = req.body.data;
-        entityDb.operacao = req.body.operacao;
-        entityDb.periodicidade = req.body.periodicidade;
-        entityDb.repeticao = req.body.repeticao;
-        entityDb.favorecido = req.body.favorecido;
-        entityDb.documento = req.body.documento;
-        entityDb.gestor = req.body.gestor;
-        entityDb.valor = req.body.valor;
         entityDb.status = req.body.status;
         entityDb.login = req.body.login;
         entityDb.save().then(entityDb => {

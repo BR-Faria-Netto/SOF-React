@@ -210,7 +210,9 @@ export default class Create extends Component {
   calculo() {
     let tot = parseFloat(this.state.valor.split(".").join("").split(",").join("."));
     for (var i = 0; i < this.state.movorc.length; i++) {
-      tot = tot + parseFloat(this.state.movorc[i].valor.split(".").join("").split(",").join("."));
+      if (this.state.movorc[i].valor) {
+        tot = tot + parseFloat(this.state.movorc[i].valor.split(".").join("").split(",").join("."));
+      }
     }
     this.setState({ total: tot })
     return tot.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");

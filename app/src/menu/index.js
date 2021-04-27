@@ -44,24 +44,29 @@ const Menu = (props) => {
                                 <Navbar.Brand href="/">Home</Navbar.Brand>
                                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                                 <Navbar.Collapse id="responsive-navbar-nav">
-                                    <Nav className="mr-auto">
-                                        <Nav.Link href="/indexFavorecido">Favorecido</Nav.Link>
+                                    <Nav className="mr-auto" >
+                                        <Nav.Link href="/indexFavorecido" >Favorecido</Nav.Link>
                                         <Nav.Link href="/indexOrcamento">Orcamento</Nav.Link>
                                         <Nav.Link href="/indexNad">Autorização</Nav.Link>
                                         <Nav.Link href="/indexNdc">Descentralização</Nav.Link>
+                                        <NavDropdown title="Planejamento" id="collasible-nav-dropdown">
+                                            <NavDropdown.Item href="/indexBasePes">Base PES</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexDiretriz">Diretriz</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexObjetivo">Objetivo</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexMeta">Meta</NavDropdown.Item>
+                                        </NavDropdown>
                                         <NavDropdown title="Cadastros" id="collasible-nav-dropdown">
-                                            <NavDropdown.Item href="/indexTableCode/naturezadespesa/Natureza de Despesa">Natureza de Despesa</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexTableCode/naturezadespesa/Natureza de Despesa" style={{ backgroundcolor: '#e3f2fd' }}>Natureza de Despesa</NavDropdown.Item>
                                             <NavDropdown.Item href="/indexTableCode/progtrabalho/Programa de Trabalho">Programa de Trabalho</NavDropdown.Item>
                                             <NavDropdown.Item href="/indexTableCode/fonterecurso/Fonte de Recurso">Fonte de Recurso</NavDropdown.Item>
                                             <NavDropdown.Item href="/indexResponsavel">Responsável Legal</NavDropdown.Item>  
                                         </NavDropdown>
-                                        <NavDropdown title="Lancamentos" id="collasible-nav-dropdown">
-                                            <NavDropdown.Item href="/indexTableCode/tipoconta/Tipo de Conta">Tipo de Conta</NavDropdown.Item>
-                                            <NavDropdown.Item href="/indexTableCode/tipooperacao/Tipo de Operação">Tipo de Operação</NavDropdown.Item>
-                                            <NavDropdown.Item href="/indexTipoLancamento">Tipo de Lançamento</NavDropdown.Item>
-                                            
-                                            <NavDropdown.Item href="/indexConta">Conta Proprietaria</NavDropdown.Item>
-                                            <NavDropdown.Item href="/indexLancamento">Lançamento</NavDropdown.Item>
+                                        <NavDropdown title="Financeiro" id="collasible-nav-dropdown">
+                                            <NavDropdown.Item href="/indexTableCode/categoria/Categoria">Categoria</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexClassificador">Classificador</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexGestor">Gestor</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexTableCode/operacao/Operação">Operação</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexLancamento">Lancamento</NavDropdown.Item>
                                         </NavDropdown>
                                         {user.role === Role.Admin &&
                                             <NavDropdown title="Manutenção" id="collasible-nav-dropdown">

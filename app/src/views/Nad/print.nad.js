@@ -95,6 +95,10 @@ export default class PrintNad extends Component {
                             <label>Adiantamento</label>  
                             <input type="text" className="form-control form-control-sm" id="adant" value={this.props.data.adant} />
                         </div>    
+                        <div className="col-sm-3">
+                          <label>Categoria</label>
+                          <input type="text" className="form-control form-control-sm" id="adant" value={this.props.data.categoria} />
+                        </div>    
                     </div>
 
                     <div className="form-row">

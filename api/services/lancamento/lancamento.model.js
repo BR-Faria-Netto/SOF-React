@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 // Define collection and schema for Business
 let Lancamento = new Schema(
   {
-    tipoLancamento: {
+    classificador: {
+      type: String
+    },
+    categoria: {
       type: String
     },
     descricao: {
@@ -13,13 +16,22 @@ let Lancamento = new Schema(
     data: {
       type: String
     },
-    tipoOperacao: {
+    operacao: {
       type: String
     },
-    contaProprietaria: {
+    periodicidade: {
       type: String
     },
-    classificador: {
+    repeticao: {
+      type: String
+    },
+    favorecido: {
+      type: String
+    },
+    documento: {
+      type: String
+    },
+    gestor: {
       type: String
     },
     valor: {

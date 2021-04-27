@@ -1,5 +1,33 @@
-import React from 'react'
-import Select from 'react-select';
+import React, { Fragment } from "react";
+import Select, { components } from "react-select";
+import { Link } from 'react-router-dom';
+const Menu = (props) => {
+   return (
+      <Fragment>
+         <components.Menu {...props}>
+            <div styles={customStyles}>
+                  {props.children}
+                  <br></br>
+                  {props.selectProps.linkValue?<hr/>:null} 
+                  {props.selectProps.linkValue? 
+                  <div style={{ textAlign: 'right', marginBottom: '15px', marginRight: '15px' }}>
+                     <Link to={props.selectProps.linkValue} style={{ color: 'inherit', textDecoration: 'inherit' }}>Novo registro</Link>
+                  </div>
+                  : null
+               }
+            </div>
+         </components.Menu>
+      </Fragment>
+   );
+};
+
+const Option = (props) => {
+   return (
+      <Fragment>
+         <components.Option {...props}>{props.children}</components.Option>
+      </Fragment>
+   );
+};
 
 const customStyles = {
   control: (provided, state) => ({
@@ -28,19 +56,21 @@ const customStyles = {
     }),
 };
 
+const SelectInput = ({ options, selectedValue, linkValue, ...inputProps }) => {
 
-const SelectInput = ({ options, selectedValue,...inputProps }) => {
+   return <div>
+      <Select styles={customStyles}
+         placeholder="Escolha a opção..."
+         defaultValue={options[0]}
+         components={{ Menu, Option }}
+         noOptionsMessage={() => 'Pesquisa não encontrada!'}
+         value={options.filter(({ value }) => value === selectedValue)}
+         linkValue={linkValue}
+         options={options}
+         {...inputProps} />
 
-   return <Select styles={customStyles} 
-                  placeholder="Selecione a opção..."
-                  defaultValue={options[0]}
-                  noOptionsMessage={() => 'Pesquisa não encontrada!'}
-                  value={options.filter(({ value }) => value === selectedValue)}
-                  options={options}
-                  {...inputProps} />
+   </div>
    
-         
 }
-
 
 export default SelectInput

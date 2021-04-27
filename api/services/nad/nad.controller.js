@@ -70,6 +70,7 @@ module.exports = {
           nad.procnad = req.body.procnad;
           nad.datanad = req.body.datanad;
           nad.evenad  = req.body.evenad;
+          nad.categoria = req.body.categoria;
           nad.catgast  = req.body.catgast;
           nad.adant  = req.body.adant;
           nad.secret  = req.body.secret;

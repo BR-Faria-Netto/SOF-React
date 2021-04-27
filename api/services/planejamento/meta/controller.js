@@ -1,4 +1,4 @@
-const EntityDb = require("./lancamento.model");
+const EntityDb = require("./model");
 
 module.exports = {
   // Defined listing route
@@ -36,18 +36,13 @@ module.exports = {
       if (!entityDb)
         res.status(404).send("Data is not found");
       else {
-        entityDb.classificador = req.body.classificador;
-        entityDb.categoria = req.body.categoria;
+        entityDb.basePes = req.body.basePes;
+        entityDb.diretriz = req.body.diretriz;
+        entityDb.objetivo = req.body.objetivo;
+        entityDb.numero = req.body.numero;
         entityDb.descricao = req.body.descricao;
-        entityDb.data = req.body.data;
-        entityDb.operacao = req.body.operacao;
-        entityDb.periodicidade = req.body.periodicidade;
-        entityDb.repeticao = req.body.repeticao;
-        entityDb.favorecido = req.body.favorecido;
-        entityDb.documento = req.body.documento;
-        entityDb.gestor = req.body.gestor;
-        entityDb.valor = req.body.valor;
         entityDb.status = req.body.status;
+        entityDb.estrategias = req.body.estrategias;
         entityDb.login = req.body.login;
         entityDb.save().then(entityDb => {
             res.json('Update complete');

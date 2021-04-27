@@ -1,4 +1,4 @@
-const EntityDb = require("./lancamento.model");
+const EntityDb = require("./gestor.model");
 
 module.exports = {
   // Defined listing route
@@ -17,7 +17,7 @@ module.exports = {
     let entityDb = new EntityDb(req.body);
     entityDb.save()
       .then(entityDb => {
-        res.status(200).json('Added successfully');
+        res.status(200).json({'Message': 'Added successfully'});
       })
       .catch(err => {
         res.status(400).send("Unable to save to database");
@@ -36,18 +36,9 @@ module.exports = {
       if (!entityDb)
         res.status(404).send("Data is not found");
       else {
-        entityDb.classificador = req.body.classificador;
-        entityDb.categoria = req.body.categoria;
-        entityDb.descricao = req.body.descricao;
-        entityDb.data = req.body.data;
-        entityDb.operacao = req.body.operacao;
-        entityDb.periodicidade = req.body.periodicidade;
-        entityDb.repeticao = req.body.repeticao;
-        entityDb.favorecido = req.body.favorecido;
-        entityDb.documento = req.body.documento;
-        entityDb.gestor = req.body.gestor;
-        entityDb.valor = req.body.valor;
-        entityDb.status = req.body.status;
+        entityDb.tipoConta = req.body.tipoConta;
+        entityDb.nomeConta = req.body.nomeConta;
+        entityDb.situacao = req.body.situacao;
         entityDb.login = req.body.login;
         entityDb.save().then(entityDb => {
             res.json('Update complete');

@@ -28,6 +28,15 @@ axios.get(urlapi+'tablecode/eventonad').then(resp => {
   });
 });
 
+let optionscategoria = [];
+optionscategoria.push({ value: 'Selecione a opção...', label: 'Selecione a opção...' });
+axios.get(urlapi + 'tablecode/categoria').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionscategoria.push({ value: (key, value.descricao), label: (key, value.descricao) });
+  });
+});
+
 let optionsgrupodespesa = [];
 optionsgrupodespesa.push({ value: 'Selecione a opção...', label: 'Selecione a opção...' });
 axios.get(urlapi + 'tablecode/grupodespesa').then(resp => {
@@ -166,6 +175,7 @@ export default class Edit extends Component {
     this.onChangeProcnad = this.onChangeProcnad.bind(this);
     this.onChangeDatanad = this.onChangeDatanad.bind(this);
     this.onChangeEvenad = this.onChangeEvenad.bind(this);
+    this.onChangeCategoria = this.onChangeCategoria.bind(this);
     this.onChangeCatgast = this.onChangeCatgast.bind(this); 
     this.onChangeAdant = this.onChangeAdant.bind(this);  
     this.onChangeSecret = this.onChangeSecret.bind(this); 
@@ -235,6 +245,7 @@ export default class Edit extends Component {
       procnad : '',
       datanad : '',
       evenad  : '',
+      categoria: '',
       catgast  : '',
       adant  : '',
       secret  : '',
@@ -315,6 +326,7 @@ export default class Edit extends Component {
                 procnad : response.procnad,
                 datanad : response.datanad,
                 evenad  :  response.evenad,
+                categoria: response.categoria,
                 catgast : response.catgast ,
                 adant  : response.adant ,
                 secret  : response.secret,
@@ -384,6 +396,7 @@ export default class Edit extends Component {
 
             // verifica os registros nos vetores de dados 
             optionstipoevento=this.CheckElenteArray(response.evenad,optionstipoevento);
+            optionscategoria = this.CheckElenteArray(response.categoria, optionscategoria);
             optionsgrupodespesa=this.CheckElenteArray(response.catgast,optionsgrupodespesa);
             optionsunidgestora=this.CheckElenteArray(response.unigest,optionsunidgestora);
             optionsunidorcamentaria=this.CheckElenteArray(response.uniorc,optionsunidorcamentaria);
@@ -504,13 +517,16 @@ export default class Edit extends Component {
         datanad: e.target.value
       })  
     }
-
     onChangeEvenad(e) {
       this.setState({
           evenad: e.value
       })
     }
-
+    onChangeCategoria(e) {
+      this.setState({
+        categoria: e.value
+      })
+    }
     onChangeCatgast(e)  {
       this.setState({
         catgast: e.value
@@ -939,6 +955,7 @@ export default class Edit extends Component {
       procnad : this.state.procnad,
       datanad : this.state.datanad,
       evenad  : this.state.evenad,
+      categoria: this.state.categoria,
       catgast : this.state.catgast ,
       adant  : this.state.adant ,
       secret  : this.state.secret,
@@ -1031,10 +1048,14 @@ export default class Edit extends Component {
                         <label>NAD</label>  
                         <input type="text" id="numnad" className="form-control form-control-sm" value={this.state.numnad} onChange={this.onChangeNumnad}/>
                       </div>
-                      <div className="col-sm-5">
+                      <div className="col-sm-2">
                         <label>Processo</label>  
                         <input type="text" id="procnad" className="form-control form-control-sm" value={this.state.procnad} onChange={this.onChangeProcnad}/>
                       </div>
+                      <div className="col-sm-3">
+                        <label>Categoria</label>
+                        <SelectInput id="categoria" className="sm" options={optionscategoria} onChange={this.onChangeCategoria} selectedValue={this.state.categoria} />
+                      </div>    
                       <div className="col-sm-2">
                         <label>Data</label>  
                         <InputMask mask='99/99/9999' slotChar='mm/dd/yyyy' type="text" id="datanad" className="form-control form-control-sm" value={this.state.datanad} onChange={this.onChangeDatanad}/>

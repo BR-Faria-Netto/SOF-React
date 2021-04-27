@@ -27,12 +27,16 @@ const sequencialRoute = require('./sequencial/sequencial.route');
 
 const orcamentoRoute = require('./orcamento/orcamento.route');
 const responsavel = require('./responsavel/responsavel.route');
-const conta = require('./conta/conta.route');
-const tipolancamento = require('./tipolancamento/tipolancamento.route');
+const gestor = require('./gestor/gestor.route');
+const classificador = require('./classificador/classificador.route');
 const lancamento = require('./lancamento/lancamento.route');
 const nadRoute = require('./nad/nad.route');
 const ndcRoute = require('./ndc/ndc.route');
 
+const basePes = require('./planejamento/basepes/basePes.route');
+const diretriz = require('./planejamento/diretriz/diretriz.route');
+const objetivo = require('./planejamento/objetivo/objetivo.route');
+const meta = require('./planejamento/meta/route');
 
 // aplication to use
 app.disable('x-powered-by');
@@ -48,12 +52,17 @@ app.use('/favorecido',favorecidoRoute);
 app.use('/secretaria',secretariaRoute);
 app.use('/sequencial',sequencialRoute);
 app.use('/responsavel',responsavel);
-app.use('/conta', conta);
-app.use('/tipolancamento', tipolancamento);
+app.use('/gestor', gestor);
+app.use('/classificador', classificador);
 app.use('/lancamento', lancamento);
 app.use('/orcamento', orcamentoRoute);
 app.use('/nad',nadRoute);
 app.use('/ndc',ndcRoute);
+
+app.use('/basePes', basePes);
+app.use('/diretriz', diretriz);
+app.use('/objetivo', objetivo);
+app.use('/meta', meta);
 
 // exports server
 module.exports = app;

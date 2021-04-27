@@ -17,17 +17,34 @@ import IndexResponsavel from "../views/Responsavel/index.responsavel";
 import CreateResponsavel from "../views/Responsavel/create.responsavel";
 import EditResponsavel from "../views/Responsavel/edit.responsavel";
 
-import IndexConta from "../views/Conta/index.conta";
-import CreateConta from "../views/Conta/create.conta";
-import EditConta from "../views/Conta/edit.conta";
+import IndexGestor from "../views/Gestor/index.gestor";
+import CreateGestor from "../views/Gestor/create.gestor";
+import EditGestor from "../views/Gestor/edit.gestor";
 
-import IndexTipoLancamento from "../views/TipoLancamento/index.tipolancamento";
-import CreateTipoLancamento from "../views/TipoLancamento/create.tipolancamento";
-import EditTipoLancamento from "../views/TipoLancamento/edit.tipolancamento";
+import IndexClassificador from "../views/Classificador/index.classificador";
+import CreateClassificador from "../views/Classificador/create.classificador";
+import EditClassificador from "../views/Classificador/edit.classificador";
 
 import IndexLancamento from "../views/Lancamento/index.lancamento";
 import CreateLancamento from "../views/Lancamento/create.lancamento";
 import EditLancamento from "../views/Lancamento/edit.lancamento";
+
+import IndexBasePes from "../views/Planejamento/BasePes/index.basepes";
+import CreateBasePes from "../views/Planejamento/BasePes/create.basepes";
+import EditBasePes from "../views/Planejamento/BasePes/edit.basepes";
+
+import IndexDiretriz from "../views/Planejamento/Diretriz/index.diretriz";
+import CreateDiretriz from "../views/Planejamento/Diretriz/create.diretriz";
+import EditDiretriz from "../views/Planejamento/Diretriz/edit.diretriz";
+
+import IndexObjetivo from "../views/Planejamento/Objetivo/index.objetivo";
+import CreateObjetivo from "../views/Planejamento/Objetivo/create.objetivo";
+import EditObjetivo from "../views/Planejamento/Objetivo/edit.objetivo";
+
+import IndexMeta from "../views/Planejamento/Meta/index";
+import CreateMeta from "../views/Planejamento/Meta/create";
+import EditMeta from "../views/Planejamento/Meta/edit";
+
 
 import IndexOrcamento from "../views/Orcamento/index.orcamento";
 import CreateOrcamento from "../views/Orcamento/create.orcamento";
@@ -101,17 +118,33 @@ const routes = () => (
       <PrivateRoute exact path="/createResponsavel" component={CreateResponsavel} />
       <PrivateRoute exact path="/editResponsavel/:id" component={EditResponsavel} />
 
-      <PrivateRoute exact path="/indexConta" component={IndexConta} />
-      <PrivateRoute exact path="/createConta" component={CreateConta} />
-      <PrivateRoute exact path="/editConta/:id" component={EditConta} />
+      <PrivateRoute exact path="/indexGestor" component={IndexGestor} />
+      <PrivateRoute exact path="/createGestor" component={CreateGestor} />
+      <PrivateRoute exact path="/editGestor/:id" component={EditGestor} />
 
-      <PrivateRoute exact path="/indexTipoLancamento" component={IndexTipoLancamento} />
-      <PrivateRoute exact path="/createTipoLancamento" component={CreateTipoLancamento} />
-      <PrivateRoute exact path="/editTipoLancamento/:id" component={EditTipoLancamento} />
+      <PrivateRoute exact path="/indexClassificador" component={IndexClassificador} />
+      <PrivateRoute exact path="/createClassificador" component={CreateClassificador} />
+      <PrivateRoute exact path="/editClassificador/:id" component={EditClassificador} />
 
       <PrivateRoute exact path="/indexLancamento" component={IndexLancamento} />
       <PrivateRoute exact path="/createLancamento" component={CreateLancamento} />
       <PrivateRoute exact path="/editLancamento/:id" component={EditLancamento} />
+
+      <PrivateRoute exact path="/indexBasePes" component={IndexBasePes} />
+      <PrivateRoute exact path="/createBasePes" component={CreateBasePes} />
+      <PrivateRoute exact path="/editBasePes/:id" component={EditBasePes} /> 
+
+      <PrivateRoute exact path="/indexDiretriz" component={IndexDiretriz} />
+      <PrivateRoute exact path="/createDiretriz" component={CreateDiretriz} />
+      <PrivateRoute exact path="/editDiretriz/:id" component={EditDiretriz} /> 
+
+      <PrivateRoute exact path="/indexObjetivo" component={IndexObjetivo} />
+      <PrivateRoute exact path="/createObjetivo" component={CreateObjetivo} />
+      <PrivateRoute exact path="/editObjetivo/:id" component={EditObjetivo} /> 
+
+      <PrivateRoute exact path="/indexMeta" component={IndexMeta} />
+      <PrivateRoute exact path="/createMeta" component={CreateMeta} />
+      <PrivateRoute exact path="/editMeta/:id" component={EditMeta} />
 
       <PrivateRoute exact path="/indexOrcamento" component={IndexOrcamento} />
       <PrivateRoute exact path="/createOrcamento" component={CreateOrcamento} />
