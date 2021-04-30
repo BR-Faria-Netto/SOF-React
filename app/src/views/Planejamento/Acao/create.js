@@ -4,15 +4,10 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import * as Icon from 'react-bootstrap-icons';
-import BootstrapTable from "react-bootstrap-table-next";
-import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-import cellEditFactory from 'react-bootstrap-table2-editor';
-
-
 import SelectInput from '../../../components/SelectInput';
 
 import api from "../../../services/api";
+
 
 var optionsBasePes = [];
 optionsBasePes.push({ value: 'Selecione a opção...', label: 'Selecione a opção...', id: 0 });
@@ -41,6 +36,15 @@ api.get('objetivo').then(resp => {
   });
 });
 
+var optionsMeta = [];
+optionsMeta.push({ value: 'Selecione a opção...', label: 'Selecione a opção...', id: 0 });
+api.get('objetivo').then(resp => {
+  Object.entries(resp).forEach(entry => {
+    const [key, value] = entry;
+    optionsMeta.push({ value: (key, value.descricao), label: (key, value.descricao), id: (key, value._id) });
+  });
+});
+
 var optionsStatus = [];
 optionsStatus.push({ value: ('Ativo', 'Ativo'), label: ('Ativo', 'Ativo') });
 optionsStatus.push({ value: ('Inativo', 'Inativo'), label: ('Inativo', 'Inativo') });
@@ -51,16 +55,20 @@ export default class Create extends Component {
     this.onChangeBasePes = this.onChangeBasePes.bind(this);
     this.onChangeDiretriz = this.onChangeDiretriz.bind(this);
     this.onChangeObjetivo = this.onChangeObjetivo.bind(this);
+    this.onChangeMeta = this.onChangeMeta.bind(this);
     this.onChangeNumero = this.onChangeNumero.bind(this);
     this.onChangeDescricao = this.onChangeDescricao.bind(this);
+    this.onChangeIndicador = this.onChangeIndicador.bind(this);
     this.onChangeStatus = this.onChangeStatus.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
       basePes: '',
       diretriz: '',
       objetivo: '',
+      meta: '',
       numero: '',
       descricao: '',
+      indicador: '',
       status: '',
       estrategias: []
     }
@@ -80,6 +88,11 @@ export default class Create extends Component {
       objetivo: e.value
     });
   }
+  onChangeMeta(e) {
+    this.setState({
+      meta: e.value
+    });
+  }
   onChangeNumero(e) {
     this.setState({
       numero: e.target.value
@@ -88,6 +101,11 @@ export default class Create extends Component {
   onChangeDescricao(e) {
     this.setState({
       descricao: e.target.value
+    })
+  }
+  onChangeIndicador(e) {
+    this.setState({
+      indicador: e.target.value
     })
   }
   onChangeStatus(e) {
@@ -101,13 +119,15 @@ export default class Create extends Component {
       basePes: this.state.basePes,
       diretriz: this.state.diretriz,
       objetivo: this.state.objetivo,
+      meta: this.state.meta,
       numero: this.state.numero,
       descricao: this.state.descricao,
+      indicador: this.state.indicador,
       status: this.state.status,
       estrategias: this.state.estrategias,
       login: window.login
     };
-    api.post('meta/add',obj)
+    api.post('acao/add',obj)
     .then(res => {
       toast.success("Registro foi salvo com successo");
     })
@@ -119,58 +139,7 @@ export default class Create extends Component {
 
   }
 
-  AddRow = () => {
-    const item = {
-      codigo: "",
-      descricao: ""
-    };
-    this.setState({ estrategias: [...this.state.estrategias, item] });
-  };
-
-  RemoveRow = (row) => {
-    const estrategias = this.state.estrategias;
-    for (let [i, estrategia] of estrategias.entries()) {
-      if (estrategia._id === row._id) {
-        estrategias.splice(i, 1);
-      }
-    }
-    this.setState({ estrategias })
-  }
-
   render() {
-
-    const columns = [
-      {
-        dataField: 'codigo',
-        text: 'Ordem'
-      },
-      {
-        dataField: 'descricao',
-        text: 'Ação Estratégica'
-      },
-      {
-        text:
-          <div className="form-row">
-            <div className="col-sm-3">
-              Ação
-            </div>
-            <div className="col-sm-3">
-              <button type="button" onClick={() => this.AddRow()} className="btn btn-sm btn-outline-success"><Icon.PlusSquareFill /></button>
-            </div>
-          </div>
-        ,
-        formatter: (cellContent, row) => (
-          <div className="form-row">
-            <div className="col-sm-3">
-              <Link to={`#`} className="btn btn-sm btn-outline-danger" onClick={() => { if (window.confirm('Você confirma a exclusão?')) { this.RemoveRow(row) }; }}><Icon.TrashFill /></Link>
-            </div>
-          </div>
-        ),
-        style: {
-          width: '2%'
-        }
-      }
-    ];
 
     return (
 
@@ -182,9 +151,19 @@ export default class Create extends Component {
                 <form onSubmit={this.onSubmit} style={{ marginLeft:'15px', marginRight:'15px', marginTop:'15px'}}>
                     <div className="form-row">
                       <div className="col-sm-2">
-                        <label>Base do Pes</label>
+                        <label>Ano Base</label>
                         <SelectInput id="basePes" className="sm" options={optionsBasePes} onChange={this.onChangeBasePes} selectedValue={this.state.basePes} />
                       </div>
+                      <div className="col-sm-1">
+                        <label>Ordem</label>
+                        <input type="text" className="form-control" value={this.state.numero} onChange={this.onChangeNumero} />
+                      </div>
+                      <div className="col-sm-2">
+                        <label>Situação</label>
+                        <SelectInput id="situacao" className="sm" options={optionsStatus} onChange={this.onChangeStatus} selectedValue={this.state.status} />
+                      </div>
+                    </div>
+                    <div className="form-row">
                       <div className="col-sm-2">
                         <label>Diretriz</label>
                         <SelectInput id="diretriz" className="sm" options={optionsDiretriz} onChange={this.onChangeDiretriz} selectedValue={this.state.diretriz} />
@@ -194,33 +173,20 @@ export default class Create extends Component {
                         <SelectInput id="objetivo" className="sm" options={optionsObjetivo} onChange={this.onChangeObjetivo} selectedValue={this.state.objetivo} />
                       </div>
                       <div className="col-sm-2">
-                        <label>Situação</label>
-                        <SelectInput id="situacao" className="sm" options={optionsStatus} onChange={this.onChangeStatus} selectedValue={this.state.status} />
-                      </div>
-                    </div>
-                    <div className="form-row">
-                    </div>
-                    <div className="form-row">
-                      <div className="col-sm-1">
-                        <label>Ordem</label>
-                        <input type="text" className="form-control" value={this.state.numero} onChange={this.onChangeNumero} />
-                      </div>
-                      <div className="col-sm-7">
                         <label>Meta</label>
+                        <SelectInput id="meta" className="sm" options={optionsMeta} onChange={this.onChangeMeta} selectedValue={this.state.meta} />
+                      </div>
+                    </div>
+                    <div className="form-row">
+                      <div className="col-sm-3">
+                        <label>Acão</label>
                         <textarea id="desc" name="desc" rows="4" className="form-control form-control-sm" type="text" value={this.state.descricao} onChange={this.onChangeDescricao} />
                       </div>
-                    </div>
-                    <div className="form-row">
-                      <div className="col-sm-8" style={{ marginLeft: '7px', marginRight: '7px', marginTop: '10px' }}>
-                        <BootstrapTable
-                          keyField='_id'
-                          data={this.state.estrategias}
-                          columns={columns}
-                          cellEdit={cellEditFactory({ mode: 'dbclick', blurToSave: true })}
-                          hover
-                        />
+                      <div className="col-sm-3">
+                        <label>Indicador</label>
+                        <textarea id="ind" name="ind" rows="4" className="form-control form-control-sm" type="text" value={this.state.indicador} onChange={this.onChangeIndicador} />
                       </div>
-                    </div>  
+                    </div>
                     <br></br>
                     <div className="form-row">
                         <ToastContainer />

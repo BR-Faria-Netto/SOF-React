@@ -8,78 +8,85 @@ import Home from "../views/Home";
 import Menu from '../menu/index';
 import Login from "../views/Login";
 
-import IndexFavorecido from "../views/Favorecido/index.favorecido";
-import CreateFavorecido from "../views/Favorecido/create.favorecido";
-import EditFavorecido from "../views/Favorecido/edit.favorecido";
-import CloneFavorecido from "../views/Favorecido/clone.favorecido";
+import IndexFavorecido from "../views/Favorecido";
+import CreateFavorecido from "../views/Favorecido/create";
+import EditFavorecido from "../views/Favorecido/edit";
+import CloneFavorecido from "../views/Favorecido/clone";
 
-import IndexResponsavel from "../views/Responsavel/index.responsavel";
-import CreateResponsavel from "../views/Responsavel/create.responsavel";
-import EditResponsavel from "../views/Responsavel/edit.responsavel";
+import IndexResponsavel from "../views/Responsavel";
+import CreateResponsavel from "../views/Responsavel/create";
+import EditResponsavel from "../views/Responsavel/edit";
 
-import IndexGestor from "../views/Gestor/index.gestor";
-import CreateGestor from "../views/Gestor/create.gestor";
-import EditGestor from "../views/Gestor/edit.gestor";
+import IndexGestor from "../views/Gestor";
+import CreateGestor from "../views/Gestor/create";
+import EditGestor from "../views/Gestor/edit";
 
-import IndexClassificador from "../views/Classificador/index.classificador";
-import CreateClassificador from "../views/Classificador/create.classificador";
-import EditClassificador from "../views/Classificador/edit.classificador";
+import IndexClassificador from "../views/Classificador";
+import CreateClassificador from "../views/Classificador/create";
+import EditClassificador from "../views/Classificador/edit";
 
-import IndexLancamento from "../views/Lancamento/index.lancamento";
-import CreateLancamento from "../views/Lancamento/create.lancamento";
-import EditLancamento from "../views/Lancamento/edit.lancamento";
+import IndexLancamento from "../views/Lancamento";
+import CreateLancamento from "../views/Lancamento/create";
+import EditLancamento from "../views/Lancamento/edit";
 
-import IndexBasePes from "../views/Planejamento/BasePes/index.basepes";
-import CreateBasePes from "../views/Planejamento/BasePes/create.basepes";
-import EditBasePes from "../views/Planejamento/BasePes/edit.basepes";
+import IndexBasePes from "../views/Planejamento/BasePes";
+import CreateBasePes from "../views/Planejamento/BasePes/create";
+import EditBasePes from "../views/Planejamento/BasePes/edit";
 
-import IndexDiretriz from "../views/Planejamento/Diretriz/index.diretriz";
-import CreateDiretriz from "../views/Planejamento/Diretriz/create.diretriz";
-import EditDiretriz from "../views/Planejamento/Diretriz/edit.diretriz";
+import IndexDiretriz from "../views/Planejamento/Diretriz";
+import CreateDiretriz from "../views/Planejamento/Diretriz/create";
+import EditDiretriz from "../views/Planejamento/Diretriz/edit";
 
-import IndexObjetivo from "../views/Planejamento/Objetivo/index.objetivo";
-import CreateObjetivo from "../views/Planejamento/Objetivo/create.objetivo";
-import EditObjetivo from "../views/Planejamento/Objetivo/edit.objetivo";
+import IndexObjetivo from "../views/Planejamento/Objetivo";
+import CreateObjetivo from "../views/Planejamento/Objetivo/create";
+import EditObjetivo from "../views/Planejamento/Objetivo/edit";
 
 import IndexMeta from "../views/Planejamento/Meta/index";
 import CreateMeta from "../views/Planejamento/Meta/create";
 import EditMeta from "../views/Planejamento/Meta/edit";
 
+import IndexAcao from "../views/Planejamento/Acao/index";
+import CreateAcao from "../views/Planejamento/Acao/create";
+import EditAcao from "../views/Planejamento/Acao/edit";
 
-import IndexOrcamento from "../views/Orcamento/index.orcamento";
-import CreateOrcamento from "../views/Orcamento/create.orcamento";
-import EditOrcamento from "../views/Orcamento/edit.orcamento";
-import CloneOrcamento from "../views/Orcamento/clone.orcamento";
+import IndexMacroAcao from "../views/Planejamento/MacroAcao/index";
+import CreateMacroAcao from "../views/Planejamento/MacroAcao/create";
+import EditMacroAcao from "../views/Planejamento/MacroAcao/edit";
 
-import IndexNad from "../views/Nad/index.nad";
-import CreateNad from "../views/Nad/create.nad";
-import EditNad from "../views/Nad/edit.nad";
-import CloneNad from "../views/Nad/clone.nad";
-import PrintNad from "../views/Nad/print.nad";
+import IndexOrcamento from "../views/Orcamento/index";
+import CreateOrcamento from "../views/Orcamento/create";
+import EditOrcamento from "../views/Orcamento/edit";
+import CloneOrcamento from "../views/Orcamento/clone";
 
-import IndexNdc from "../views/Ndc/index.ndc";
-import CreateNdc from "../views/Ndc/create.ndc";
-import EditNdc from "../views/Ndc/edit.ndc";
-import CloneNdc from "../views/Ndc/clone.ndc";
-import PrintNdc from "../views/Ndc/print.ndc";
+import IndexNad from "../views/Nad";
+import CreateNad from "../views/Nad/create";
+import EditNad from "../views/Nad/edit";
+import CloneNad from "../views/Nad/clone";
+import PrintNad from "../views/Nad/print";
 
-import IndexTableCode from "../views/TableCode/index.tablecode";
-import CreateTableCode from "../views/TableCode/create.tablecode";
-import EditTableCode from "../views/TableCode/edit.tablecode";
+import IndexNdc from "../views/Ndc";
+import CreateNdc from "../views/Ndc/create";
+import EditNdc from "../views/Ndc/edit";
+import CloneNdc from "../views/Ndc/clone";
+import PrintNdc from "../views/Ndc/print";
 
-import IndexSecretaria from "../views/Secretaria/index.secretaria";
-import CreateSecretaria from "../views/Secretaria/create.secretaria";
-import EditSecretaria from "../views/Secretaria/edit.secretaria";
+import IndexTableCode from "../views/TableCode";
+import CreateTableCode from "../views/TableCode/create";
+import EditTableCode from "../views/TableCode/edit";
 
-import IndexSequencial from "../views/Sequencial/index.sequencial";
-import CreateSequencial from "../views/Sequencial/create.sequencial";
-import EditSequencial from "../views/Sequencial/edit.sequencial";
+import IndexSecretaria from "../views/Secretaria";
+import CreateSecretaria from "../views/Secretaria/create";
+import EditSecretaria from "../views/Secretaria/edit";
 
-import IndexUser from "../views/User/index.user";
-import CreateUser from "../views/User/create.user";
-import EditUser from "../views/User/edit.user";
-import KeyUser from "../views/User/key.user";
-import ProfileUser from "../views/User/profile.user";
+import IndexSequencial from "../views/Sequencial";
+import CreateSequencial from "../views/Sequencial/create";
+import EditSequencial from "../views/Sequencial/edit";
+
+import IndexUser from "../views/User";
+import CreateUser from "../views/User/create";
+import EditUser from "../views/User/edit";
+import KeyUser from "../views/User/key";
+import ProfileUser from "../views/User/profile";
 
 import Register from "../views/Register";
 import ConfirmCode from "../views/ConfirmCode";
@@ -146,6 +153,15 @@ const routes = () => (
       <PrivateRoute exact path="/createMeta" component={CreateMeta} />
       <PrivateRoute exact path="/editMeta/:id" component={EditMeta} />
 
+      <PrivateRoute exact path="/indexAcao" component={IndexAcao} />
+      <PrivateRoute exact path="/createAcao" component={CreateAcao} />
+      <PrivateRoute exact path="/editAcao/:id" component={EditAcao} />
+
+
+      <PrivateRoute exact path="/indexMacroAcao" component={IndexMacroAcao} />
+      <PrivateRoute exact path="/createMacroAcao" component={CreateMacroAcao} />
+      <PrivateRoute exact path="/editMacroAcao/:id" component={EditMacroAcao} />
+
       <PrivateRoute exact path="/indexOrcamento" component={IndexOrcamento} />
       <PrivateRoute exact path="/createOrcamento" component={CreateOrcamento} />
       <PrivateRoute exact path="/editOrcamento/:id" component={EditOrcamento} />
@@ -163,9 +179,9 @@ const routes = () => (
       <PrivateRoute exact path="/cloneNdc/:id" component={CloneNdc} />  
       <PrivateRoute exact path="/printNdc/:id" component={PrintNdc} /> 
 
-      <AdminRoute exact path='/indexTableCode/:dbTable/:pgTitle' component={ IndexTableCode } />
-      <AdminRoute exact path='/createTableCode/:dbTable/:pgTitle' component={ CreateTableCode } />
-      <AdminRoute exact path='/editTableCode/:dbTable/:id/:pgTitle' component={ EditTableCode } /> 
+      <PrivateRoute exact path='/indexTableCode/:dbTable/:pgTitle' component={ IndexTableCode } />
+      <PrivateRoute exact path='/createTableCode/:dbTable/:pgTitle' component={ CreateTableCode } />
+      <PrivateRoute exact path='/editTableCode/:dbTable/:id/:pgTitle' component={ EditTableCode } /> 
 
       <PrivateRoute exact path="/indexSecretaria" component={IndexSecretaria} />
       <PrivateRoute exact path="/createSecretaria" component={CreateSecretaria} />

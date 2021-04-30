@@ -16,25 +16,20 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import urlapi from "../../services/urlapi"
-import PrintFavorecido from './print.favorecido'
+import PrintSecretaria from './print'
 
 import Logo from '../../images/index';
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
-import { Role } from '../../services/role';
-import { getUser } from '../../auth'
-
-import moment from "moment";
-
 export default class Index extends Component {
     render() {
-        return (<div><FavorecidoList/></div>);
+        return (<div><SecretariaList/></div>);
     }
 }
 
-export const FavorecidoList = (user) => {
+export const SecretariaList = () => {
 
     const [rowData, setRowData] = useState([]);
     const [dataPrint,setDataPrint] = useState([]);
@@ -42,27 +37,27 @@ export const FavorecidoList = (user) => {
     const [isVisible, setIsVisible] = useState(false);
     const [isErr, setIsErr] = useState(false); 
     const [isRefresh, setIsRefresh] = useState(true);
-    const [page, setPage] = useState(1);
 
-    const isShow = (getUser().role !== Role.Admin);
-   
+    const [pageNumber, setPageNumber] = useState(1);
+    
     useEffect(() => {
       getDataAll();
     }, []);
 
-
-   const getDataAll = (page) => {
-
-     axios.get(urlapi+'favorecido').then(response => {
-       setRowData(response.data);
-       setIsLoading(false);
-     })
-       .catch(error => {
-         setIsErr(true);
-         setIsLoading(false);
-       })
-   }
-
+    const getDataAll = () => {
+        const fetSecretaria = async () => {
+          try {
+              const response = await axios.get(urlapi+'secretaria', {timeout: 5000});
+              setRowData(response.data);
+              setIsLoading(false);
+          } catch (e) {
+              setIsErr(true);
+              setIsLoading(false);
+          }
+        };
+        fetSecretaria();
+    }
+  
     const [rowSelect, setrowSelect] = useState([]);
         
     const selectRow = useMemo(
@@ -76,7 +71,7 @@ export const FavorecidoList = (user) => {
             isSelect
               ? [...rowData, row]
               : rowData.filter(
-                  ({ nomefav, cnpj  }) => row.nomefav !== nomefav && row.cnpj !== cnpj
+                  ({ nomesec, cnpj  }) => row.nomesec !== nomesec && row.cnpj !== cnpj
                 )
           );
         },
@@ -107,15 +102,14 @@ export const FavorecidoList = (user) => {
           {
             label: 'Sim',
             onClick: () => {
-
-                  axios.get(urlapi+'favorecido/delete/'+row._id)
+                  axios.get(urlapi+'secretaria/delete/'+row._id)
                   .then(
                     toast.warning("Registro foi excluido com successo")
                   )
                   .catch(error => {
                     toast.error("Ocorrou erro ao excluir o registro");
                   })
-
+        
                   getDataAll();
                   setIsRefresh(true);
             }
@@ -125,187 +119,125 @@ export const FavorecidoList = (user) => {
           }
         ]
       })
-      
     }
 
+    const setPage = (page) => {
+
+      setPageNumber(page);
+      //localStorage.setItem("pageNumber", page);
+
+    }
+
+  
     const columns = [
       {
-        dataField: 'nomefav',
-        text: 'Favorecido',
+        dataField: 'nomesec',
+        text: 'Secretaria',
         filter: textFilter()
       },
       {
         dataField: 'cnpj',
         text: 'Cnpj/Cpf',
         filter: textFilter()
+  
       },
       {
         dataField: 'ender',
         text: 'Endereço',
         filter: textFilter()
+  
       },
       {
         dataField: 'bai', 
         text: 'Bairro',
         filter: textFilter()
+  
       },
       {
         dataField: 'cid',
         text: 'Cidade',
         filter: textFilter()
+      
       },
       {
-        dataField: 'createdAt',
-        text: 'Criação',
-        filter: textFilter(),
-        formatter: (row) => (
-          `${moment(row).format("DD/MM/YYYY")? moment(row).format("DD/MM/YYYY HH:mm:ss"):moment(row).format("DD/MM/YYYY HH:mm:ss") }`
-        ),
-        hidden: isShow
-      }
-      ,
-      {
-        dataField: 'createdUp',
-        text: 'Alteração',
-        filter: textFilter(),
-        formatter: (row) => (
-          `${moment(row).format("DD/MM/YYYY")? moment(row).format("DD/MM/YYYY HH:mm:ss"):moment(row).format("DD/MM/YYYY HH:mm:ss" ) }`
-        ),
-        hidden: isShow
-      },
-      {
-        dataField: 'login',
-        text: 'Usuário',
-        filter: textFilter(),
-        hidden: isShow
-      },
-      {
-        text:
+        text: 
           <div>
-            <div className="form-row">
-              <div className="col-sm-3">
-                Ação
-                    </div>
-            </div>
-            <div className="form-row">
-              <div className="col-sm-3">
-                <Link to={'/createFavorecido'} className="btn btn-sm btn-outline-success"><Icon.PlusSquareFill /></Link>
+              <div className="form-row">
+                  <div className="col-sm-3">
+                    Ação
+                  </div> 
               </div>
-              <div className="col-sm-3">
-                  {rowData.length > 0 && (<button onClick={Printer} className="btn btn-sm btn-outline-secondary"><Icon.Printer /></button>)}
-              </div> 
-            </div>
+              <div className="form-row">
+                  <div className="col-sm-3">
+                    <Link to={'/createSecretaria'} className="btn btn-sm btn-outline-success"><Icon.PlusSquareFill/></Link>
+                  </div> 
+                  <div className="col-sm-3">
+                      {rowData.length > 0 && (<button onClick={ Printer } className="btn btn-sm btn-outline-secondary"><Icon.Printer/></button>)} 
+                  </div> 
+              </div>
           </div>
         ,
         formatter: (cellContent, row, isSelected, currentDisplayAndSelectedData) => (
           <div className="form-row">
-            <div className="col-sm-3">
-              <Link to={"/editFavorecido/" + row._id} className="btn btn-sm btn-outline-primary"><Icon.PencilSquare /></Link>
-            </div>
-            <div className="col-sm-3">
-              <Link to={"/cloneFavorecido/" + row._id} className="btn btn-sm btn-outline-warning"><Icon.CloudPlus /></Link>
-            </div>
-            <div className="col-sm-3">
-              <Link to={`#`} className="btn btn-sm btn-outline-danger" onClick={() => { deleteRow(row) }}><Icon.TrashFill /></Link>
-            </div>
+              <div className="col-sm-3">
+                  <Link to={"/editSecretaria/"+row._id} className="btn btn-sm btn-outline-primary"><Icon.PencilSquare/></Link>
+              </div> 
+              <div className="col-sm-3">
+                  <Link to={`#`} className="btn btn-sm btn-outline-danger" onClick={() => { deleteRow(row)}}><Icon.TrashFill/></Link>
+              </div> 
           </div>
         ),
-        style: {
-          width: '6%'
+        style:{
+          width: '9%'
         }
+  
       }
     ];
 
-    const sizePerPageRenderer = ({
-      options,
-      currSizePerPage,
-      onSizePerPageChange
-    }) => {
-          return (
-            options.map(option => (
-                <button
-                  key={option.text}
-                  type="button"
-                  onClick={() => onSizePerPageChange(option.page)}
-                  className={`btn ${currSizePerPage === `${option.page}` ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-warning'}`}
-                >
-                  {option.text}
-                </button>
-            ))
-          )
-    };
-
-    const pageButtonRenderer = ({
-      page,
-      active,
-      onPageChange
-    }) => {
-
-      const pageClick = (page) => {
-        setPage(page);
-        getDataAll(page);
-        onPageChange(page);
-      };
-
-      let styleClass = '';
-      if (active) {
-        styleClass = 'btn btn-sm btn-secondary';
-      }
-      else {                           
-        styleClass = 'btn btn-sm btn-warning';
-      }
-      if (typeof page === 'string') {
-        styleClass = 'btn btn-sm btn-warning';
-      }
-      return (
-          <button
-            key={page}
-            type='button'
-            className={styleClass}
-            style={{float:'right'}}
-            onClick={() => pageClick(page) }
-          >
-            {page}
-          </button>
-        );
+    const options = {
+       onPageChange: (page) => {
+         setPage(page);
+       },
+       page: pageNumber,
+       paginationSize: 3,
+       pageStartIndex: 1,
+       sizePerPage: 8,
+       sizePerPageList: [
+            {
+              text: '8', value: 8
+            },
+            {
+              text: '16', value: 16
+            },
+            {
+              text: '32', value: 32
+            },
+            {
+              text: '64', value: 64
+            }
+        ] 
+  
     };
     
-
-    const options = ({ 
-        pageButtonRenderer,
-        sizePerPageRenderer,
-        sizePerPageList: [
-          {
-            text: '10', value: 10
-          },
-          {
-            text: '20', value: 20
-          },
-          {
-            text: '40', value: 40
-          },
-          {
-            text: '80', value: 80
-          }
-        ] 
-    });
-   
     const MySearch = (props) => {
         let input;
+        const handleClick = () => {
+          props.onSearch(input.value);
+        };
         return (
-          <div className="container">
-              <div className="row" style={{marginLeft: '5%'}}>
-              <div className="col-0">
-                    <label>Pesquisar:</label>
+          <div>
+              <br></br>
+              <div className="form-row" style={{ marginLeft:'195px'}}>
+                  <label>Pesquisar:</label>  
+                    <div className="col-sm-4">
+                        <input className="form-control form-control-sm"  ref={ n => input = n } type="text" />
+                    </div>
+                  <div className="col-sm-2">
+                      <button onClick={ handleClick }  className="btn btn-sm btn-outline-warning"><Icon.Search/></button>
                   </div>
-                  <div className="col-7">
-                    <input className="form-control form-control-sm" ref={n => input = n} type="text" />
-                  </div>
-                  <div className="col-3">
-                    <button className="btn btn-sm btn-outline-warning" onClick={() => props.onSearch(input.value)}><Icon.Search /></button>
-                  </div>
-                </div>
-            </div>
+
+              </div>
+          </div>
         );
     };
 
@@ -322,17 +254,18 @@ export const FavorecidoList = (user) => {
     }
 
     if (isRefresh) {
-       getDataAll(page);
+       getDataAll();
        setIsRefresh(false);
     }
 
     return (
 
+
       <div className="responsive bg-dim full-bg-size" style={{ marginTop:'2px',marginBotton:'2px', marginLeft:'2px', marginRight:'2px', backgroundColor:'#f7f7f7', border: '1px solid #ccc'}}> 
       
           {!isVisible ? 
               <div className="form-row" style={{ marginLeft:'1px', marginRight:'1px',  backgroundColor:'#e8e9ea', height:'35px', textalign: 'center' }}>
-                  <h5>Relação de Favorecido</h5>  
+                  <h5>Relação de Secretarias</h5>  
               </div> : null
           }
 
@@ -342,7 +275,7 @@ export const FavorecidoList = (user) => {
                   <hr></hr>
                   <div className="form-row">
                       <div className="col-sm-2">
-                        <label>Favorecido</label>  
+                        <label>Secretaria</label>  
                       </div>
                       <div className="col-sm-3">
                         <label>Endereço</label>  
@@ -364,7 +297,7 @@ export const FavorecidoList = (user) => {
                 </div>
            : null }
 
-           {isVisible ? dataPrint.map(item => <PrintFavorecido data={item}/>)  : 
+           {isVisible ? dataPrint.map(item => <PrintSecretaria data={item}/>)  : 
               <ToolkitProvider 
                   keyField='_id'
                   data={rowData}
@@ -372,25 +305,24 @@ export const FavorecidoList = (user) => {
                   search
                 >
                   {
-                  props => (
+                    props => (
                       <div>
-                          <br/>
-                          <MySearch {...props.searchProps} />
-                          <br/>
+                          <MySearch { ...props.searchProps } />
+                          <br></br>
                           <div>
                               <BootstrapTable
-                                  {...props.baseProps}
+                                  { ...props.baseProps }
                                   bootstrap4
                                   keyField="_id"
                                   data={rowData}
                                   columns={columns}
                                   selectRow={selectRow}
-                                  pagination={paginationFactory(options)}
-                                  filter={filterFactory()}
+                                  pagination={ paginationFactory(options) }
+                                  filter={ filterFactory() }
                                   wrapperClasses="table-responsive"
                                   headerClasses="header-class"
                                   hover
-                                  bordered={true}
+                                  bordered={ true }
                               />
                         </div>
                       </div>
@@ -407,4 +339,5 @@ export const FavorecidoList = (user) => {
           : null }
       </div>
     );
+
   }

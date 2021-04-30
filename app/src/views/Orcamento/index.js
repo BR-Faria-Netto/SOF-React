@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import api from "../../services/api"
-import PrintOrcamento from './print.orcamento'
+import PrintOrcamento from './print'
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css

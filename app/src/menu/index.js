@@ -50,10 +50,15 @@ const Menu = (props) => {
                                         <Nav.Link href="/indexNad">Autorização</Nav.Link>
                                         <Nav.Link href="/indexNdc">Descentralização</Nav.Link>
                                         <NavDropdown title="Planejamento" id="collasible-nav-dropdown">
-                                            <NavDropdown.Item href="/indexBasePes">Base PES</NavDropdown.Item>
-                                            <NavDropdown.Item href="/indexDiretriz">Diretriz</NavDropdown.Item>
-                                            <NavDropdown.Item href="/indexObjetivo">Objetivo</NavDropdown.Item>
-                                            <NavDropdown.Item href="/indexMeta">Meta</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexBasePes">Base anual Pes</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexDiretriz">Diretriz Pes</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexObjetivo">Objetivo Pes</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexMeta">Meta Pes</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexAcao">Elaboração Pes</NavDropdown.Item>
+
+                                            <NavDropdown.Item href="/indexTableCode/unidMedida/Medida">Medida</NavDropdown.Item>
+                                            <NavDropdown.Item href="/indexMacroAcao">Macro Ação</NavDropdown.Item>
+
                                         </NavDropdown>
                                         <NavDropdown title="Cadastros" id="collasible-nav-dropdown">
                                             <NavDropdown.Item href="/indexTableCode/naturezadespesa/Natureza de Despesa" style={{ backgroundcolor: '#e3f2fd' }}>Natureza de Despesa</NavDropdown.Item>

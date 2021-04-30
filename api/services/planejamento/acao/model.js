@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Define collection and schema for Business
-let Meta = new Schema(
+let Acao = new Schema(
   {
     basePes: {
       type: String
@@ -13,10 +13,16 @@ let Meta = new Schema(
     objetivo: {
       type: String
     },
+    meta: {
+      type: String
+    },
     numero: {
       type: String
     },
     descricao: {
+      type: String
+    },
+    indicador: {
       type: String
     },
     status: {
@@ -25,11 +31,7 @@ let Meta = new Schema(
     login: {
       type: String
     },  
-    estrategias: {
-      type: [{ codigo: String, descricao: String, indicador: String, meta1: String, meta2: String, meta3: String, meta4: String}]
-    },
-
 },
-    {timestamps: true, collection: 'meta'}
+    {timestamps: true, collection: 'acao'}
 );
-module.exports = mongoose.model('Meta', Meta);
+module.exports = mongoose.model('Acao', Acao);

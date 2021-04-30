@@ -71,7 +71,6 @@ export default class Edit extends Component {
       descricao: this.state.descricao,
       status: this.state.status,
       login: window.login
-
     };
     api.post('basePes/update/'+this.props.match.params.id, obj)
     .then(res => {

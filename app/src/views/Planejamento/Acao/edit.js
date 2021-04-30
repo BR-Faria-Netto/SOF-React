@@ -139,8 +139,8 @@ export default class Edit extends Component {
 
   AddRow = () => {
     const item = {
-      codigo: " ",
-      descricao: " "
+      codigo: "",
+      descricao: ""
     };
     this.setState({ estrategias: [...this.state.estrategias, item] });
   };
@@ -155,21 +155,7 @@ export default class Edit extends Component {
     this.setState({ estrategias })
   }
 
-
   render() {
-
-      var ano1 = '';
-      var ano2 = '';
-      var ano3 = '';
-      var ano4 = '';
-
-      let object = optionsBasePes.find(base => base.label === this.state.basePes);
-
-      //alert(object.length);
-      //   ano1 = parseInt(object.anoInicio);
-      //   ano2 = parseInt(object.anoInicio) + 1;
-      //   ano3 = parseInt(object.anoInicio) + 2;
-      //   ano4 = parseInt(object.anoFim);
 
     const columns = [
       {
@@ -179,26 +165,6 @@ export default class Edit extends Component {
       {
         dataField: 'descricao',
         text:'Ação Estratégica'
-      },
-      {
-        dataField: 'indicador',
-        text: 'Indicador'
-      },
-      {
-        dataField: 'meta1',
-        text: ano1
-      },
-      {
-        dataField: 'meta1',
-        text: ano2
-      },
-      {
-        dataField: 'meta1',
-        text: ano3
-      },
-      {
-        dataField: 'meta1',
-        text: ano4
       },
       {
         text:
@@ -248,6 +214,8 @@ export default class Edit extends Component {
                   <label>Situação</label>
                   <SelectInput id="situacao" className="sm" options={optionsStatus} onChange={this.onChangeStatus} selectedValue={this.state.status} />
                 </div>
+              </div>
+              <div className="form-row">
               </div>
               <div className="form-row">
                 <div className="col-sm-1">

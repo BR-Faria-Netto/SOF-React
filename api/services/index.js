@@ -37,6 +37,9 @@ const basePes = require('./planejamento/basepes/basePes.route');
 const diretriz = require('./planejamento/diretriz/diretriz.route');
 const objetivo = require('./planejamento/objetivo/objetivo.route');
 const meta = require('./planejamento/meta/route');
+const acao = require('./planejamento/acao/route');
+
+const macroacao = require('./planejamento/macroacao/route');
 
 // aplication to use
 app.disable('x-powered-by');
@@ -63,6 +66,10 @@ app.use('/basePes', basePes);
 app.use('/diretriz', diretriz);
 app.use('/objetivo', objetivo);
 app.use('/meta', meta);
+app.use('/acao', acao);
+
+app.use('/macroacao', macroacao);
+
 
 // exports server
 module.exports = app;
