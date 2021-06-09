@@ -4,6 +4,9 @@ import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import '/';
 
+
+// https://primefaces.org/primereact/showcase/#/treetable/templating  exemplo mais facil
+
 const Index = () => {
   const [customers, setCustomers] = useState([]);
   const [expandedRows, setExpandedRows] = useState([]);

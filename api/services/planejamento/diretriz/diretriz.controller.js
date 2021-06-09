@@ -26,8 +26,6 @@ module.exports = {
   // Defined edit route
   edit(req, res) {
     let id = req.params.id;
-
-    console.log('qqui: ' + id)
     EntityDb.findById(id, function (err, entityDb){
       res.json(entityDb);
     });

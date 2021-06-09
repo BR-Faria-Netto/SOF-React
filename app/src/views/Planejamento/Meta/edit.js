@@ -163,7 +163,7 @@ export default class Edit extends Component {
       var ano3 = '';
       var ano4 = '';
 
-      let object = optionsBasePes.find(base => base.label === this.state.basePes);
+      //let object = optionsBasePes.find(base => base.label === this.state.basePes);
 
       //alert(object.length);
       //   ano1 = parseInt(object.anoInicio);

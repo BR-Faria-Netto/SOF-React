@@ -17,8 +17,6 @@ favorecidoRoute.route('/add').post(function (req, res) {
 // Defined get data(index or listing) route
 favorecidoRoute.route('/').get(function (req, res) {
 
-    console.log(req.params.page);
-
     const pageNo = 1;
     const pageSize = 10;
     const skip = (pageNo - 1) * pageSize; 
