@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
+import { Link } from 'react-router-dom';
 import * as Icon from 'react-bootstrap-icons';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -17,9 +17,18 @@ import { getUser } from '../../../auth';
 
 import moment from "moment";
 
+let anoInicio = '2020';
+let anoFim = '2021';
+
+let ano1 = anoInicio;
+let ano2 = parseInt(anoInicio) + 1;
+let ano3 = parseInt(anoInicio) + 2;
+let ano4 = anoFim;
+
 export default class Index extends Component {
 
 isShow = (getUser().role !== Role.Admin);
+
 
 constructor(props) {
       super(props);
@@ -73,16 +82,18 @@ deleteRow = (row) => {
 }
 
 getColection(row){
-  var texto = '';
-  for (let [linha] of row.entries()) {
-    if (linha._id === row._id) {
-      texto = texto+row[linha].descricao;
-    }
-  }
-  return texto
+
+   var texto = '';
+   for (let [linha] of row.entries()) {
+     if (linha._id === row._id) {
+       texto = texto+row[linha].descricao;
+     }
+   }
+   return texto
 }
 
 render() {
+
       let { err, isLoading} = this.state;
       if (err) {
          return (
@@ -123,7 +134,11 @@ render() {
           dataField: 'estrategias',
           text: 'Estrategias',
           formatter: (row) => (
-              `${this.getColection(row)}`
+            <ul>
+              {row.map((estrategias,index) =>
+                  <li>{estrategias.descricao}</li>
+              )}
+            </ul>
           ),
         },
         {
@@ -155,7 +170,7 @@ render() {
                   Ação
                 </div> 
                 <div className="col-sm-3">
-                <Link to={'/createMeta'} className="btn btn-sm btn-outline-success"><Icon.PlusSquareFill/></Link>
+                  <Link to={'/createMeta'} className="btn btn-sm btn-outline-success"><Icon.PlusSquareFill/></Link>
                 </div> 
             </div>
           ,
@@ -218,9 +233,56 @@ render() {
         );
       };
 
+      const columnsSub = [
+        {
+          dataField: 'numero',
+          text: 'Ordem',
+        },
+        {
+          dataField: 'descricao',
+          text: 'Meta',
+        },
+        {
+          text:
+            <div className="form-row">
+              <div className="col-sm-3">
+                Ação
+                  </div>
+              <div className="col-sm-3">
+                <button type="button" onClick={() => this.AddRow()} className="btn btn-sm btn-outline-success"><Icon.PlusSquareFill /></button>
+              </div>
+            </div>
+          ,
+          formatter: (cellContent, row) => (
+            <div className="form-row">
+                <div className="col-sm-3">
+                <Link to={"/editMeta/"+row._id} className="btn btn-sm btn-outline-primary"><Icon.PencilSquare/></Link>
+                </div> 
+                <div className="col-sm-3">
+                    <Link to={`#`} className="btn btn-sm btn-outline-danger" onClick={() => { this.deleteRow(row)} }><Icon.TrashFill/></Link>
+                </div> 
+            </div>
+          ),
+          style: {
+            width: '2%'
+          }
+        }
+      ];
+
       const expandRow = {
+
         renderer: row => (
-              this.getColection(row.estrategias)
+          //this.getColection(row.estrategias)
+          < div className = "form-row" >
+              <div className="col-sm-8" style={{ marginLeft: '7px', marginRight: '7px', marginTop: '10px' }}>
+                <BootstrapTable
+                  keyField='_id'
+                  data={this.state.registros}
+                  columns={columnsSub}
+                  hover
+                />
+              </div>
+          </div >
         ),
         showExpandColumn: true
       };
@@ -235,7 +297,7 @@ render() {
                 <ToastContainer />
                 <ToolkitProvider 
                     keyField='_id'
-              data={this.state.registros}
+                     data={this.state.registros}
                     columns={columns}
                     search
                   >
@@ -252,7 +314,7 @@ render() {
                                     pagination={ paginationFactory(options) }
                                     wrapperClasses="table-responsive"
                                     headerClasses="header-class"
-                                    hover
+                                    //hover
                                     condensed
                                     bordered={ true }
                                     expandRow={expandRow}

@@ -44,6 +44,7 @@ import EditObjetivo from "../views/Planejamento/Objetivo/edit";
 import IndexMeta from "../views/Planejamento/Meta/index";
 import CreateMeta from "../views/Planejamento/Meta/create";
 import EditMeta from "../views/Planejamento/Meta/edit";
+import PrintMeta from "../views/Planejamento/Meta/print";
 
 import IndexAcao from "../views/Planejamento/Acao/index";
 import CreateAcao from "../views/Planejamento/Acao/create";
@@ -152,6 +153,7 @@ const routes = () => (
       <PrivateRoute exact path="/indexMeta" component={IndexMeta} />
       <PrivateRoute exact path="/createMeta" component={CreateMeta} />
       <PrivateRoute exact path="/editMeta/:id" component={EditMeta} />
+      <PrivateRoute exact path="/printMeta/:data" component={PrintMeta} />
 
       <PrivateRoute exact path="/indexAcao" component={IndexAcao} />
       <PrivateRoute exact path="/createAcao" component={CreateAcao} />

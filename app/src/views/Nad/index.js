@@ -20,6 +20,8 @@ import PrintNad from './print'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
+import { Dropdown } from 'primereact/dropdown';
+
 export default class Index extends Component {
     render() {
         return (<div><NadList /> </div>);
@@ -29,19 +31,21 @@ export default class Index extends Component {
 const NadList = () => {
 
     const [rowData, setRowData] = useState([]);
+    const [rowCurrentPage, setRowCurrentPage] = useState([]);
     const [dataPrint,setDataPrint] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isVisible, setIsVisible] = useState(false);
     const [isErr, setIsErr] = useState(false); 
     const [isRefresh, setIsRefresh] = useState(true);
-
+    
     useEffect(() => {
-       getDataAll(1);
+       getDataAll();
+       setRowCurrentPage(10);
     }, []);
 
-    const getDataAll = (page) => {
+    const getDataAll = () => {
       setIsRefresh(true);
-      api.get('nad/'+page)
+      api.get('nad/')
           .then(res => {
             setRowData(res);
             setIsLoading(false);
@@ -116,8 +120,6 @@ const NadList = () => {
       })
       
     }
-
-  
     const columns = [
       {
         dataField: 'numnad',
@@ -207,82 +209,89 @@ const NadList = () => {
         }
   
       }
-    ];
+  ];
+
+
   
-    const sizePerPageRenderer = ({
-      options,
-      currSizePerPage,
-      onSizePerPageChange
-    }) => {
-      return (
-        options.map(option => (
-          <button
-            key={option.text}
-            type="button"
-            onClick={() => onSizePerPageChange(option.page)}
-            className={`btn ${currSizePerPage === `${option.page}` ? 'btn btn-sm btn-secondary' : 'btn btn-sm btn-warning'}`}
-          >
-            {option.text}
-          </button>
-        ))
-      )
+  const sizePerPageRenderer = ({
+    onSizePerPageChange
+  }) => {
+
+    const dropdownOptions = [
+      { label: 10, value: 10 },
+      { label: 20, value: 20 },
+      { label: 40, value: 40 },
+      { label: 80, value: 80 }
+    ];
+
+    const sizeClick = (page) => {
+      setRowCurrentPage(page);
+      onSizePerPageChange(page);
     };
 
-    const pageButtonRenderer = ({
-      page,
-      active,
-      onPageChange
-    }) => {
-      const pageClick = (page) => {
+    return (
+      <div className="sm"  style={{ paddingLeft: '5px' , position: 'absolute' }}>
+        <Dropdown className="sm" value={rowCurrentPage} options={dropdownOptions} onChange={(e) => sizeClick(e.value)} appendTo={document.body} />
+      </div>
+    )
 
-        getDataAll(page);
-        onPageChange(page);
+  };
 
-      };
-      let styleClass = '';
-      if (active) {
-        styleClass = 'btn btn-sm btn-secondary';
-      }
-      else {
-        styleClass = 'btn btn-sm btn-warning';
-      }
-      if (typeof page === 'string') {
-        styleClass = 'btn btn-sm btn-warning';
-      }
-      return (
-        <button
-          key={page}
-          type='button'
-          className={styleClass}
-          style={{ float: 'right' }}
-          onClick={() => pageClick(page)}
-        >
-          {page}
-        </button>
-      );
+  const pageButtonRenderer = ({
+    page,
+    active,
+    onPageChange
+  }) => {
+    const pageClick = (page) => {
+
+      getDataAll(page);
+      onPageChange(page);
+
     };
+    let styleClass = '';
+    if (active) {
+      styleClass = 'btn btn-sm btn-secondary';
+    }
+    else {
+      styleClass = 'btn btn-sm btn-warning';
+    }
+    if (typeof page === 'string') {
+      styleClass = 'btn btn-sm btn-warning';
+    }
+    styleClass = 'btn btn-sm btn-warning';
+    return (
+      <button
+        key={page}
+        type='button'
+        className={styleClass}
+        onClick={() => pageClick(page)}
+      >
+        {page}
+      </button>
+    );
+  };
 
-    const options = ({
-      pageButtonRenderer,
-      sizePerPageRenderer,
-      page: 1,
-      sizePerPageList: [
-        {
-          text: '10', value: 10
-        },
-        {
-          text: '20', value: 20
-        },
-        {
-          text: '40', value: 40
-        },
-        {
-          text: '80', value: 80
-        }
-      ]
-    });
+  const options = ({
+    pageButtonRenderer,
+    sizePerPageRenderer,
+    page: 1,
+    sizePerPageList: [
+      {
+        text: '10', value: 10
+      },
+      {
+        text: '20', value: 20
+      },
+      {
+        text: '40', value: 40
+      },
+      {
+        text: '80', value: 80
+      }
+    ]
+  });
 
-    const MySearch = (props) => {
+  const MySearch = (props) => {
       let input;
       const handleClick = () => {
         props.onSearch(input.value);

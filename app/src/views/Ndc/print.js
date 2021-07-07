@@ -10,7 +10,7 @@ export default class PrintNdc extends Component {
   render() {
 
     return (
-          <div style={{ width:'100%', height:'401.5mm' , margin: '30mm, 45mm 30mm 45mm' }}>
+           <div style={{ width: '100%', height: '401.5mm', margin: '30mm, 45mm 30mm 45mm' }}>
              <Logo />
              <hr></hr>
              <div className="form-row">
@@ -42,8 +42,8 @@ export default class PrintNdc extends Component {
                 <input id="secret" name="secret" className="form-control input-md" type="text" value={this.props.data.secret} />
               </div>
               <div className="col-sm-4">
-                <label>Unidade Orçamentaria</label>  
-                <input className="form-control input-md" type="text" id="unigest" value={this.props.data.uniorc} />
+                <label>Unidade Gestora</label>  
+                <input className="form-control input-md" type="text" id="unigest" value={this.props.data.unigest} />
               </div>
               <div className="col-sm-4">
                 <label>Evento da ndc</label>  

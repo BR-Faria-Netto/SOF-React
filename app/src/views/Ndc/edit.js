@@ -163,7 +163,7 @@ export default class Edit extends Component {
     this.onChangeEvendc = this.onChangeEvendc.bind(this);
 
     this.onChangeSecret = this.onChangeSecret.bind(this); 
-    this.onChangeUniorc = this.onChangeUniorc.bind(this); 
+    this.onChangeUniGest = this.onChangeUniGest.bind(this); 
     this.onChangeProgtrab = this.onChangeProgtrab.bind(this); 
     this.onChangeNatdesp = this.onChangeNatdesp.bind(this); 
     this.onChangeFontrec = this.onChangeFontrec.bind(this); 
@@ -218,7 +218,7 @@ export default class Edit extends Component {
       evendc  : '',
 
       secret  : '',
-      uniorc  : '',
+      unigest  : '',
       progtrab : '',
       natdesp : '',
       fontrec : '',
@@ -294,7 +294,7 @@ export default class Edit extends Component {
                 evendc  :  response.evendc,
 
                 secret  : response.secret,
-                uniorc  : response.uniorc,
+                unigest  : response.unigest,
                 progtrab : response.progtrab,
                 natdesp : response.natdesp,
                 fontrec : response.fontrec,
@@ -350,7 +350,7 @@ export default class Edit extends Component {
             optionssecretaria=this.CheckElenteArray(response.secret,optionssecretaria);
 
             optionstipoevento=this.CheckElenteArray(response.evendc,optionstipoevento);
-            optionsunidorcamentaria=this.CheckElenteArray(response.uniorc,optionsunidorcamentaria);
+            optionsunidgestora = this.CheckElenteArray(response.unigest, optionsunidgestora);
             optionsprogtrabalho=this.CheckElenteArray(response.progtrab, optionsprogtrabalho);
             optionsnaturezadespesa=this.CheckElenteArray(response.natdesp,optionsnaturezadespesa);
             optionsfonterecurso=this.CheckElenteArray(response.fontrec,optionsfonterecurso);
@@ -421,9 +421,9 @@ export default class Edit extends Component {
         .catch(function(error){
         });
 }
-    onChangeUniorc(e) {
+    onChangeUniGest(e) {
       this.setState({
-        uniorc: e.value
+        unigest: e.value
       })  
     }
     onChangeProgtrab(e) {
@@ -733,7 +733,7 @@ export default class Edit extends Component {
       evendc  : this.state.evendc,
 
       secret  : this.state.secret,
-      uniorc  : this.state.uniorc,
+      unigest  : this.state.unigest,
       progtrab : this.state.progtrab,
       natdesp : this.state.natdesp,
       fontrec : this.state.fontrec,
@@ -831,8 +831,8 @@ export default class Edit extends Component {
                       <SelectInput id="secret" className="sm" onChange={this.onChangeSecret} selectedValue={this.state.secret} options={optionssecretaria}/>
                     </div>
                     <div className="col-sm-4">
-                       <label>Unidade Orçamentaria</label>  
-                       <SelectInput id="uniorc" className="sm" options={optionsunidorcamentaria} onChange={this.onChangeUniorc} selectedValue={this.state.uniorc}/>
+                       <label>Unidade Gestora</label>  
+                       <SelectInput id="unigest" className="sm" options={optionsunidgestora} onChange={this.onChangeUniGest} selectedValue={this.state.unigest}/>
                     </div>
                     <div className="col-sm-4">
                       <label>Evento da Nad</label>  

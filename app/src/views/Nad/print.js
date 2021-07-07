@@ -10,54 +10,8 @@ export default class PrintNad extends Component {
   render() {
 
     return (
-                <div style={{ width:'100%', height:'100%' , margin: '30mm, 45mm 30mm 45mm' }}>
-
-                    {/* <div>
-                        <div name='left' style={{ width:'15%', height:'10px', float:'left'}}>
-                            <img src={LogoRJ} style={{width: '80px', height: '80px'}} alt=""/> 
-                        </div>
-                        <div name = 'rigth' style={{ width:'40%', height:'45px', float:'left' }}>
-                            <div className="form-row">
-                                <div className="col-sm-10">
-                                    <label>Governo do Estado do Rio de Janeiro</label>
-                                </div>
-                            </div>
-                            <div className="form-row">
-                                <div className="col-sm-10">
-                                    <label>Secretaria de Estado de Saúde</label>  
-                                </div> 
-                            </div>
-                            <div className="form-row">
-                                <div className="col-sm-10">
-                                    <label>Subsecrataria do Fundo Estadual de Saúde</label>  
-                                </div>
-                            </div>
-                        </div>
-                        <div className="form-row">
-                          <div className="col-sm-2">
-                              <label>Ano</label>  
-                              <input type="text" id="anonad" className="form-control form-control-sm" value={this.props.data.anonad} />
-                          </div>
-                          <div className="col-sm-3">
-                            <label>NAD</label>  
-                            <input type="text" id="numnad" className="form-control form-control-sm" value={this.props.data.numnad} />
-                          </div>
-                          <div className="col-sm-5">
-                              <label>Processo</label>  
-                              <input type="text" id="procnad" className="form-control form-control-sm" value={this.props.data.procnad} />
-                          </div>
-                       </div>
-                    </div>
-                    <br></br>
-                    <hr></hr>
-                    <div className="form-row" style={{ textAlign: 'center' }}>
-                          <div className="col-sm-12">
-                          <h4>Nota de Autorização de Despesa</h4>
-                          </div>
-                    </div>
-
-                    */}
-
+                //<div style={{ width: '100%', height: '100%', margin: '30mm, 45mm 30mm 45mm' }}>
+                <div style={{ width: '100%', height: '100%' }}>
                     <Logo />
                     <hr></hr>
                     <div className="form-row">

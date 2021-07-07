@@ -16,6 +16,5 @@ export const Global = createGlobalStyle
         fontsize: ${px2vw(11)};
       }
     }
-}
 `
 export default Global;

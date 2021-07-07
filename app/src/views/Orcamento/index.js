@@ -244,7 +244,6 @@ const NadList = () => {
           key={page}
           type='button'
           className={styleClass}
-          style={{ float: 'right' }}
           onClick={() => pageClick(page)}
         >
           {page}

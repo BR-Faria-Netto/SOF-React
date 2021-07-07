@@ -10,7 +10,7 @@ module.exports = {
       else {
         res.json(entityDb);
       }
-    });
+    }).sort({objetivo: 1});
   },
   // Defined add store route
   add(req, res) {
